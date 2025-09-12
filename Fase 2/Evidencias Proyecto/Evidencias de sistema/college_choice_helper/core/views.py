@@ -10,21 +10,3 @@ def mostrarLogin(request):
 def mostrarRegistro(request):
     return render(request, 'core/sinCuenta/registrarse.html')
 
-
-# Estudiantes
-def mostrarFormularioEstudiante(request):
-    return render(request, 'core/estudiantes/formularioEstudiante.html')
-
-def mostrarRecomendaciones(request):
-    return render(request, 'core/estudiantes/recomendaciones.html')
-
-def mostrarVistaInstituciones(request):
-    return render(request, 'core/estudiantes/vistaInstitucion.html')
-
-
-# Instituciones
-def mostrarRegistroInstitucion(request):
-    return render(request, 'core/institucion/agregarInstitucion.html')
-
-def mostrarEditarInstitucion(request):
-    return render(request, 'core/institucion/editarInstitucion.html')

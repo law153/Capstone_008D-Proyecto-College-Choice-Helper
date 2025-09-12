@@ -1,6 +1,8 @@
 from django.urls import path,include
 from django.conf.urls import handler404
-from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarFormularioEstudiante, mostrarRegistroInstitucion, mostrarEditarInstitucion
+from .views import mostrarIndex, mostrarLogin, mostrarRegistro
+from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones
+from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion
 
 urlpatterns = [
     path('', mostrarIndex, name='index'),
