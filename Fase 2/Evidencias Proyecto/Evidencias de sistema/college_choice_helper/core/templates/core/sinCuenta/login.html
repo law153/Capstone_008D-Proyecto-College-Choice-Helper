@@ -11,7 +11,22 @@
 
 
     {% block cuerpo %}
-        <h2>Pagina login</h2>
+        <div>
+            <h2>Pagina login</h2>
+
+            <form>
+                <h1>Inicie Sesión</h1>
+                <div>
+                    <label for="correo_ini">Correo:</label>
+                    <input type="email" id="correo_ini" placeholder="Correo">
+                </div>
+
+                <div>
+                    <label for="comuna_ini">Contraseña:</label>
+                    <input type="password" id="comuna_ini" placeholder="Contraseña">
+                </div>
+            </form>
+        </div>
     {% endblock cuerpo %}
 
     {% block js %}
