@@ -31,7 +31,6 @@ class Institucion(models.Model):
     nombreInstitucion = models.CharField(max_length=100)
     comunaInstitucion = models.CharField(max_length=50)
     esUniversidadInsti = models.BooleanField(default=False) 
-    costo = models.IntegerField()
     adscritoGratuidad = models.BooleanField(default=False)
     acreditacion = models.IntegerField()
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
@@ -42,4 +41,5 @@ class Carrera(models.Model):
     idCarrera = models.AutoField(primary_key=True)
     nombreCarrera = models.CharField(max_length=100)
     puntajeMinimo = models.IntegerField()
+    costo = models.IntegerField(default=0)
     institucion = models.ForeignKey(Institucion, on_delete=models.CASCADE)
