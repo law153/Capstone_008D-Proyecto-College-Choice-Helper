@@ -12,6 +12,54 @@
 
     {% block cuerpo %}
         <h2>Pagina del formulario</h2>
+        <div>
+            <div>
+                <h1>Defina los parametros de su interes</h1>
+                <form>
+                    <div>
+                        <label for="comuna">¿En que comuna resides?</label>
+                        <input type="text" id="comuna" placeholder="Ingresar comuna">
+                    </div>
+
+                    <div>
+                        <label for="presupuesto">¿Cuanto es tu presupuesto?</label>
+                        <input type="number" id="presupuesto" placeholder="0" min="0">
+                    </div>
+
+                    <div>
+                        <label for="gratuidad">¿Cuantas con la gratuidad?</label>
+                        <label for="siGratu">Si</label>
+                        <input type="radio" id="siGratu" name="gratuidad" value="si">
+                        <label for="noGratu">No</label>
+                        <input type="radio" id="noGratu" name="gratuidad" value="no">
+                    </div>
+
+                    <div>
+                        <label for="acreditacion">¿Cuantos años de acreditación buscas?</label>
+                        <input type="number" id="acreditacion" placeholder="0" max="7" min="0">
+                    </div>
+                    
+                    <div>
+                        <label for="esUni">¿Buscas preferentemente una universidad?</label>
+                        <label for="UniSi">Si</label>
+                        <input type="radio" id="UniSi" name="EsUni" value="si">
+                        <label for="UniNo">No</label>
+                        <input type="radio" id="UniNo" name="esUni" value="no">
+                    </div>
+
+                    <div>
+                        <label for="nem">¿Cual es tu puntaje NEM aproximado?</label>
+                        <input type="number" id="nem" placeholder="100" max="1000" min="100">
+                    </div>
+
+                    <div>
+                        <label for="carrera">¿Que carrera llama tu atención?</label>
+                        <input type="text" id="carrera" placeholder="Ingresar carrera">
+                    </div>
+
+                </form>
+            </div>
+        </div>
     {% endblock cuerpo %}
 
     {% block js %}
