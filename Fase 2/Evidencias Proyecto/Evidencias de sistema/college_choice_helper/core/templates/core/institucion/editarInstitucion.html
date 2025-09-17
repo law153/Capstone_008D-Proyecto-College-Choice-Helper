@@ -11,6 +11,58 @@
 
     {% block cuerpo %}
         <h2>Pagina para editar Instituciones</h2>
+
+        <div>
+            <div>
+                <h2>Ingrese los siguientes campos para editar su institución</h2>
+
+                <form>
+                    <div>
+                        <label for="nombre_insti">Nombre de la Institución:</label>
+                        <input type="text" id="nombre_insti" placeholder="Nombre de la Institución">
+                    </div>
+
+                    <div>
+                        <label>¿Es universidad?</label>
+                        <label for="es_uni">Si</label>
+                        <input type="radio" id="es_uni" value="es_uni">
+
+                        <label for="es_uni">No</label>
+                        <input type="radio" id="es_uni" value="">
+
+                    </div>
+
+                    <div>
+                        <label for="comuna_insti">Comuna en donde se ubica:</label>
+                        <input type="text" id="comuna_insti" placeholder="Comuna">
+                    </div>
+
+                    <div>
+                        <label for="costo_insti">Costo de la institución:</label>
+                        <input type="number" id="costo_insti" placeholder="Costo">
+                    </div>
+
+                    <div>
+                        <label>¿Está adscrita a gratuidad?</label>
+                        <label for="gratuidad">Si</label>
+                        <input type="radio" id="gratuidad">
+
+                        <label for="gratuidad">No</label>
+                        <input type="radio" id="gratuidad">
+                    </div>
+
+                    <div>
+                        <label for="anios_acreditacion">¿Cuantos años de acreditación?</label>
+                        <input type="number" id="anios_acreditacion" placeholder="Años de acreditación">
+                    </div>
+                    
+                    <div>
+                        <label for="web_insti">Sitio web:</label>
+                        <input type="url" id="web_insti" placeholder="https//ejemplo.com" pattern="https://.*">
+                    </div>
+                </form>
+            </div>
+        </div>
     {% endblock cuerpo %}
 
     {% block js %}
