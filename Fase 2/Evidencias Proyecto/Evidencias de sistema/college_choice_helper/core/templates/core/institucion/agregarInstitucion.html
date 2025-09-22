@@ -15,10 +15,11 @@
             <div>
                 <h2>Ingrese los siguientes campos para registrar su institución</h2>
 
-                <form>
+                <form id="form_agregarInsti" action="{% url 'insertar_institucion' %}" method="post" enctype="application/x-www-form-urlencoded">
+                    {% csrf_token %}
                     <div>
                         <label for="nombre_insti">Nombre de la Institución:</label>
-                        <input type="text" id="nombre_insti" placeholder="Nombre de la Institución">
+                        <input type="text" id="nombre_insti" placeholder="Nombre de la Institución" submit>
                     </div>
 
                     <div>
@@ -58,6 +59,10 @@
                     <div>
                         <label for="web_insti">Sitio web:</label>
                         <input type="url" id="web_insti" placeholder="https//ejemplo.com" pattern="https://.*">
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Enviar" id="btn_agregarInsti">
                     </div>
 
                 </form>

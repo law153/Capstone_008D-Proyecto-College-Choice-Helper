@@ -2,7 +2,7 @@ from django.urls import path,include
 from django.conf.urls import handler404
 from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarOlvidoClave, inicioSesion
 from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta
-from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion
+from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion, insertarInsti
 from .viewsAdmin import mostrarGestionEstu, mostrarGestionInsti
 
 urlpatterns = [
@@ -22,6 +22,7 @@ urlpatterns = [
     #Instituciones
     path('agregar_institucion/', mostrarRegistroInstitucion, name="agregar_institucion"),
     path('editar_institucion/', mostrarEditarInstitucion, name="editar_institucion"),
+    path('insertar_institucion/', insertarInsti, name="insertar_institucion"),
     #Admin
     path('gestionar_estu/', mostrarGestionEstu, name="gestionar_estu"),
     path('gestionar_insti/', mostrarGestionInsti, name="gestionar_insti"),
