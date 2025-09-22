@@ -18,30 +18,28 @@ def mostrarOlvidoClave(request):
     return render(request, 'core/sinCuenta/olvideClave.html')
 
 def inicioSesion(request):
-    correoI = request.POST.get('correo_ini')
-    contrasenaI = request.POST.get('contrasena_ini')
+    if request.method == 'POST':
+        correoI = request.POST.get('correo_ini')
+        contrasenaI = request.POST.get('contrasena_ini')
 
-    print(correoI, contrasenaI)
-    try:
-        user = User.objects.get(username=correoI)
-    except User.DoesNotExist:
-        print("El usuario o la contraseña son incorrectos")
-        return redirect('mostrarLogin')
-    
-    clave_valida = check_password(contrasenaI, user.password)
+        userAuth = authenticate(username = correoI, password = contrasenaI)
 
-    if not clave_valida:
-        print("Esa clave no es valida")
-        return redirect('mostrarLogin')
+        print(correoI, contrasenaI)
 
-    usuario = Usuario.objects.get(correo = correoI)
+        if userAuth is not None:
 
-    userAuth = authenticate(username = correoI, password = contrasenaI)
+            login(request, userAuth)
 
-    if userAuth is not None:
-        login(request, userAuth)
-        print("Eu rol es: ", usuario.rol.nombre_rol)
-        return redirect('mostrarIndex')
+            usuario = Usuario.objects.get(correo = correoI)
+
+            print("Eu rol es: ", usuario.rol.nombre_rol)
+            
+            request.session['rol'] = usuario.rol.id_rol
+            request.session['correo'] = userAuth.username
+
+            return redirect('mostrarIndex')
+        else:
+            print("El correo o la contraseña son incorrectos")
+            return redirect('mostrarLogin')
     else:
-        print("El usuario no existe")
         return redirect('mostrarLogin')
