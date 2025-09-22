@@ -14,16 +14,20 @@
         <div>
             <h2>Pagina login</h2>
 
-            <form>
+            <form id="ini-sesion" action="{% url 'inicioSesion' %}" method="post" enctype="application/x-www-form-urlencoded">
+                {% csrf_token %}
                 <h1>Inicie Sesión</h1>
                 <div>
                     <label for="correo_ini">Correo:</label>
-                    <input type="email" id="correo_ini" placeholder="Correo">
+                    <input type="email" id="correo_ini" name="correo_ini" placeholder="Correo">
                 </div>
 
                 <div>
-                    <label for="comuna_ini">Contraseña:</label>
-                    <input type="password" id="contrasena_ini" placeholder="Contraseña">
+                    <label for="contrasena_ini">Contraseña:</label>
+                    <input type="password" id="contrasena_ini" name="contrasena_ini" placeholder="Contraseña">
+                </div>
+                <div>
+                    <input type="submit" value="Iniciar Sesión" id="btn_entrar">
                 </div>
             </form>
         </div>

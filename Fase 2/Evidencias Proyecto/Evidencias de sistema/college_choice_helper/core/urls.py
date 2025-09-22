@@ -1,16 +1,17 @@
 from django.urls import path,include
 from django.conf.urls import handler404
-from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarOlvidoClave
+from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarOlvidoClave, inicioSesion
 from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta
 from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion
 from .viewsAdmin import mostrarGestionEstu, mostrarGestionInsti
 
 urlpatterns = [
     #SinCuenta
-    path('', mostrarIndex, name='index'),
-    path('inicio_sesion/', mostrarLogin, name='login'),
+    path('', mostrarIndex, name='mostrarIndex'),
+    path('inicio_sesion/', mostrarLogin, name='mostrarLogin'),
     path('registro/', mostrarRegistro, name='registro'),
     path('olvide_clave/', mostrarOlvidoClave, name="olvide_clave"),
+    path('inicioSesion/', inicioSesion, name='inicioSesion'),
     #Estudiante
     path('formulario_estudiante/', mostrarFormularioEstudiante, name='formulario_estudiante'),
     path('recomendaciones/', mostrarRecomendaciones, name='recomendaciones'),
