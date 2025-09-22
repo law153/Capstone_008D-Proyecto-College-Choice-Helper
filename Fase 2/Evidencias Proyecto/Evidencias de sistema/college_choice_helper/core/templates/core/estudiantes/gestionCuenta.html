@@ -1,0 +1,40 @@
+{% extends 'core/estudiantes/plantillaEstudiante.html'%}
+{% load static %}
+
+    {% block titulo %}
+        <title>Cambiar correo</title>
+    {% endblock titulo %}
+
+    {% block disenos %}
+    
+    {% endblock disenos %}
+
+
+    {% block cuerpo %}
+        <div>
+            <h2>Cambiar mi correo</h2>
+
+            <form>
+                
+                <div>
+                    <label for="btn-correo">SI desea cambiar su correo:</label>
+                    <input type="button" id="btn-correo" value="Cambiar correo">
+                </div>
+
+                <div>
+                    <label for="btn-clave">Si desea cambiar su clave: </label>
+                    <input type="button" id="btn-clave" value="Cambiar clave">
+                </div>
+
+                <div>
+                    <label for="btn-borrar">Si desea eliminar su cuenta: </label>
+                    <input type="button" id="btn-borrar" value="Eliminar cuenta">
+                </div>
+
+
+            </form>
+        </div>
+    {% endblock cuerpo %}
+
+    {% block js %}
+    {% endblock js %}

@@ -10,3 +10,13 @@ def mostrarRecomendaciones(request):
 def mostrarVistaInstituciones(request):
     return render(request, 'core/estudiantes/vistaInstitucion.html')
 
+def mostrarCambioClave(request):
+    return render(request, 'core/estudiantes/cambiarClave.html')
+
+def mostrarCambioCorreo(request):
+    return render(request, 'core/estudiantes/cambiarCorreo.html')
+
+def mostrarGestionCuenta(request):
+    return render(request, 'core/estudiantes/gestionCuenta.html')
+
+

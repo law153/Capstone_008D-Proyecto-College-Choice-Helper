@@ -10,3 +10,5 @@ def mostrarLogin(request):
 def mostrarRegistro(request):
     return render(request, 'core/sinCuenta/registrarse.html')
 
+def mostrarOlvidoClave(request):
+    return render(request, 'core/sinCuenta/olvideClave.html')

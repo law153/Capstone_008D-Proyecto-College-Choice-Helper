@@ -1,0 +1,28 @@
+{% extends 'core/sinCuenta/plantillaSinCuenta.html'%}
+{% load static %}
+
+    {% block titulo %}
+        <title>Olvide mi clave</title>
+    {% endblock titulo %}
+
+    {% block disenos %}
+    
+    {% endblock disenos %}
+
+
+    {% block cuerpo %}
+        <div>
+            <h2>Olvide mi clave</h2>
+
+            <form>
+                <h1>Ingrese su correo</h1>
+                <div>
+                    <label for="correo">Correo:</label>
+                    <input type="email" id="correo" placeholder="Correo">
+                </div>
+            </form>
+        </div>
+    {% endblock cuerpo %}
+
+    {% block js %}
+    {% endblock js %}
