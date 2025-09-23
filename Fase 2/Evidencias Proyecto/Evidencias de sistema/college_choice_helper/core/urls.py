@@ -1,6 +1,6 @@
 from django.urls import path,include
 from django.conf.urls import handler404
-from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarOlvidoClave, inicioSesion
+from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarOlvidoClave, inicioSesion, registrarUsuario
 from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta
 from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion, insertarInsti
 from .viewsAdmin import mostrarGestionEstu, mostrarGestionInsti
@@ -9,9 +9,10 @@ urlpatterns = [
     #SinCuenta
     path('', mostrarIndex, name='mostrarIndex'),
     path('inicio_sesion/', mostrarLogin, name='mostrarLogin'),
-    path('registro/', mostrarRegistro, name='registro'),
-    path('olvide_clave/', mostrarOlvidoClave, name="olvide_clave"),
+    path('registro/', mostrarRegistro, name='mostrarRegistro'),
+    path('olvide_clave/', mostrarOlvidoClave, name="mostrarOlvide_clave"),
     path('inicioSesion/', inicioSesion, name='inicioSesion'),
+    path('registrarUsuario/', registrarUsuario, name='registrarUsuario'),
     #Estudiante
     path('formulario_estudiante/', mostrarFormularioEstudiante, name='formulario_estudiante'),
     path('recomendaciones/', mostrarRecomendaciones, name='recomendaciones'),

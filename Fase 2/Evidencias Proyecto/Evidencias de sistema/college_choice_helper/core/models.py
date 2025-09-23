@@ -11,7 +11,7 @@ class Rol(models.Model):
 class Usuario(models.Model):
     idUsuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
     correo = models.CharField(max_length=50)
-    comunaUsuario = models.CharField(max_length=50)
+    comunaUsuario = models.CharField(max_length=50, default="")
     rol = models.ForeignKey(Rol, on_delete=models.CASCADE)
     def __str__(self) -> str:
         return self.correo

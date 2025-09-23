@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Usuario
+from .models import Usuario, Rol, Parametros
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login, logout
+from django.db import transaction
 
 # Sin cuenta
 def mostrarIndex(request):
@@ -43,3 +44,43 @@ def inicioSesion(request):
             return redirect('mostrarLogin')
     else:
         return redirect('mostrarLogin')
+    
+def registrarUsuario(request):
+    if request.method == 'POST':
+
+        correo = request.POST.get('correo')
+        contrasena = request.POST.get('contrasena')
+        contrasena_rep = request.POST.get('contrasena_rep')
+
+        if User.objects.filter(username=correo).exists():
+            print("El correo ya está registrado")
+            return redirect('mostrarRegistro')
+        
+        if contrasena != contrasena_rep:
+            print("Las contraseñas no coinciden")
+            return redirect('mostrarRegistro')
+        
+        try:
+
+            with transaction.atomic():
+
+                user = User.objects.create_user(username=correo, password=contrasena)
+                user.is_staff = False
+                user.is_active = True
+                user.save()
+
+                registroRol = Rol.objects.get(id_rol = 1)
+                usuario = Usuario.objects.create(idUsuario = user, correo = correo, rol = registroRol)
+                    
+                Parametros.objects.create(idParametros = usuario)
+
+            print("Usuario registrado exitosamente")
+            return redirect('mostrarIndex')
+        
+        except Exception as e:
+            print("Error al registrar el usuario:", e)
+            return redirect('mostrarRegistro')
+            
+        
+    else:
+        return redirect('mostrarRegistro')
