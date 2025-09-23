@@ -16,11 +16,15 @@ def insertarInsti(request):
     gratuidadI = request.post['gratuidad']
     aniosAcreditacionI = request.post['anios_acreditacion']
     webInstiI = request.post['webInsti']
-
+    
     existeInsti = Institucion.objects.filter(
         nombreInstitucion = nombreI,
         comunaInstitucion = comunaI
     ).first()
+
+    confirmarUni = True if esUniversidadI == "True" else False
+    
+    confirmarGratuidad = True if gratuidadI == "True" else False
 
     if existeInsti:
         print("Ya existe una institucion con el mismo nombre y comuna")
@@ -29,9 +33,9 @@ def insertarInsti(request):
         Institucion.objects.create(
             nombreInstitucion = nombreI,
             comunaInstitucion = comunaI,
-            esUniversidadInsti = esUniversidadI,
+            esUniversidadInsti = confirmarUni,
             webInstitucion = webInstiI,
-            adscritoGratuidad = gratuidadI,
+            adscritoGratuidad = confirmarGratuidad,
             acreditacion = aniosAcreditacionI
         )
         print("La institución fue agregada correctamente")
