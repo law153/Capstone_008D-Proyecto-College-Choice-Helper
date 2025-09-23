@@ -1,13 +1,23 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate,login, logout
 from .models import Institucion
+from .views import mostrarLogin
 
 
 # Instituciones
 def mostrarRegistroInstitucion(request):
-    return render(request, 'core/institucion/agregarInstitucion.html')
+    if request.user.is_authenticated:
+        return render(request, 'core/institucion/agregarInstitucion.html')
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 def mostrarEditarInstitucion(request):
-    return render(request, 'core/institucion/editarInstitucion.html')
+    if request.user.is_authenticated:
+        return render(request, 'core/institucion/editarInstitucion.html')
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 def insertarInsti(request):
     nombreI = request.post['nombre_insti']
