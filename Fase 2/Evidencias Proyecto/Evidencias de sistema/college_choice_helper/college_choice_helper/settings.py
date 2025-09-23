@@ -54,7 +54,7 @@ ROOT_URLCONF = 'college_choice_helper.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,3 +133,5 @@ LOGOUT_REDIRECT_URL = '/'
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_SECURE = True  
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True 
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -64,7 +64,7 @@ def registrarUsuario(request):
 
             with transaction.atomic():
 
-                user = User.objects.create_user(username=correo, password=contrasena)
+                user = User.objects.create_user(username=correo, password=contrasena, email=correo)
                 user.is_staff = False
                 user.is_active = True
                 user.save()
