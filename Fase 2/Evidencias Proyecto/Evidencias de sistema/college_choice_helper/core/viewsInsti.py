@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate,login, logout
-from .models import Institucion
+from .models import Institucion, Usuario
 
 
 # Instituciones
@@ -19,12 +19,15 @@ def mostrarEditarInstitucion(request):
         return redirect('mostrarLogin')
 
 def insertarInsti(request):
-    nombreI = request.post['nombre_insti']
-    comunaI = request.post['comuna_insti']
-    esUniversidadI = request.post['es_uni']
-    gratuidadI = request.post['gratuidad']
-    aniosAcreditacionI = request.post['anios_acreditacion']
-    webInstiI = request.post['webInsti']
+    nombreI = request.POST['nombre_insti']
+    comunaI = request.POST['comuna_insti']
+    esUniversidadI = request.POST['es_uni']
+    gratuidadI = request.POST['gratuidad']
+    aniosAcreditacionI = request.POST['anios_acreditacion']
+    webInstiI = request.POST['web_insti']
+
+    username = request.session.get('correo')
+    tomarIdUser = Usuario.objects.get(correo=username)
     
     existeInsti = Institucion.objects.filter(
         nombreInstitucion = nombreI,
@@ -37,7 +40,7 @@ def insertarInsti(request):
 
     if existeInsti:
         print("Ya existe una institucion con el mismo nombre y comuna")
-        return redirect('mostrarRegistroInstitucion')
+        return redirect('agregar_institucion')
     else:
         Institucion.objects.create(
             nombreInstitucion = nombreI,
@@ -45,7 +48,8 @@ def insertarInsti(request):
             esUniversidadInsti = confirmarUni,
             webInstitucion = webInstiI,
             adscritoGratuidad = confirmarGratuidad,
-            acreditacion = aniosAcreditacionI
+            acreditacion = aniosAcreditacionI,
+            usuario = tomarIdUser
         )
         print("La institución fue agregada correctamente")
-        return redirect('mostrarRegistroInstitucion')
+        return redirect('agregar_institucion')
