@@ -26,10 +26,12 @@ class Parametros(models.Model):
     puntajeNem = models.IntegerField(default=0)
     carrera = models.CharField(max_length=100, default="")
 
+
 class Institucion(models.Model):
     idInstitucion = models.AutoField(primary_key=True)
     nombreInstitucion = models.CharField(max_length=100)
     comunaInstitucion = models.CharField(max_length=50)
+    fotoInstitucion = models.ImageField(default='default_insti.png')
     esUniversidadInsti = models.BooleanField(default=False)
     webInstitucion = models.CharField(max_length=100, default="") 
     adscritoGratuidad = models.BooleanField(default=False)
@@ -44,3 +46,13 @@ class Carrera(models.Model):
     puntajeMinimo = models.IntegerField()
     costo = models.IntegerField(default=0)
     institucion = models.ForeignKey(Institucion, on_delete=models.CASCADE)
+    def __str__(self) -> str:
+        return self.nombreCarrera
+
+class Peticiones(models.Model):
+    idPeticiones = models.AutoField(primary_key=True)
+    asunto = models.CharField(max_length=100)
+    tipoPeticion = models.CharField(max_length=50)
+    mensaje = models.TextField()
+    fechaPeticion = models.DateTimeField(auto_now_add=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
