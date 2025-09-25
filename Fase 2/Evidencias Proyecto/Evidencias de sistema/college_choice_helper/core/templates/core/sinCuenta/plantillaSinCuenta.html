@@ -48,6 +48,7 @@
                     {% if rol == 1 %}
                         <li><a href="{% url 'mostrarLogin' %}">Iniciar sesión</a></li>
                         <li><a href="{% url 'mostrarRegistro'%}">Registrarme</a></li>
+                        <li><a href="{% url 'mostrarGestionCuenta' %}">Gestionar cuenta</a></li>
                         <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>
                     {% endif %}
                     <!--Administrador-->
@@ -55,6 +56,7 @@
                         <li><a href="{% url 'mostrarGestionEstu' %}">Gestionar usuarios</a></li>
                         <li><a href="{% url 'mostrarGestionInsti'%}">Gestionar instituciones</a></li>
                         <li><a href="{% url 'mostrarVerPeticiones'%}">Ver peticiones</a></li>
+                        <li><a href="{% url 'mostrarGestionCuenta' %}">Gestionar cuenta</a></li>
                         <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>
                     {% endif %}
                  </ul>
