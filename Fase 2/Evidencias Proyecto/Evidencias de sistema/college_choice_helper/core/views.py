@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Usuario, Rol, Parametros
+from .models import Usuario, Rol, Parametros, Peticiones
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login, logout
@@ -76,6 +76,9 @@ def registrarUsuario(request):
         correo = request.POST.get('correo')
         contrasena = request.POST.get('contrasena')
         contrasena_rep = request.POST.get('contrasena_rep')
+        toggleRol = request.POST.get('toggleRol', None)
+
+
 
         if User.objects.filter(username=correo).exists():
             print("El correo ya está registrado")
@@ -98,9 +101,11 @@ def registrarUsuario(request):
                 usuario = Usuario.objects.create(idUsuario = user, correo = correo, rol = registroRol)
                     
                 Parametros.objects.create(idParametros = usuario)
+                if toggleRol == 'on':
+                    Peticiones.objects.create(asunto="Solicitud de cuenta de Gestor de instituciones", tipoPeticion="Cambio de rol", mensaje="El usuario con correo " + correo + " solicita una cuenta de Gestor de instituciones.", usuario=usuario)
 
             print("Usuario registrado exitosamente")
-            return redirect('mostrarIndex')
+            return redirect('mostrarLogin')
         
         except Exception as e:
             print("Error al registrar el usuario:", e)
