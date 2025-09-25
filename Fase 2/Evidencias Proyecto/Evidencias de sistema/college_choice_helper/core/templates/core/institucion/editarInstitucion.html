@@ -19,7 +19,7 @@
                 <form>
                     <div>
                         <label for="nombre_insti">Nombre de la Institución:</label>
-                        <input type="text" id="nombre_insti" placeholder="Nombre de la Institución">
+                        <input type="text" id="nombre_insti" value="{{institucion.nombreInstitucion}}">
                     </div>
 
                     <div>
@@ -70,7 +70,7 @@
                         <input type="submit" value="Enviar" id="btn_editarInsti" name="btn_editarInsti">
                     </div>
                     <div>
-                        
+                        <img alt="No hay imagen disponible" src="{{institucion.fotoInstitucion}}">
                     </div>
                 </form>
             </div>
