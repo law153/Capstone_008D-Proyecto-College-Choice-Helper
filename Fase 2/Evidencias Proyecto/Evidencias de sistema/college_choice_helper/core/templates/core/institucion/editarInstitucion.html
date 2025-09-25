@@ -16,7 +16,14 @@
             <div>
                 <h2>Ingrese los siguientes campos para editar su institución</h2>
 
-                <form>
+                <form id="form_editarInsti" action="{% url 'actualizarInsti'%}" method="post" enctype="application/x-www-form-urlencoded">
+                    {% csrf_token %}
+
+                    <div>
+                        <label for="id_insti">ID:</label>
+                        <input type="text" id="id_insti" name="id_insti" value="{{institucion.idInstitucion}}"  readonly>
+                    </div>
+
                     <div>
                         <label for="nombre_insti">Nombre de la Institución:</label>
                         <input type="text" id="nombre_insti" value="{{institucion.nombreInstitucion}}">
@@ -34,12 +41,7 @@
 
                     <div>
                         <label for="comuna_insti">Comuna en donde se ubica:</label>
-                        <input type="text" id="comuna_insti" placeholder="Comuna">
-                    </div>
-
-                    <div>
-                        <label for="costo_insti">Costo de la institución:</label>
-                        <input type="number" id="costo_insti" placeholder="Costo">
+                        <input type="text" id="comuna_insti" value="{{institucion.comunaInstitucion}}">
                     </div>
 
                     <div>
@@ -53,12 +55,12 @@
 
                     <div>
                         <label for="anios_acreditacion">¿Cuantos años de acreditación?</label>
-                        <input type="number" id="anios_acreditacion" placeholder="Años de acreditación">
+                        <input type="number" id="anios_acreditacion" value="{{institucion.acreditacion}}">
                     </div>
                     
                     <div>
                         <label for="web_insti">Sitio web:</label>
-                        <input type="url" id="web_insti" placeholder="https//ejemplo.com" pattern="https://.*">
+                        <input type="url" id="web_insti" value="{{institucion.webInstitucion}}" pattern="https://.*">
                     </div>
 
                     <div>
@@ -67,10 +69,11 @@
                     </div>
 
                     <div>
-                        <input type="submit" value="Enviar" id="btn_editarInsti" name="btn_editarInsti">
-                    </div>
-                    <div>
                         <img alt="No hay imagen disponible" src="{{institucion.fotoInstitucion}}">
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Enviar" id="btn_editarInsti" name="btn_editarInsti">
                     </div>
                 </form>
             </div>
