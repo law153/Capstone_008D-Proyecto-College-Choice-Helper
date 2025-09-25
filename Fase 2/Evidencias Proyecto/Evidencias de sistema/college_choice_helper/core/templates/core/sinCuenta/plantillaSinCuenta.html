@@ -47,7 +47,7 @@
                     <!--Institution manager-->
                     {% if rol == 1 %}
                         <li><a href="{% url 'mostrarRegistroInstitucion' %}">Agregar instituciones</a></li>
-                        <li><a href="{% url 'mostrarEditarInstitucion'%}">Editar instituciones</a></li>
+                        <li><a href="{% url 'mostrarEditarInstitucion' 1 %}">Editar instituciones</a></li>
                         <li><a href="{% url 'mostrarHacerpeticion'%}">Hacer una petición</a></li>
                         <li><a href="{% url 'mostrarGestionCuenta' %}">Gestionar cuenta</a></li>
                         <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>

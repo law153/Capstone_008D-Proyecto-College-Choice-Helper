@@ -11,9 +11,15 @@ def mostrarRegistroInstitucion(request):
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
 
-def mostrarEditarInstitucion(request):
+def mostrarEditarInstitucion(request,id_insti):
     if request.user.is_authenticated:
-        return render(request, 'core/institucion/editarInstitucion.html')
+        institucion = Institucion.objects.get(idInstitucion = id_insti)
+        print("nombre institucion", institucion.nombreInstitucion)
+
+        contexto = {
+            "institution" : institucion
+        }
+        return render(request, 'core/institucion/editarInstitucion.html',contexto)
     else:
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
@@ -26,7 +32,7 @@ def insertarInsti(request):
         gratuidadI = request.POST['gratuidad']
         aniosAcreditacionI = request.POST['anios_acreditacion']
         webInstiI = request.POST['web_insti']
-        fotoI = request.POST['foto_insti']
+        fotoI = request.FILES['foto_insti']
 
         username = request.session.get('correo')
         tomarIdUser = Usuario.objects.get(correo=username)
@@ -69,7 +75,7 @@ def actualizarInsti(request):
         gratuidadI = request.POST['gratuidad']
         aniosAcreditacionI = request.POST['anios_acreditacion']
         webInstiI = request.POST['web_insti']
-        fotoI = request.POST['foto_insti']
+        fotoI = request.FILES.get('foto_insti', institucion.fotoInstitucion)
 
         username = request.session.get('correo')
         tomarIdUser = Usuario.objects.get(correo=username)
@@ -77,7 +83,7 @@ def actualizarInsti(request):
         confirmarUni = True if esUniversidadI == "True" else False
         confirmarGratuidad = True if gratuidadI == "True" else False
 
-        institucion = Institucion.objects.get(idInstitucion = idI)
+        institucion = Institucion.objects.get(idInstitucion = idI).first()
 
         existeInsti = Institucion.objects.filter(
             nombreInstitucion = nombreI
@@ -94,9 +100,10 @@ def actualizarInsti(request):
             institucion.acreditacion = aniosAcreditacionI,
             institucion.webInstitucion = webInstiI,
             institucion.fotoInstitucion = fotoI
+            institucion.usuario = tomarIdUser
             institucion.save()
             print("La institución se edito correctamente")
             return redirect('mostrarIndex')
     else:
         print("Debe iniciar sesión para acceder a este contenido")
-        return redirect('mostrarLogin')
+    return redirect('mostrarLogin')

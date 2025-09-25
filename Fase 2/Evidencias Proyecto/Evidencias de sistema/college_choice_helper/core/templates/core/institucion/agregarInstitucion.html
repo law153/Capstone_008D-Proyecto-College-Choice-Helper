@@ -15,7 +15,7 @@
             <div>
                 <h2>Ingrese los siguientes campos para registrar su institución</h2>
 
-                <form id="form_agregarInsti" action="{% url 'insertarInsti' %}" method="post" enctype="application/x-www-form-urlencoded">
+                <form id="form_agregarInsti" action="{% url 'insertarInsti' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div>
                         <label for="nombre_insti">Nombre de la Institución:</label>

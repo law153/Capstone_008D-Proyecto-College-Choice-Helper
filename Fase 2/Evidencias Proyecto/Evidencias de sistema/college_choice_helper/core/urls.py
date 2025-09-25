@@ -25,7 +25,7 @@ urlpatterns = [
     path('generar_peticion/', generarPeticion, name="generarPeticion"),
     #Instituciones
     path('agregar_institucion/', mostrarRegistroInstitucion, name="mostrarRegistroInstitucion"),
-    path('editar_institucion/', mostrarEditarInstitucion, name="mostrarEditarInstitucion"),
+    path('editar_institucion/<id_insti>', mostrarEditarInstitucion, name="mostrarEditarInstitucion"),
     path('insertar_institucion/', insertarInsti, name="insertarInsti"),
     path('actualizar_institucion/', actualizarInsti, name="actualizarInsti"),
     #Admin
