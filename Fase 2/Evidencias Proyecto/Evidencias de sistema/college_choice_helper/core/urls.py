@@ -21,10 +21,10 @@ urlpatterns = [
     path('cambio_correo/', mostrarCambioCorreo, name="cambio_correo"),
     path('gestion_cuenta/', mostrarGestionCuenta, name="gestion_cuenta"),
     #Instituciones
-    path('agregar_institucion/', mostrarRegistroInstitucion, name="agregar_institucion"),
-    path('editar_institucion/', mostrarEditarInstitucion, name="editar_institucion"),
-    path('insertar_institucion/', insertarInsti, name="insertar_institucion"),
+    path('agregar_institucion/', mostrarRegistroInstitucion, name="mostrarRegistroInstitucion"),
+    path('editar_institucion/', mostrarEditarInstitucion, name="mostrarEditarInstitucion"),
+    path('insertar_institucion/', insertarInsti, name="insertarInsti"),
     #Admin
-    path('gestionar_estu/', mostrarGestionEstu, name="gestionar_estu"),
-    path('gestionar_insti/', mostrarGestionInsti, name="gestionar_insti"),
+    path('gestionar_estu/', mostrarGestionEstu, name="mostrarGestionEstu"),
+    path('gestionar_insti/', mostrarGestionInsti, name="mostrarGestionInsti"),
 ]

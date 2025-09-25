@@ -25,6 +25,7 @@ def insertarInsti(request):
     gratuidadI = request.POST['gratuidad']
     aniosAcreditacionI = request.POST['anios_acreditacion']
     webInstiI = request.POST['web_insti']
+    fotoI = request.POST['foto_insti']
 
     username = request.session.get('correo')
     tomarIdUser = Usuario.objects.get(correo=username)
@@ -40,7 +41,7 @@ def insertarInsti(request):
 
     if existeInsti:
         print("Ya existe una institucion con el mismo nombre y comuna")
-        return redirect('agregar_institucion')
+        return redirect('mostrarRegistroInstitucion')
     else:
         Institucion.objects.create(
             nombreInstitucion = nombreI,
@@ -49,7 +50,8 @@ def insertarInsti(request):
             webInstitucion = webInstiI,
             adscritoGratuidad = confirmarGratuidad,
             acreditacion = aniosAcreditacionI,
+            fotoInstitucion = fotoI,
             usuario = tomarIdUser
         )
         print("La institución fue agregada correctamente")
-        return redirect('agregar_institucion')
+        return redirect('mostrarRegistroInstitucion')
