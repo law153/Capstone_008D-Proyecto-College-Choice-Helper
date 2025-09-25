@@ -11,14 +11,23 @@
 
 
     {% block cuerpo %}
-        <h2>Petición ID</h2>
+        <h2>Petición ID: {{ peticion.idPeticiones }}</h2>
         <div>
-            <p>Usuario</p>
-            <p>Asunto</p>
-            <p>Fecha</p>
-            <p>Tipo de petición</p>
-            <p>Mensaje</p>
+            <p>Usuario: {{ peticion.usuario.correo }}</p>
+            <p>Asunto: {{ peticion.asunto }}</p>
+            <p>Fecha: {{ peticion.fechaPeticion }}</p>
+            <p>Tipo de petición: {{ peticion.tipoPeticion }}</p>
+            <p>Mensaje: {{ peticion.mensaje }}</p>
         </div>
+        {% if peticion.tipoPeticion == 'Cambio de rol' %}
+            <div>
+                <form id="cambiar-rol" action="{% url 'cambiarRol' peticion.idPeticiones peticion.usuario.correo %}" method="post" enctype="application/x-www-form-urlencoded">
+                {% csrf_token %}
+                    <label for="toggleCambio"><input type="checkbox" id="toggleCambio" name="toggleCambio">¿Otorgar cuenta de Gestor de instituciones?</label>
+                    <input type="submit" value="Enviar petición" id="submit">
+                </form>
+            </div>
+        {% endif %}
     {% endblock cuerpo %}
 
     {% block js %}

@@ -21,18 +21,20 @@
                 <p>Asunto: {{ pr.asunto }}</p>
                 <p>Mensaje: {{ pr.mensaje }}</p>
                 <p>Fecha: {{ pr.fechaPeticion }}</p>
+                <a href="{% url 'mostrarVerPeticion' pr.idPeticiones%}">Ver</a>
             </div>
             {% endfor %}
 
-            {% for pg in peticionesRol %}
+            {% for pg in peticionesGeneral %}
             <div class="col-md-6">
                 <h1>Peticiones generales</h1>
 
                 <p>ID: {{ pg.idPeticiones }}</p>
                 <p>Asunto: {{ pg.asunto }}</p>
-                <p>Tipo de petición: {{ pg.asunto }}</p>
-                <p>Mensaje</p>
-                <p>Fecha</p>
+                <p>Tipo de petición: {{ pg.tipoPeticion }}</p>
+                <p>Mensaje: {{ pg.mensaje }}</p>
+                <p>Fecha: {{ pg.fechaPeticion }}</p>
+                <a href="{% url 'mostrarVerPeticion' pg.idPeticiones%}">Ver</a>
             </div>
             {% endfor %}
         </div>

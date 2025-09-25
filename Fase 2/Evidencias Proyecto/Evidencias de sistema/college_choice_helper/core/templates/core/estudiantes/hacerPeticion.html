@@ -16,11 +16,11 @@
         <div class="row">
             <h2>Enviar una petición</h2>
 
-            <form>
+            <form id="crear-peticion" action="{% url 'generarPeticion' %}" method="post" enctype="application/x-www-form-urlencoded"> 
             {% csrf_token %}
                 <div>
                     <label for="asunto">Asunto de petición:</label>
-                    <input type="text" id="asunto" value="Cambiar correo">
+                    <input type="text" id="asunto" placeholder="Asunto" name="asunto">
                 </div>
 
                 <div>
@@ -37,6 +37,9 @@
                     <textarea name="mensaje" id="mensaje" placeholder="Escriba aqui su petición"> </textarea>
                 </div>
 
+                <div>
+                    <input type="submit" value="Enviar petición" id="submit">
+                </div>
             </form>
         </div>
     {% endblock cuerpo %}
