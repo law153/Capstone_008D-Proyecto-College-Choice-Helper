@@ -7,7 +7,12 @@ from django.db import transaction
 
 # Sin cuenta
 def mostrarIndex(request):
-    return render(request, 'core/index.html')
+    rol = request.session.get('rol', None)
+
+    contexto = {'rol': rol}
+
+
+    return render(request, 'core/index.html', contexto)
 
 def mostrarLogin(request):
     return render(request, 'core/sinCuenta/login.html')

@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 
 # Estudiantes
 def mostrarFormularioEstudiante(request):
@@ -21,5 +22,10 @@ def mostrarGestionCuenta(request):
 
 def mostrarHacerPeticion(request):
     return render(request, 'core/estudiantes/hacerPeticion.html')
+
+def cierreSesion(request):
+    logout(request)
+    return redirect('mostrarIndex')
+
 
 

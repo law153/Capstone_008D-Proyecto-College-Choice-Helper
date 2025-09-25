@@ -18,10 +18,51 @@
     </head>
 
     <body>
-        <h1>Plantilla sin cuenta</h1>
-        {% block cuerpo %}
-        {% endblock cuerpo %}
+        
+        <div class="container-fluid text-center">
+            <div class="row mx-auto">
+                <img class="logo" src="" alt="Imagen no disponible">
+            </div>
 
+            <div class="row">
+                <h1><a href="{% url 'mostrarIndex' %}">College Choice Helper</a></h1>
+            </div>
+            
+
+            <div class="row">
+                <ul>
+                    {% if rol == None %}
+                        <li><a href="{% url 'mostrarLogin' %}">Iniciar sesión</a></li>
+                        <li><a href="{% url 'mostrarRegistro'%}">Registrarme</a></li>
+                    {% endif %}
+
+                    {% if rol == 0 %}
+                        <li><a href="{% url 'mostrarFormularioEstudiante'%}">Formulario</a></li>
+                        <li><a href="{% url 'mostrarRecomendaciones'%}">Recomendaciones</a></li>
+                        <li><a href="{% url 'mostrarHacerpeticion'%}">Hacer una petición</a></li>
+                        <li><a href="{% url 'mostrarGestionCuenta' %}">Gestionar cuenta</a></li>
+                        <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>
+                    {% endif %}
+
+                    {% if rol == 1 %}
+                        <li><a href="{% url 'mostrarLogin' %}">Iniciar sesión</a></li>
+                        <li><a href="{% url 'mostrarRegistro'%}">Registrarme</a></li>
+                    {% endif %}
+
+                    {% if rol == 2 %}
+                        <li><a href="{% url 'mostrarLogin' %}">Iniciar sesión</a></li>
+                        <li><a href="{% url 'mostrarRegistro'%}">Registrarme</a></li>
+                    {% endif %}
+                 </ul>
+            </div>
+
+        </div>
+        <div class="container">
+
+        
+            {% block cuerpo %}
+            {% endblock cuerpo %}
+        </div>
         {% block js %}
         {% endblock js %}
 

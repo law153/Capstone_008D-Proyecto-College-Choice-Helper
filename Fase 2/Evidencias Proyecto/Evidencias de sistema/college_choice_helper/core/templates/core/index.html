@@ -12,6 +12,21 @@
 
     {% block cuerpo %}
         <h2>Pagina index</h2>
+
+        {% if rol == None %}
+            <p>Usuario sin sesión iniciada</p>
+        {% endif %}
+
+        {% if rol == 0 %}
+            <p>Usuario estudiante</p>
+        {% endif %}
+        {% if rol == 1 %}
+            <p>Usuario institution manager</p>
+        {% endif %}
+        {% if rol == 2 %}
+            <p>Usuario administrador</p>
+        {% endif %}
+        
     {% endblock cuerpo %}
 
     {% block js %}
