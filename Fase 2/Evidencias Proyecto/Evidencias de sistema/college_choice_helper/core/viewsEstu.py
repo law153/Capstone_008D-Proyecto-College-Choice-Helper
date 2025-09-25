@@ -3,25 +3,46 @@ from django.contrib.auth import logout
 
 # Estudiantes
 def mostrarFormularioEstudiante(request):
-    return render(request, 'core/estudiantes/formularioEstudiante.html')
+    rol = request.session.get('rol', None)
+
+    contexto = {'rol': rol}
+    return render(request, 'core/estudiantes/formularioEstudiante.html', contexto)
 
 def mostrarRecomendaciones(request):
-    return render(request, 'core/estudiantes/recomendaciones.html')
+    rol = request.session.get('rol', None)
+
+    contexto = {'rol': rol}
+    return render(request, 'core/estudiantes/recomendaciones.html', contexto)
 
 def mostrarVistaInstituciones(request):
-    return render(request, 'core/estudiantes/vistaInstitucion.html')
+    rol = request.session.get('rol', None)
+
+    contexto = {'rol': rol}
+    return render(request, 'core/estudiantes/vistaInstitucion.html', contexto)
 
 def mostrarCambioClave(request):
-    return render(request, 'core/estudiantes/cambiarClave.html')
+    rol = request.session.get('rol', None)
+
+    contexto = {'rol': rol}
+    return render(request, 'core/estudiantes/cambiarClave.html', contexto)
 
 def mostrarCambioCorreo(request):
-    return render(request, 'core/estudiantes/cambiarCorreo.html')
+    rol = request.session.get('rol', None)
+
+    contexto = {'rol': rol}
+    return render(request, 'core/estudiantes/cambiarCorreo.html', contexto)
 
 def mostrarGestionCuenta(request):
-    return render(request, 'core/estudiantes/gestionCuenta.html')
+    rol = request.session.get('rol', None)
+
+    contexto = {'rol': rol}
+    return render(request, 'core/estudiantes/gestionCuenta.html', contexto)
 
 def mostrarHacerPeticion(request):
-    return render(request, 'core/estudiantes/hacerPeticion.html')
+    rol = request.session.get('rol', None)
+
+    contexto = {'rol': rol}
+    return render(request, 'core/estudiantes/hacerPeticion.html', contexto)
 
 def cierreSesion(request):
     logout(request)
