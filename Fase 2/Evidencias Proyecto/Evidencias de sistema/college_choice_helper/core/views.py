@@ -15,15 +15,31 @@ def mostrarIndex(request):
     return render(request, 'core/index.html', contexto)
 
 def mostrarLogin(request):
-    return render(request, 'core/sinCuenta/login.html')
-
+    if request.user.is_authenticated == False:
+        return render(request, 'core/sinCuenta/login.html')
+    else:
+        print("Ya has iniciado sesión")
+        return redirect('mostrarIndex')
+    
 def mostrarRegistro(request):
-    return render(request, 'core/sinCuenta/registrarse.html')
+    if request.user.is_authenticated == False:
+        return render(request, 'core/sinCuenta/registrarse.html')
+    else:
+        print("Ya has iniciado sesión")
+        return redirect('mostrarIndex')
 
 def mostrarOlvidoClave(request):
-    return render(request, 'core/sinCuenta/olvideClave.html')
+    if request.user.is_authenticated == False:
+        return render(request, 'core/sinCuenta/olvideClave.html')
+    else:
+        print("Ya has iniciado sesión")
+        return redirect('mostrarIndex')
 
 def inicioSesion(request):
+    if request.user.is_authenticated:
+        print("Ya has iniciado sesión")
+        return redirect('mostrarIndex')
+    
     if request.method == 'POST':
         correoI = request.POST.get('correo_ini')
         contrasenaI = request.POST.get('contrasena_ini')
@@ -51,6 +67,10 @@ def inicioSesion(request):
         return redirect('mostrarLogin')
     
 def registrarUsuario(request):
+    if request.user.is_authenticated:
+        print("Ya has iniciado sesión")
+        return redirect('mostrarIndex')
+    
     if request.method == 'POST':
 
         correo = request.POST.get('correo')
