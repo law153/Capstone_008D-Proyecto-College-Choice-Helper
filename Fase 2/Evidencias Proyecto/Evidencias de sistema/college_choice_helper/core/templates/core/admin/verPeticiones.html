@@ -2,7 +2,7 @@
 {% load static %}
 
     {% block titulo %}
-        <title>Petición</title>
+        <title>Peticiones</title>
     {% endblock titulo %}
 
     {% block disenos %}
@@ -11,13 +11,30 @@
 
 
     {% block cuerpo %}
-        <h2>Petición ID</h2>
-        <div>
-            <p>Usuario</p>
-            <p>Asunto</p>
-            <p>Fecha</p>
-            <p>Tipo de petición</p>
-            <p>Mensaje</p>
+        <h2>Peticiones registradas</h2>
+        <div class="row">
+            {% for pr in peticionesRol %}
+            <div class="col-md-6">
+                <h1>Peticiones de cambio de rol</h1>
+
+                <p>ID: {{ pr.idPeticiones }}</p>
+                <p>Asunto: {{ pr.asunto }}</p>
+                <p>Mensaje: {{ pr.mensaje }}</p>
+                <p>Fecha: {{ pr.fechaPeticion }}</p>
+            </div>
+            {% endfor %}
+
+            {% for pg in peticionesRol %}
+            <div class="col-md-6">
+                <h1>Peticiones generales</h1>
+
+                <p>ID: {{ pg.idPeticiones }}</p>
+                <p>Asunto: {{ pg.asunto }}</p>
+                <p>Tipo de petición: {{ pg.asunto }}</p>
+                <p>Mensaje</p>
+                <p>Fecha</p>
+            </div>
+            {% endfor %}
         </div>
     {% endblock cuerpo %}
 
