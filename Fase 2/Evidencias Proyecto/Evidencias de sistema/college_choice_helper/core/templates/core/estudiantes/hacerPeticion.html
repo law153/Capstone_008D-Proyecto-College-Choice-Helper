@@ -1,0 +1,45 @@
+
+{% extends 'core/estudiantes/plantillaEstudiante.html'%}
+
+{% load static %}
+
+    {% block titulo %}
+        <title>Petición</title>
+    {% endblock titulo %}
+
+    {% block disenos %}
+    
+    {% endblock disenos %}
+
+
+    {% block cuerpo %}
+        <div>
+            <h2>Enviar una petición</h2>
+
+            <form>
+                
+                <div>
+                    <label for="asunto">Asunto de petición:</label>
+                    <input type="text" id="asunto" value="Cambiar correo">
+                </div>
+
+                <div>
+                        <label for="tipo">Precio:</label><br>
+                        <select name="tipo" id="tipo">
+                            <option value="Sugerencia">Sugerencia</option>
+                            <option value="Problema">Problema</option>
+                            <option value="Cambio de rol">Cambio de rol</option>
+                        </select>
+                </div>
+
+                <div>
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea name="mensaje" id="mensaje" placeholder="Escriba aqui su petición"> </textarea>
+                </div>
+
+            </form>
+        </div>
+    {% endblock cuerpo %}
+
+    {% block js %}
+    {% endblock js %}

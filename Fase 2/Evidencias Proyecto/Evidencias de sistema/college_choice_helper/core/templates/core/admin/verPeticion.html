@@ -1,0 +1,38 @@
+{% extends 'core/admin/plantillaAdmin.html'%}
+{% load static %}
+
+    {% block titulo %}
+        <title>Peticiones</title>
+    {% endblock titulo %}
+
+    {% block disenos %}
+    
+    {% endblock disenos %}
+
+
+    {% block cuerpo %}
+        <h2>Peticiones registradas</h2>
+        <div>
+            <div>
+                <h1>Peticiones de cambio de rol</h1>
+
+                <p>ID</p>
+                <p>Asunto</p>
+                <p>Mensaje</p>
+                <p>Fecha</p>
+            </div>
+
+            <div>
+                <h1>Peticiones generales</h1>
+
+                <p>ID</p>
+                <p>Asunto</p>
+                <p>Tipo de petición</p>
+                <p>Mensaje</p>
+                <p>Fecha</p>
+            </div>
+        </div>
+    {% endblock cuerpo %}
+
+    {% block js %}
+    {% endblock js %}

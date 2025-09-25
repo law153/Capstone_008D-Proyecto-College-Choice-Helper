@@ -1,9 +1,9 @@
 from django.urls import path,include
 from django.conf.urls import handler404
 from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarOlvidoClave, inicioSesion, registrarUsuario
-from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta
+from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta, mostrarHacerPeticion
 from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion, insertarInsti
-from .viewsAdmin import mostrarGestionEstu, mostrarGestionInsti
+from .viewsAdmin import mostrarGestionEstu, mostrarGestionInsti, mostrarVerPeticiones, mostrarVerPeticion
 
 urlpatterns = [
     #SinCuenta
@@ -14,12 +14,13 @@ urlpatterns = [
     path('inicioSesion/', inicioSesion, name='inicioSesion'),
     path('registrarUsuario/', registrarUsuario, name='registrarUsuario'),
     #Estudiante
-    path('formulario_estudiante/', mostrarFormularioEstudiante, name='formulario_estudiante'),
-    path('recomendaciones/', mostrarRecomendaciones, name='recomendaciones'),
-    path('ver_institucion/', mostrarVistaInstituciones, name='ver_instituciones'),
-    path('cambio_clave/', mostrarCambioClave, name="cambio_clave"),
-    path('cambio_correo/', mostrarCambioCorreo, name="cambio_correo"),
-    path('gestion_cuenta/', mostrarGestionCuenta, name="gestion_cuenta"),
+    path('formulario_estudiante/', mostrarFormularioEstudiante, name='mostrarFormularioEstudiante'),
+    path('recomendaciones/', mostrarRecomendaciones, name='mostrarRecomendaciones'),
+    path('ver_institucion/', mostrarVistaInstituciones, name='mostrarVistaInstituciones'),
+    path('cambio_clave/', mostrarCambioClave, name="mostrarCambioClave"),
+    path('cambio_correo/', mostrarCambioCorreo, name="mostrarCambioCorreo"),
+    path('gestion_cuenta/', mostrarGestionCuenta, name="mostrarGestionCuenta"),
+    path('hacer_peticion/', mostrarHacerPeticion, name="mostrarHacerpeticion"),
     #Instituciones
     path('agregar_institucion/', mostrarRegistroInstitucion, name="mostrarRegistroInstitucion"),
     path('editar_institucion/', mostrarEditarInstitucion, name="mostrarEditarInstitucion"),

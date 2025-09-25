@@ -19,4 +19,7 @@ def mostrarCambioCorreo(request):
 def mostrarGestionCuenta(request):
     return render(request, 'core/estudiantes/gestionCuenta.html')
 
+def mostrarHacerPeticion(request):
+    return render(request, 'core/estudiantes/hacerPeticion.html')
+
 
