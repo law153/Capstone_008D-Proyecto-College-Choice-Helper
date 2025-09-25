@@ -13,11 +13,11 @@
 
 
     {% block cuerpo %}
-        <div>
+        <div class="row">
             <h2>Enviar una petición</h2>
 
             <form>
-                
+            {% csrf_token %}
                 <div>
                     <label for="asunto">Asunto de petición:</label>
                     <input type="text" id="asunto" value="Cambiar correo">

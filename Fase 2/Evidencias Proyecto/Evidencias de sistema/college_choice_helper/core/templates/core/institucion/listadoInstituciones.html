@@ -1,0 +1,36 @@
+{% extends 'core/sinCuenta/plantillaSinCuenta.html'%}
+{% load static %}
+
+    {% block titulo %}
+        <title> Ver las instituciones </title>
+    {% endblock titulo %}
+
+    {% block disenos %}
+    
+    {% endblock disenos %}
+
+    {% block cuerpo %}
+        <h2>Pagina para ver instituciones</h2>
+        <div class="row">
+            <div class="col-md-2"></div>
+
+            <div class="col-md-2">
+                <p>Nombre institución</p>
+                <div class="card">
+                    <img src="" alt="Imagen no disponible">
+                </div>
+
+                <a href="{% url 'mostrarEditarInstitucion' %}">Editar institución</a>
+
+            </div>
+
+            {% if forloop.counter|divisibleby:4 and not forloop.last %}
+            <div class="col-md-2 "></div>
+            <div class="col-md-2 "></div>
+            {% endif %}
+            <div class="col-md-2"></div>
+        </div>
+    {% endblock cuerpo %}
+
+    {% block js %}
+    {% endblock js %}
