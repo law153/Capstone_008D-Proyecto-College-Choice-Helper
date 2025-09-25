@@ -29,4 +29,6 @@ urlpatterns = [
     #Admin
     path('gestionar_estu/', mostrarGestionEstu, name="mostrarGestionEstu"),
     path('gestionar_insti/', mostrarGestionInsti, name="mostrarGestionInsti"),
+    path('ver_peticiones/', mostrarVerPeticiones, name="mostrarVerPeticiones"),
+    path('ver_peticion/', mostrarVerPeticion, name="mostrarVerPeticion"),
 ]

@@ -31,11 +31,12 @@
 
             <div class="row">
                 <ul>
+                    <!--Sin cuenta-->
                     {% if rol == None %}
                         <li><a href="{% url 'mostrarLogin' %}">Iniciar sesión</a></li>
                         <li><a href="{% url 'mostrarRegistro'%}">Registrarme</a></li>
                     {% endif %}
-
+                    <!--Estudiante-->
                     {% if rol == 0 %}
                         <li><a href="{% url 'mostrarFormularioEstudiante'%}">Formulario</a></li>
                         <li><a href="{% url 'mostrarRecomendaciones'%}">Recomendaciones</a></li>
@@ -43,15 +44,18 @@
                         <li><a href="{% url 'mostrarGestionCuenta' %}">Gestionar cuenta</a></li>
                         <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>
                     {% endif %}
-
+                    <!--Institution manager-->
                     {% if rol == 1 %}
                         <li><a href="{% url 'mostrarLogin' %}">Iniciar sesión</a></li>
                         <li><a href="{% url 'mostrarRegistro'%}">Registrarme</a></li>
+                        <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>
                     {% endif %}
-
+                    <!--Administrador-->
                     {% if rol == 2 %}
-                        <li><a href="{% url 'mostrarLogin' %}">Iniciar sesión</a></li>
-                        <li><a href="{% url 'mostrarRegistro'%}">Registrarme</a></li>
+                        <li><a href="{% url 'mostrarGestionEstu' %}">Gestionar usuarios</a></li>
+                        <li><a href="{% url 'mostrarGestionInsti'%}">Gestionar instituciones</a></li>
+                        <li><a href="{% url 'mostrarVerPeticiones'%}">Ver peticiones</a></li>
+                        <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>
                     {% endif %}
                  </ul>
             </div>
