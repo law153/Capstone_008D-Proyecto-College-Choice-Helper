@@ -3,11 +3,23 @@ from .models import Usuario, Rol, Peticiones, Institucion
 
 #Admin
 def mostrarGestionEstu(request):
-    rol = request.session.get('rol', None)
-    correo = request.session.get('correo', None)
+    if request.user.is_authenticated:
+        rol = request.session.get('rol', None)
+        correo = request.session.get('correo', None)
 
-    contexto = {'rol': rol, 'correo': correo}
-    return render (request,'core/admin/gestionEstudiantes.html', contexto)
+        rolEstu = Rol.objects.get(id_rol = 0)
+        estudiantes = Usuario.objects.filter(rol = rolEstu)
+
+        contexto = {
+            'rol': rol,
+            'correo': correo,
+            'estu': estudiantes     
+        }
+        print(estudiantes)
+        return render (request,'core/admin/gestionEstudiantes.html', contexto)
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 def mostrarGestionInsti(request):
     rol = request.session.get('rol', None)

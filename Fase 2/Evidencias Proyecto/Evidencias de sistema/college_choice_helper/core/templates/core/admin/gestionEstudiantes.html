@@ -15,10 +15,10 @@
         <div>
             <div>
                 <h1>Lista de estudiantes</h1>
-
-                <p>ID</p>
-                <p>Nombre</p>
-                <p>Correo</p>
+                {% for e in estu %}
+                    <p>{{e.correo}}</p>
+                    <p>{{e.rol}}</p>
+                {% endfor %}
                 
             </div>
 
