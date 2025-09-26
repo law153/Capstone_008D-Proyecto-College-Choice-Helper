@@ -3,6 +3,9 @@ from .models import Usuario, Rol, Parametros, Peticiones
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login, logout
 from django.db import transaction
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 
 # Sin cuenta
 def mostrarIndex(request):
@@ -53,7 +56,7 @@ def inicioSesion(request):
 
             usuario = Usuario.objects.get(correo = correoI)
 
-            print("Eu rol es: ", usuario.rol.nombre_rol)
+            print("su rol es: ", usuario.rol.nombre_rol)
             
             request.session['rol'] = usuario.rol.id_rol
             request.session['correo'] = userAuth.username
@@ -77,10 +80,21 @@ def registrarUsuario(request):
         contrasena_rep = request.POST.get('contrasena_rep')
         toggleRol = request.POST.get('toggleRol', None)
 
-
+        try:
+            validate_email(correo)
+        except ValidationError:
+            print("El correo no es válido")
+            return redirect('mostrarRegistro')
 
         if User.objects.filter(username=correo).exists():
             print("El correo ya está registrado")
+            return redirect('mostrarRegistro')
+        
+        try:
+            validate_password(contrasena, user=None)
+        except ValidationError as e:
+            for error in e:
+                print(error) 
             return redirect('mostrarRegistro')
         
         if contrasena != contrasena_rep:
@@ -96,7 +110,7 @@ def registrarUsuario(request):
                 user.is_active = True
                 user.save()
 
-                registroRol = Rol.objects.get(id_rol = 1)
+                registroRol = Rol.objects.get(id_rol = 0)
                 usuario = Usuario.objects.create(idUsuario = user, correo = correo, rol = registroRol)
                     
                 Parametros.objects.create(idParametros = usuario)

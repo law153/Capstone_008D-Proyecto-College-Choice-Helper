@@ -11,7 +11,12 @@ from django.contrib.auth.hashers import check_password
 # Estudiantes
 def mostrarFormularioEstudiante(request):
     if request.user.is_authenticated:
+        
         rol = request.session.get('rol', None)
+
+        if rol != 0:
+            print("No tiene rol estudiante")
+            return redirect('mostrarIndex')
 
         contexto = {'rol': rol}
         return render(request, 'core/estudiantes/formularioEstudiante.html', contexto)
@@ -23,6 +28,10 @@ def mostrarRecomendaciones(request):
     if request.user.is_authenticated:
         rol = request.session.get('rol', None)
 
+        if rol != 0:
+            print("No tiene rol estudiante")
+            return redirect('mostrarIndex')
+
         contexto = {'rol': rol}
         return render(request, 'core/estudiantes/recomendaciones.html', contexto)
     else:
@@ -32,7 +41,9 @@ def mostrarRecomendaciones(request):
 def mostrarVistaInstituciones(request):
     if request.user.is_authenticated:
         rol = request.session.get('rol', None)
-
+        if rol != 0:
+            print("No tiene rol estudiante")
+            return redirect('mostrarIndex')
         contexto = {'rol': rol}
         return render(request, 'core/estudiantes/vistaInstitucion.html', contexto)
     else:
