@@ -137,3 +137,13 @@ def actualizarInsti(request):
     else:
         print("Debe iniciar sesión para acceder a este contenido")
     return redirect('mostrarLogin')
+
+def eliminarInsti(request, id_insti):
+    if request.user.is_authenticated:
+        institucion = Institucion.objects.get(idInstitucion = id_insti)
+        institucion.delete()
+        print("Se eliminó la institución")
+        return redirect('mostrarIndex')
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
