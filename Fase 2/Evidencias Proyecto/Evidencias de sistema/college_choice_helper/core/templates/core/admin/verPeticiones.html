@@ -13,10 +13,9 @@
     {% block cuerpo %}
         <h2>Peticiones registradas</h2>
         <div class="row">
+            <h1>Peticiones de cambio de rol</h1>
             {% for pr in peticionesRol %}
             <div class="col-md-6">
-                <h1>Peticiones de cambio de rol</h1>
-
                 <p>ID: {{ pr.idPeticiones }}</p>
                 <p>Asunto: {{ pr.asunto }}</p>
                 <p>Mensaje: {{ pr.mensaje }}</p>
@@ -24,10 +23,10 @@
                 <a href="{% url 'mostrarVerPeticion' pr.idPeticiones%}">Ver</a>
             </div>
             {% endfor %}
-
+            <h1>Peticiones generales</h1>
             {% for pg in peticionesGeneral %}
             <div class="col-md-6">
-                <h1>Peticiones generales</h1>
+                
 
                 <p>ID: {{ pg.idPeticiones }}</p>
                 <p>Asunto: {{ pg.asunto }}</p>

@@ -15,6 +15,20 @@ def mostrarRegistroInstitucion(request):
     else:
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
+    
+def mostrarListadoInstitucion(request):
+    if request.user.is_authenticated:
+        rol = request.session.get('rol', None)
+        correo = request.session.get('correo', None)
+        usuario1 = Usuario.objects.get(correo=correo)
+        instituciones = Institucion.objects.filter(usuario=usuario1)
+        contexto = {'rol': rol, 'instituciones': instituciones}
+
+
+        return render(request, 'core/institucion/listadoInstituciones.html', contexto)
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 def mostrarEditarInstitucion(request, id_insti):
     if request.user.is_authenticated:
