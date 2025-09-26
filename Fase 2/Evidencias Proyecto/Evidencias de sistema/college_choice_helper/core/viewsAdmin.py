@@ -15,16 +15,25 @@ def mostrarGestionEstu(request):
             'correo': correo,
             'estu': estudiantes     
         }
-        print(estudiantes)
         return render (request,'core/admin/gestionEstudiantes.html', contexto)
     else:
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
 
 def mostrarGestionInsti(request):
+    if request.user.is_authenticated == False:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
+
     rol = request.session.get('rol', None)
     correo = request.session.get('correo', None)
-    contexto = {'rol': rol, 'correo': correo}
+ 
+    instituciones = Institucion.objects.all()
+
+    contexto = {'rol': rol,
+                'correo': correo,
+                'insti': instituciones
+    }
     return render (request,'core/admin/gestionInstituciones.html', contexto)
 
 def mostrarVerPeticiones(request):
