@@ -1,7 +1,7 @@
 from django.urls import path,include
 from django.conf.urls import handler404
 from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarOlvidoClave, inicioSesion, registrarUsuario
-from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta, mostrarHacerPeticion, cierreSesion, generarPeticion, cambiarCorreo, cambiarClave
+from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta, mostrarHacerPeticion, mostrarEliminarCuenta, cierreSesion, generarPeticion, cambiarCorreo, cambiarClave, eliminarCuenta
 from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion, insertarInsti, actualizarInsti, mostrarListadoInstitucion, eliminarInsti
 from .viewsAdmin import mostrarGestionEstu, mostrarGestionInsti, mostrarVerPeticiones, mostrarVerPeticion, cambiarRol
 
@@ -21,10 +21,12 @@ urlpatterns = [
     path('cambio_correo/', mostrarCambioCorreo, name="mostrarCambioCorreo"),
     path('gestion_cuenta/', mostrarGestionCuenta, name="mostrarGestionCuenta"),
     path('hacer_peticion/', mostrarHacerPeticion, name="mostrarHacerpeticion"),
+    path('eliminar_cuenta/', mostrarEliminarCuenta, name="mostrarEliminarCuenta"),
     path('cierre_sesion/', cierreSesion, name="cierreSesion"),
     path('generar_peticion/', generarPeticion, name="generarPeticion"),
     path('cambiar_correo_usuario/', cambiarCorreo, name="cambiarCorreo"),
     path('cambiar_clave_usuario/', cambiarClave, name="cambiarClave"),
+    path('eliminar_cuenta_usuario/', eliminarCuenta, name="eliminarCuenta"),
     #Instituciones
     path('agregar_institucion/', mostrarRegistroInstitucion, name="mostrarRegistroInstitucion"),
     path('editar_institucion/<id_insti>', mostrarEditarInstitucion, name="mostrarEditarInstitucion"),

@@ -1,0 +1,42 @@
+{% extends 'core/sinCuenta/plantillaSinCuenta.html'%}
+{% load static %}
+
+    {% block titulo %}
+        <title>Eliminar cuenta</title>
+    {% endblock titulo %}
+
+    {% block disenos %}
+    
+    {% endblock disenos %}
+
+
+    {% block cuerpo %}
+        <div>
+            <div>
+                <h2>Eliminar cuenta</h2>
+            </div>
+            
+            <div>
+                <form action="{% url 'eliminarCuenta' %}" method="post" enctype="application/x-www-form-urlencoded">
+                {% csrf_token %}
+                    <div>
+                        <label for="clave">Ingrese su clave actual:</label>
+                        <input type="password" id="clave" name="clave" placeholder="Contraseña actual">
+                    </div>
+                    <div>
+                        <label for="confirmar">Si esta seguro escriba ELIMINAR</label>
+                        <input type="text" id="confirmar" name="confirmar" placeholder="">
+                    </div>
+
+                    <div>
+                        <button type="submit">Eliminar cuenta</button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    {% endblock cuerpo %}
+
+    {% block js %}
+    {% endblock js %}

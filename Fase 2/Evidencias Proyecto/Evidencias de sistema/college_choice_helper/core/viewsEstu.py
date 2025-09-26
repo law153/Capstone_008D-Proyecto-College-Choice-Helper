@@ -80,6 +80,16 @@ def mostrarHacerPeticion(request):
     else:
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
+    
+def mostrarEliminarCuenta(request):
+    if request.user.is_authenticated:
+        rol = request.session.get('rol', None)
+
+        contexto = {'rol': rol}
+        return render(request, 'core/estudiantes/eliminarCuenta.html', contexto)
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 def cierreSesion(request):
     if request.user.is_authenticated:
@@ -209,6 +219,46 @@ def cambiarClave(request):
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
     
+def eliminarCuenta(request):
+    if request.user.is_authenticated:
+
+        if request.method == 'POST':
+
+            correo = request.session.get('correo', None)
+            clave = request.POST.get('clave', None)
+            confirmacion = request.POST.get('confirmar', None)
+
+            if not request.user.check_password(clave):
+                print("La contraseña es incorrecta")
+                return redirect('mostrarEliminarCuenta')
+
+            
+            if confirmacion.strip() != 'ELIMINAR':
+                print("Debe escribir 'ELIMINAR' para confirmar la eliminación de la cuenta")
+                return redirect('mostrarEliminarCuenta')
+
+            try:
+                with transaction.atomic():
+                    usuario = get_object_or_404(Usuario, correo=correo)
+                    user = request.user
+
+                    Peticiones.objects.filter(usuario=usuario).delete()
+                    user.delete()
+                    usuario.delete()
+                    
+                    logout(request)
+                    print("Cuenta eliminada con éxito")
+                    return redirect('mostrarIndex')
+                
+            except Exception as e:
+                print("Error al eliminar la cuenta:", str(e))
+                return redirect('mostrarEliminarCuenta')
+        else:
+            print("Error en la solicitud")
+            return redirect('mostrarEliminarCuenta')
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 
 
