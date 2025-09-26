@@ -13,31 +13,32 @@
     {% block cuerpo %}
         <div>
             <h2>Cambiar mi correo</h2>
+            <div>
+                <form action="{% url 'cambiarCorreo' %}" method="post" enctype="application/x-www-form-urlencoded">
+                {% csrf_token %}
 
-            <form>
-                
-                <div>
-                    <label for="correo">Ingrese su correo actual:</label>
-                    <input type="email" id="correo" placeholder="Correo actual">
-                </div>
+                    <div>
+                        <label for="clave">Ingrese su clave:</label>
+                        <input type="password" id="clave" name="clave" placeholder="Clave">
+                    </div>
 
-                <div>
-                    <label for="clave_old">Ingrese su clave:</label>
-                    <input type="password" id="clave_old" placeholder="Clave">
-                </div>
+                    <div>
+                        <label for="correo_new">Ingrese su correo nuevo: </label>
+                        <input type="email" id="correo_new" name="correo_new" placeholder="Correo nuevo">
+                    </div>
 
-                <div>
-                    <label for="correo_new">Ingrese su correo nuevo: </label>
-                    <input type="email" id="correo_new" placeholder="Correo nuevo">
-                </div>
+                    <div>
+                        <label for="correo_rep">Repita su correo: </label>
+                        <input type="email" id="correo_rep" name="correo_rep" placeholder="Repita correo">
+                    </div>
+                    
+                    <div>
+                        <button type="submit">Cambiar correo</button>
+                    </div>
 
-                <div>
-                    <label for="correo_rep">Repita su correo: </label>
-                    <input type="email" id="correo_rep" placeholder="Repita correo">
-                </div>
-
-
-            </form>
+                </form>
+            </div>
+            
         </div>
     {% endblock cuerpo %}
 

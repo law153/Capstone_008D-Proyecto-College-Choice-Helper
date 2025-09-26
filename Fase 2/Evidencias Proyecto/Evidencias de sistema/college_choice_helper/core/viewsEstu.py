@@ -1,70 +1,162 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import logout
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import logout, authenticate
 from .models import Usuario, Rol, Peticiones, Institucion, Parametros, Carrera
+from django.contrib.auth.models import User
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from django.db import transaction
 
 # Estudiantes
 def mostrarFormularioEstudiante(request):
-    rol = request.session.get('rol', None)
+    if request.user.is_authenticated:
+        rol = request.session.get('rol', None)
 
-    contexto = {'rol': rol}
-    return render(request, 'core/estudiantes/formularioEstudiante.html', contexto)
+        contexto = {'rol': rol}
+        return render(request, 'core/estudiantes/formularioEstudiante.html', contexto)
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 def mostrarRecomendaciones(request):
-    rol = request.session.get('rol', None)
+    if request.user.is_authenticated:
+        rol = request.session.get('rol', None)
 
-    contexto = {'rol': rol}
-    return render(request, 'core/estudiantes/recomendaciones.html', contexto)
+        contexto = {'rol': rol}
+        return render(request, 'core/estudiantes/recomendaciones.html', contexto)
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 def mostrarVistaInstituciones(request):
-    rol = request.session.get('rol', None)
+    if request.user.is_authenticated:
+        rol = request.session.get('rol', None)
 
-    contexto = {'rol': rol}
-    return render(request, 'core/estudiantes/vistaInstitucion.html', contexto)
+        contexto = {'rol': rol}
+        return render(request, 'core/estudiantes/vistaInstitucion.html', contexto)
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
+    
 
 def mostrarCambioClave(request):
-    rol = request.session.get('rol', None)
+    if request.user.is_authenticated:
+        rol = request.session.get('rol', None)
 
-    contexto = {'rol': rol}
-    return render(request, 'core/estudiantes/cambiarClave.html', contexto)
+
+        contexto = {'rol': rol}
+        return render(request, 'core/estudiantes/cambiarClave.html', contexto)
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 def mostrarCambioCorreo(request):
-    rol = request.session.get('rol', None)
+    if request.user.is_authenticated:
+        rol = request.session.get('rol', None)
 
-    contexto = {'rol': rol}
-    return render(request, 'core/estudiantes/cambiarCorreo.html', contexto)
+        contexto = {'rol': rol}
+        return render(request, 'core/estudiantes/cambiarCorreo.html', contexto)
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 def mostrarGestionCuenta(request):
-    rol = request.session.get('rol', None)
+    if request.user.is_authenticated:
+        rol = request.session.get('rol', None)
 
-    contexto = {'rol': rol}
-    return render(request, 'core/estudiantes/gestionCuenta.html', contexto)
+        contexto = {'rol': rol}
+        return render(request, 'core/estudiantes/gestionCuenta.html', contexto)
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 def mostrarHacerPeticion(request):
-    rol = request.session.get('rol', None)
+    if request.user.is_authenticated:
+        rol = request.session.get('rol', None)
 
-    contexto = {'rol': rol}
-    return render(request, 'core/estudiantes/hacerPeticion.html', contexto)
+        contexto = {'rol': rol}
+        return render(request, 'core/estudiantes/hacerPeticion.html', contexto)
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 def cierreSesion(request):
-    logout(request)
-    return redirect('mostrarIndex')
+    if request.user.is_authenticated:
+        logout(request)
+        return redirect('mostrarIndex')
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 def generarPeticion(request):
-    if request.method == 'POST':
-        correo = request.session.get('correo', None)
-        usuario = Usuario.objects.get(correo=correo)
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            correo = request.session.get('correo', None)
+            usuario = Usuario.objects.get(correo=correo)
 
-        asunto = request.POST.get('asunto')
-        tipoPeticion = request.POST.get('tipo')
-        mensaje = request.POST.get('mensaje')
+            asunto = request.POST.get('asunto')
+            tipoPeticion = request.POST.get('tipo')
+            mensaje = request.POST.get('mensaje')
 
-        Peticiones.objects.create(asunto = asunto, tipoPeticion = tipoPeticion, mensaje = mensaje, usuario = usuario)
-        print("Petición creada con éxito")
-        return redirect('mostrarHacerpeticion')
+            Peticiones.objects.create(asunto = asunto, tipoPeticion = tipoPeticion, mensaje = mensaje, usuario = usuario)
+            print("Petición creada con éxito")
+            return redirect('mostrarHacerpeticion')
 
+        else:
+            print("Petición fallada :,c", asunto, tipoPeticion, mensaje, correo)
+            return redirect('mostrarHacerpeticion')
     else:
-        print("Petición fallada :,c", asunto, tipoPeticion, mensaje, correo)
-        return redirect('mostrarHacerpeticion')
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
+    
 
+def cambiarCorreo(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+
+            correoActual = request.session.get('correo', None)
+            clave = request.POST.get('clave', None)
+            nuevoCorreo = request.POST.get('correo_new', None)
+            repetirCorreo = request.POST.get('correo_rep', None)
+
+            userAuth = authenticate(username = correoActual, password = clave)
+
+            if userAuth is None:
+                print("Los contraseña es incorrecta")
+                return redirect('mostrarCambioCorreo')
+            
+            if User.objects.filter(username=nuevoCorreo).exists():
+                print("Ese correo ya está en uso.")
+                return redirect('mostrarCambioCorreo')
+            
+            try:
+                validate_email(nuevoCorreo)
+            except ValidationError:
+                print("El correo no es válido")
+                return redirect('mostrarCambioCorreo')
+
+            if nuevoCorreo != repetirCorreo:
+                print("Los correos no coinciden")
+                return redirect('mostrarCambioCorreo')
+            
+            with transaction.atomic():
+                usuario = get_object_or_404(Usuario, correo=correoActual)
+                usuario.correo = nuevoCorreo
+                usuario.save()
+
+                user = request.user
+                user.username = nuevoCorreo
+                user.email = nuevoCorreo
+                user.save()
+
+                logout(request)
+                print("Correo cambiado con éxito, por favor inicie sesión nuevamente")
+                return redirect('mostrarLogin')
+        
+        else:
+            print("Error en la solicitud")
+            return redirect('mostrarCambioCorreo')
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
 
 
