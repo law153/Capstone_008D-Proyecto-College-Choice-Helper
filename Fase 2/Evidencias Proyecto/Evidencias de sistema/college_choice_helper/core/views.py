@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Usuario, Rol, Parametros, Peticiones
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login, logout
 from django.db import transaction
 

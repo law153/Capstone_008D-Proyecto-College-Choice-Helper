@@ -12,32 +12,35 @@
 
     {% block cuerpo %}
         <div>
-            <h2>Cambiar mi clave</h2>
+            <div>
+                <h2>Cambiar mi clave</h2>
+            </div>
+            
+            <div>
+                <form action="{% url 'cambiarClave' %}" method="post" enctype="application/x-www-form-urlencoded">
+                {% csrf_token %}
+                    <div>
+                        <label for="clave">Ingrese su clave actual:</label>
+                        <input type="password" id="clave" name="clave" placeholder="Contraseña actual">
+                    </div>
 
-            <form>
-                
-                <div>
-                    <label for="correo">Ingrese su correo:</label>
-                    <input type="email" id="correo" placeholder="Correo">
-                </div>
+                    <div>
+                        <label for="clave_new">Ingrese su clave nueva:</label>
+                        <input type="password" id="clave_new" name="clave_new" placeholder="Contraseña nueva">
+                    </div>
 
-                <div>
-                    <label for="clave_old">Ingrese su clave actual:</label>
-                    <input type="password" id="clave_old" placeholder="Clave">
-                </div>
+                    <div>
+                        <label for="clave_rep">Repita su clave nueva: </label>
+                        <input type="password" id="clave_rep" name="clave_rep" placeholder="Repita la contraseña">
+                    </div>
 
-                <div>
-                    <label for="clave_new">Ingrese su clave nueva:</label>
-                    <input type="password" id="clave_new" placeholder="Clave nueva">
-                </div>
-
-                <div>
-                    <label for="clave_rep">Repita su clave nueva: </label>
-                    <input type="password" id="clave_rep" placeholder="Clave">
-                </div>
+                    <div>
+                        <button type="submit">Cambiar contraseña</button>
+                    </div>
 
 
-            </form>
+                </form>
+            </div>
         </div>
     {% endblock cuerpo %}
 

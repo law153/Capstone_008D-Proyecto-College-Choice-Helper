@@ -3,8 +3,10 @@ from django.contrib.auth import logout, authenticate
 from .models import Usuario, Rol, Peticiones, Institucion, Parametros, Carrera
 from django.contrib.auth.models import User
 from django.core.validators import validate_email
+from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.contrib.auth.hashers import check_password
 
 # Estudiantes
 def mostrarFormularioEstudiante(request):
@@ -158,5 +160,55 @@ def cambiarCorreo(request):
     else:
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
+    
+def cambiarClave(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+
+            correo = request.session.get('correo', None)
+            clave = request.POST.get('clave', None)
+            nuevaClave = request.POST.get('clave_new', None)
+            repetirClave = request.POST.get('clave_rep', None)
+
+            userAuth = authenticate(username = correo, password = clave)
+
+            if userAuth is None:
+                print("Los contraseña es incorrecta")
+                return redirect('mostrarCambioClave')
+            
+            if check_password(nuevaClave, request.user.password):
+                print("La nueva contraseña no puede ser igual a la actual")
+                return redirect('mostrarCambioClave')
+
+            if nuevaClave != repetirClave:
+                print("Las claves no coinciden")
+                return redirect('mostrarCambioClave')
+
+            try:
+                validate_password(nuevaClave, user=request.user)
+            except ValidationError as e:
+                for error in e:
+                    print(error)
+                return redirect('mostrarCambioClave')
+
+            
+            
+            with transaction.atomic():
+                user = request.user
+                user.set_password(nuevaClave)
+                user.save()
+
+                logout(request)
+                print("Contraseña cambiado con éxito, por favor inicie sesión nuevamente")
+                return redirect('mostrarLogin')
+        
+        else:
+            print("Error en la solicitud")
+            return redirect('mostrarCambioClave')
+    else:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
+    
+
 
 
