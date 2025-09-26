@@ -20,8 +20,8 @@
                     {% csrf_token %}
 
                     <div>
-                        <label for="id_insti">ID:</label>
-                        <input type="text" id="id_insti" name="id_insti" value="{{institution.idInstitucion}}"  readonly>
+                        <label for="id_insti"></label>
+                        <input type="hidden" id="id_insti" name="id_insti" value="{{institution.idInstitucion}}"  readonly>
                     </div>
 
                     <div>
@@ -32,11 +32,9 @@
                     <div>
                         <label>¿Es universidad?</label>
                         <label for="es_uni">Si</label>
-                        <input type="radio" id="es_uni" value="es_uni">
-
-                        <label for="es_uni">No</label>
-                        <input type="radio" id="es_uni" value="">
-
+                        <input type="radio" id="es_uni" name="es_uni"value="True" {% if institution.esUniversidadInsti %}checked{% endif %}>
+                        <label for="es_uni_b">No</label>
+                        <input type="radio" id="es_uni_b" name="es_uni" value="False" {% if not institution.esUniversidadInsti %}checked{% endif %}>
                     </div>
 
                     <div>
@@ -47,10 +45,10 @@
                     <div>
                         <label>¿Está adscrita a gratuidad?</label>
                         <label for="gratuidad">Si</label>
-                        <input type="radio" id="gratuidad">
+                        <input type="radio" id="gratuidad" name="gratuidad "value="True" {% if institution.adscritoGratuidad %}checked{% endif %}>
 
-                        <label for="gratuidad">No</label>
-                        <input type="radio" id="gratuidad">
+                        <label for="gratuidad_b">No</label>
+                        <input type="radio" id="gratuidad_b" name="gratuidad" value="False" {% if not institution.adscritoGratuidad %}checked{% endif %}>
                     </div>
 
                     <div>
@@ -66,9 +64,6 @@
                     <div>
                         <label for="foto_insti">Imagen:</label>
                         <input type="file" id="foto_insti" name="foto_insti">
-                    </div>
-
-                    <div>
                         <img alt="No hay imagen disponible" src="{{institution.fotoInstitucion}}">
                     </div>
 

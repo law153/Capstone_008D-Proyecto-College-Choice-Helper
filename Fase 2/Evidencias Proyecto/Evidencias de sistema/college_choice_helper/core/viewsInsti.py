@@ -82,7 +82,7 @@ def actualizarInsti(request):
         gratuidadI = request.POST['gratuidad']
         aniosAcreditacionI = request.POST['anios_acreditacion']
         webInstiI = request.POST['web_insti']
-        fotoI = request.FILES.get('foto_insti', institucion.fotoInstitucion)
+        
 
         username = request.session.get('correo')
         tomarIdUser = Usuario.objects.get(correo=username)
@@ -90,7 +90,8 @@ def actualizarInsti(request):
         confirmarUni = True if esUniversidadI == "True" else False
         confirmarGratuidad = True if gratuidadI == "True" else False
 
-        institucion = Institucion.objects.get(idInstitucion = idI).first()
+        institucion = Institucion.objects.get(idInstitucion = idI)
+        fotoI = request.FILES.get('foto_insti', institucion.fotoInstitucion)
 
         existeInsti = Institucion.objects.filter(
             nombreInstitucion = nombreI
@@ -100,12 +101,22 @@ def actualizarInsti(request):
             print("Ya hay una institución con el mismo nombre")
             return redirect('mostrarEditarInstitucion')
         else:
-            institucion.nombreInstitucion = nombreI,
-            institucion.comunaInstitucion = comunaI,
-            institucion.esUniversidadInsti = esUniversidadI,
-            institucion.adscritoGratuidad = gratuidadI,
-            institucion.acreditacion = aniosAcreditacionI,
-            institucion.webInstitucion = webInstiI,
+            # 🔎 PRINTS DE DEBUG
+            print("DEBUG nombreI:", nombreI)
+            print("DEBUG comunaI:", comunaI)
+            print("DEBUG confirmarUni:", confirmarUni)
+            print("DEBUG confirmarGratuidad:", confirmarGratuidad)
+            print("DEBUG aniosAcreditacionI:", aniosAcreditacionI)
+            print("DEBUG webInstiI:", webInstiI)
+            print("DEBUG fotoI:", fotoI)
+            print("DEBUG tipo fotoI:", type(fotoI))
+
+            institucion.nombreInstitucion = nombreI
+            institucion.comunaInstitucion = comunaI
+            institucion.esUniversidadInsti = confirmarUni
+            institucion.adscritoGratuidad = confirmarGratuidad
+            institucion.acreditacion = aniosAcreditacionI
+            institucion.webInstitucion = webInstiI
             institucion.fotoInstitucion = fotoI
             institucion.usuario = tomarIdUser
             institucion.save()
