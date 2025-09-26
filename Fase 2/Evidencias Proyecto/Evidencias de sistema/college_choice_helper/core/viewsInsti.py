@@ -16,17 +16,15 @@ def mostrarRegistroInstitucion(request):
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
 
-def mostrarEditarInstitucion(request,id_insti):
+def mostrarEditarInstitucion(request, id_insti):
     if request.user.is_authenticated:
         rol = request.session.get('rol', None)
         institucion = Institucion.objects.get(idInstitucion = id_insti)
-        print("nombre institucion", institucion.nombreInstitucion)
-
         contexto = {
-            "institution" : institucion,
+            "insti" : institucion,
             'rol': rol
         }
-        return render(request, 'core/institucion/editarInstitucion.html',contexto)
+        return render(request, 'core/institucion/editarInstitucion.html', contexto)
     else:
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
@@ -84,8 +82,8 @@ def actualizarInsti(request):
         webInstiI = request.POST['web_insti']
         
 
-        username = request.session.get('correo')
-        tomarIdUser = Usuario.objects.get(correo=username)
+        #username = request.session.get('correo')
+        #tomarIdUser = Usuario.objects.get(correo=username)
 
         confirmarUni = True if esUniversidadI == "True" else False
         confirmarGratuidad = True if gratuidadI == "True" else False
@@ -118,7 +116,7 @@ def actualizarInsti(request):
             institucion.acreditacion = aniosAcreditacionI
             institucion.webInstitucion = webInstiI
             institucion.fotoInstitucion = fotoI
-            institucion.usuario = tomarIdUser
+            #institucion.usuario = tomarIdUser
             institucion.save()
             print("La institución se edito correctamente")
             return redirect('mostrarIndex')

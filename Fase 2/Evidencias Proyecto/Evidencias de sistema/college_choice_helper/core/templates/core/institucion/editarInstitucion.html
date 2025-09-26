@@ -16,55 +16,55 @@
             <div>
                 <h2>Ingrese los siguientes campos para editar su institución</h2>
 
-                <form id="form_editarInsti" action="{% url 'actualizarInsti'%}" method="post" enctype="multipart/form-dat">
+                <form id="form_editarInsti" action="{% url 'actualizarInsti' %}" method="post" enctype="multipart/form-dat">
                     {% csrf_token %}
 
                     <div>
                         <label for="id_insti"></label>
-                        <input type="hidden" id="id_insti" name="id_insti" value="{{institution.idInstitucion}}"  readonly>
+                        <input type="hidden" id="id_insti" name="id_insti" value="{{insti.idInstitucion}}"  readonly>
                     </div>
 
                     <div>
                         <label for="nombre_insti">Nombre de la Institución:</label>
-                        <input type="text" id="nombre_insti" value="{{institution.nombreInstitucion}}">
+                        <input type="text" id="nombre_insti" value="{{insti.nombreInstitucion}}">
                     </div>
 
                     <div>
                         <label>¿Es universidad?</label>
                         <label for="es_uni">Si</label>
-                        <input type="radio" id="es_uni" name="es_uni"value="True" {% if institution.esUniversidadInsti %}checked{% endif %}>
+                        <input type="radio" id="es_uni" name="es_uni"value="True" {% if insti.esUniversidadInsti %}checked{% endif %}>
                         <label for="es_uni_b">No</label>
-                        <input type="radio" id="es_uni_b" name="es_uni" value="False" {% if not institution.esUniversidadInsti %}checked{% endif %}>
+                        <input type="radio" id="es_uni_b" name="es_uni" value="False" {% if not insti.esUniversidadInsti %}checked{% endif %}>
                     </div>
 
                     <div>
                         <label for="comuna_insti">Comuna en donde se ubica:</label>
-                        <input type="text" id="comuna_insti" value="{{institution.comunaInstitucion}}">
+                        <input type="text" id="comuna_insti" value="{{insti.comunaInstitucion}}">
                     </div>
 
                     <div>
                         <label>¿Está adscrita a gratuidad?</label>
                         <label for="gratuidad">Si</label>
-                        <input type="radio" id="gratuidad" name="gratuidad "value="True" {% if institution.adscritoGratuidad %}checked{% endif %}>
+                        <input type="radio" id="gratuidad" name="gratuidad "value="True" {% if insti.adscritoGratuidad %}checked{% endif %}>
 
                         <label for="gratuidad_b">No</label>
-                        <input type="radio" id="gratuidad_b" name="gratuidad" value="False" {% if not institution.adscritoGratuidad %}checked{% endif %}>
+                        <input type="radio" id="gratuidad_b" name="gratuidad" value="False" {% if not insti.adscritoGratuidad %}checked{% endif %}>
                     </div>
 
                     <div>
                         <label for="anios_acreditacion">¿Cuantos años de acreditación?</label>
-                        <input type="number" id="anios_acreditacion" value="{{institution.acreditacion}}">
+                        <input type="number" id="anios_acreditacion" value="{{insti.acreditacion}}">
                     </div>
                     
                     <div>
                         <label for="web_insti">Sitio web:</label>
-                        <input type="url" id="web_insti" name="web_insti" value="{{institution.webInstitucion}}" pattern="https://.*">
+                        <input type="url" id="web_insti" name="web_insti" value="{{insti.webInstitucion}}" pattern="https://.*">
                     </div>
 
                     <div>
                         <label for="foto_insti">Imagen:</label>
                         <input type="file" id="foto_insti" name="foto_insti">
-                        <img alt="No hay imagen disponible" src="{{institution.fotoInstitucion}}">
+                        <img alt="No hay imagen disponible" src="{{insti.fotoInstitucion.url}}">
                     </div>
 
                     <div>
