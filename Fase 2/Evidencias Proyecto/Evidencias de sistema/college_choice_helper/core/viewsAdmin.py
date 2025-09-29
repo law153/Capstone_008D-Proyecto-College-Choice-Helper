@@ -2,20 +2,23 @@ from django.shortcuts import render, redirect
 from .models import Usuario, Rol, Peticiones, Institucion
 
 #Admin
-def mostrarGestionEstu(request):
+def mostrarGestionUsuarios(request):
     if request.user.is_authenticated:
         rol = request.session.get('rol', None)
         correo = request.session.get('correo', None)
 
         rolEstu = Rol.objects.get(id_rol = 0)
+        rolInsti = Rol.objects.get(id_rol = 1)
         estudiantes = Usuario.objects.filter(rol = rolEstu)
+        institucionales = Usuario.objects.filter(rol = rolInsti)
 
         contexto = {
             'rol': rol,
             'correo': correo,
-            'estu': estudiantes     
+            'estu': estudiantes,
+            'insti': institucionales     
         }
-        return render (request,'core/admin/gestionEstudiantes.html', contexto)
+        return render (request,'core/admin/gestionUsuarios.html', contexto)
     else:
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')

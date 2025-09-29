@@ -3,7 +3,7 @@ from django.conf.urls import handler404
 from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarOlvidoClave, inicioSesion, registrarUsuario
 from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta, mostrarHacerPeticion, mostrarEliminarCuenta, cierreSesion, generarPeticion, cambiarCorreo, cambiarClave, eliminarCuenta
 from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion, insertarInsti, actualizarInsti, mostrarListadoInstitucion, eliminarInsti
-from .viewsAdmin import mostrarGestionEstu, mostrarGestionInsti, mostrarVerPeticiones, mostrarVerPeticion, cambiarRol
+from .viewsAdmin import mostrarGestionUsuarios, mostrarGestionInsti, mostrarVerPeticiones, mostrarVerPeticion, cambiarRol
 
 urlpatterns = [
     #SinCuenta
@@ -35,7 +35,7 @@ urlpatterns = [
     path('actualizar_institucion/', actualizarInsti, name="actualizarInsti"),
     path('eliminar_institucion/<id_insti>', eliminarInsti, name="eliminarInsti"),
     #Admin
-    path('gestionar_estu/', mostrarGestionEstu, name="mostrarGestionEstu"),
+    path('gestionar_usu/', mostrarGestionUsuarios, name="mostrarGestionUsuarios"),
     path('gestionar_insti/', mostrarGestionInsti, name="mostrarGestionInsti"),
     path('ver_peticiones/', mostrarVerPeticiones, name="mostrarVerPeticiones"),
     path('ver_peticion/<idPeticiones>', mostrarVerPeticion, name="mostrarVerPeticion"),

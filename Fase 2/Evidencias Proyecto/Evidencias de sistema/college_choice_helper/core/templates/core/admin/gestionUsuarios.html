@@ -11,15 +11,23 @@
 
 
     {% block cuerpo %}
-        <h2>Pagina de gestion de estudiantes</h2>
+        <h2>Pagina de gestion de usuarios</h2>
         <div>
             <div>
-                <h1>Lista de estudiantes</h1>
+                <h1>Lista de usuarios estudiantiles</h1>
                 {% for e in estu %}
                     <p>{{e.correo}}</p>
                     <p>{{e.rol}}</p>
                 {% endfor %}
                 
+            </div>
+
+            <div>
+                <h1>Lista de usuarios institucionales</h1>
+                {% for i in insti %}
+                    <p>{{i.correo}}</p>
+                    <p>{{i.rol}}</p>
+                {% endfor %}
             </div>
 
             <div>
