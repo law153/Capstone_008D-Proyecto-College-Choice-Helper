@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate,login, logout
-from .models import Institucion, Usuario
+from .models import Institucion, Usuario, Carrera
 
 
 # Instituciones
@@ -29,6 +29,25 @@ def mostrarListadoInstitucion(request):
     else:
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
+    
+def mostrarListadoCarreras(request):
+    if request.user.is_authenticated == False:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
+    
+    rol = request.session.get('rol', None)
+
+    if rol != 1:
+        print("No tiene rol de Gestor institucional para acceder a este contenido")
+        return redirect('mostrarIndex')
+    
+    correo = request.session.get('correo', None)
+    usuario1 = Usuario.objects.get(correo=correo)
+    instituciones = Institucion.objects.filter(usuario=usuario1)
+    carreras = Carrera.objects.filter(institucion__in=instituciones)
+    contexto = {'rol': rol, 'instituciones': instituciones, 'carreras': carreras}
+
+    return render(request, 'core/institucion/verCarreras.html', contexto)
 
 def mostrarEditarInstitucion(request, id_insti):
     if request.user.is_authenticated:

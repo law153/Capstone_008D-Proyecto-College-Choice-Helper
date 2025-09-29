@@ -1,0 +1,47 @@
+{% extends 'core/sinCuenta/plantillaSinCuenta.html'%}
+{% load static %}
+
+    {% block titulo %}
+        <title> Ver las carreras </title>
+    {% endblock titulo %}
+
+    {% block disenos %}
+    
+    {% endblock disenos %}
+
+    {% block cuerpo %}
+        <h2>Pagina para ver carreras</h2>
+        <div class="row">
+            <div class="col-md-2"></div>
+            {% for carre in carreras %}
+            <div class="col-md-2">
+                <div>
+                    <p>Nombre carrera: {{ carre.nombreCarrera }}</p>
+                </div>
+                
+                <div>
+                    <p>Puntaje minimo: {{ carre.puntajeMinimo }}</p>
+                </div>
+
+                <div>
+                    <p>Costo carrera: {{ carre.costo }}</p>
+                </div>
+
+                <div>
+                    <p>Institución: {{ carre.institucion.nombreInstitucion }}</p>
+                </div>
+                <a href="">Editar carrera</a>
+
+            </div>
+            
+                {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                <div class="col-md-2 "></div>
+                <div class="col-md-2 "></div>
+                {% endif %}
+            {% endfor %}
+            <div class="col-md-2"></div>
+        </div>
+    {% endblock cuerpo %}
+
+    {% block js %}
+    {% endblock js %}
