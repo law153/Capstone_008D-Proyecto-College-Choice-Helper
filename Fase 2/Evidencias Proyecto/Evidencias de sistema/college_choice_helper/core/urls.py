@@ -2,7 +2,7 @@ from django.urls import path,include
 from django.conf.urls import handler404
 from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarOlvidoClave, inicioSesion, registrarUsuario
 from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta, mostrarHacerPeticion, mostrarEliminarCuenta, cierreSesion, generarPeticion, cambiarCorreo, cambiarClave, eliminarCuenta, definirParametros
-from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion, insertarInsti, actualizarInsti, mostrarListadoInstitucion, eliminarInsti, mostrarListadoCarreras, mostrarAgregarCarrera, agregarCarrera, mostrarEditarCarrera, editarCarrera
+from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion, insertarInsti, actualizarInsti, mostrarListadoInstitucion, eliminarInsti, mostrarListadoCarreras, mostrarAgregarCarrera, agregarCarrera, mostrarEditarCarrera, editarCarrera, eliminarCarrera
 from .viewsAdmin import mostrarGestionUsuarios, mostrarGestionInsti, mostrarVerPeticiones, mostrarVerPeticion, cambiarRol, eliminarUsuarioAdm
 
 urlpatterns = [
@@ -40,6 +40,7 @@ urlpatterns = [
     path('eliminar_institucion/<id_insti>/', eliminarInsti, name="eliminarInsti"),
     path('agregar_carrera/<int:id_insti>/', agregarCarrera, name="agregarCarrera"),
     path('editar_carrera/<int:id_carrera>/<int:id_insti>/', editarCarrera, name="editarCarrera"),
+    path('eliminar_carrera/<int:id_carrera>/<int:id_insti>/', eliminarCarrera, name="eliminarCarrera"),
     #Admin
     path('gestionar_usu/', mostrarGestionUsuarios, name="mostrarGestionUsuarios"),
     path('gestionar_insti/', mostrarGestionInsti, name="mostrarGestionInsti"),

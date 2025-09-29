@@ -35,8 +35,16 @@
                 <div>
                     <p>Institución: {{ carre.institucion.nombreInstitucion }}</p>
                 </div>
-
-                <a href="{% url 'mostrarEditarCarrera' carre.idCarrera insti.idInstitucion %}">Editar carrera</a>
+                <div>
+                    <a href="{% url 'mostrarEditarCarrera' carre.idCarrera insti.idInstitucion %}">Editar carrera</a>
+                </div>
+                <div>
+                    <form method="POST" action="{% url 'eliminarCarrera' carre.idCarrera insti.idInstitucion %}">
+                    {% csrf_token %}
+                    <button type="submit">Eliminar carrera</button>
+                </form>
+                </div>
+                
 
             </div>
             

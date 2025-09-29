@@ -272,8 +272,10 @@ def editarCarrera(request, id_carrera, id_insti):
     if rol != 1:
         print("No tiene rol de Gestor institucional para acceder a este contenido")
         return redirect('mostrarIndex')
-    institucion = Institucion.objects.get(idInstitucion=id_insti)
-    carrera = Carrera.objects.get(idCarrera=id_carrera)
+    
+    institucion = get_object_or_404(Institucion, idInstitucion=id_insti)
+    
+    carrera = get_object_or_404(Carrera, idCarrera=id_carrera)
     if request.method == 'POST':
         nombre = request.POST.get('nombre_carrera', None)
         puntaje = request.POST.get('puntaje', None)
@@ -316,6 +318,28 @@ def editarCarrera(request, id_carrera, id_insti):
         carrera.save()
         print("La carrera fue editada correctamente")
         return redirect('mostrarListadoCarreras', id_insti=id_insti)
+    
+def eliminarCarrera(request, id_carrera, id_insti):
+    if request.user.is_authenticated == False:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
+    
+    rol = request.session.get('rol', None)
+
+    if rol != 1:
+        print("No tiene rol de Gestor institucional para acceder a este contenido")
+        return redirect('mostrarIndex')
+    
+    if request.method == 'POST':
+        carrera = get_object_or_404(Carrera, idCarrera=id_carrera)
+        id_insti = carrera.institucion.idInstitucion
+        carrera.delete()
+        print("La carrera fue eliminada correctamente")
+        return redirect('mostrarListadoCarreras', id_insti=id_insti)
+    else:
+        print("Método no permitido")
+        return redirect('mostrarListadoCarreras', id_insti=id_insti)
+
 
 
 
