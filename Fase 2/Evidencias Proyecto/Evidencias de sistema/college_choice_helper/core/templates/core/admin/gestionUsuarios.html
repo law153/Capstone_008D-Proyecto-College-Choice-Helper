@@ -16,8 +16,9 @@
             <div>
                 <h1>Lista de usuarios estudiantiles</h1>
                 {% for e in estu %}
-                    <p>{{e.correo}}</p>
-                    <p>{{e.rol}}</p>
+                    <p>Correo: {{e.correo}}</p>
+                    <p>Rol: {{e.rol}}</p>
+                    <a href="{% url 'eliminarUsuarioAdm' e.idUsuario%}">Sexo gratis</a>
                 {% endfor %}
                 
             </div>
@@ -25,14 +26,11 @@
             <div>
                 <h1>Lista de usuarios institucionales</h1>
                 {% for i in insti %}
-                    <p>{{i.correo}}</p>
-                    <p>{{i.rol}}</p>
+                    <p>Correo: {{i.correo}}</p>
+                    <p>Rol: {{i.rol}}</p>
                 {% endfor %}
             </div>
 
-            <div>
-                <p>Gestionar<p>
-            </div>
         </div>
     {% endblock cuerpo %}
 

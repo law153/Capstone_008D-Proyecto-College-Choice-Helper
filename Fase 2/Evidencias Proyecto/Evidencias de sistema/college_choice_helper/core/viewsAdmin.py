@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Usuario, Rol, Peticiones, Institucion
+from django.db import transaction
+from django.contrib.auth.models import User
 
 #Admin
 def mostrarGestionUsuarios(request):
@@ -9,6 +11,7 @@ def mostrarGestionUsuarios(request):
 
         rolEstu = Rol.objects.get(id_rol = 0)
         rolInsti = Rol.objects.get(id_rol = 1)
+
         estudiantes = Usuario.objects.filter(rol = rolEstu)
         institucionales = Usuario.objects.filter(rol = rolInsti)
 
@@ -73,4 +76,17 @@ def cambiarRol(request, idPeticion, correo):
             return redirect('mostrarVerPeticion', idPeticion)
     else:
         return redirect('mostrarVerPeticion', idPeticion)
+    
+def eliminarUsuarioAdm(request, correoU):
+    if request.user.is_authenticated == False:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
+    
+    if request.method == 'POST':
+        usuario = Usuario.objects.get(correo = correoU)
+        user = User.objects.get(username = usuario.correo)
+        usuario.delete()
+        user.delete()
+        print("Se eliminó el usuario")
+        return redirect('mostrarIndex')
 
