@@ -20,11 +20,17 @@ class Parametros(models.Model):
     idParametros = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
     comunaRelevancia = models.BooleanField(default=False)
     budget = models.IntegerField(default=0)
+    budgetRelevancia = models.BooleanField(default=False)
     gratuidad = models.BooleanField(default=False)
+    gratuidadRelevancia = models.BooleanField(default=False)
     acreditacionDeseado = models.IntegerField(default=0)
+    acreditacionRelevancia = models.BooleanField(default=False)
     esUniversidad = models.BooleanField(default=False)
-    puntajeNem = models.IntegerField(default=0)
+    esUniversidadRelevancia = models.BooleanField(default=False)
+    puntajeNem = models.IntegerField(default=100)
+    puntajeNemRelevancia = models.BooleanField(default=False)
     carrera = models.CharField(max_length=100, default="")
+    carreraRelevancia = models.BooleanField(default=False)
 
 
 class Institucion(models.Model):

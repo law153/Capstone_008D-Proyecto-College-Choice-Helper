@@ -18,7 +18,15 @@ def mostrarFormularioEstudiante(request):
             print("No tiene rol estudiante")
             return redirect('mostrarIndex')
 
-        contexto = {'rol': rol}
+        correo = request.session.get('correo', None)
+        usuario1 = Usuario.objects.get(correo=correo)
+
+        parametros = Parametros.objects.get(idParametros=usuario1)
+
+        carreras = Carrera.objects.values_list('nombreCarrera', flat=True).distinct().order_by('nombreCarrera')
+
+        contexto = {'rol': rol, 'parametros': parametros, 'carreras': carreras}
+        
         return render(request, 'core/estudiantes/formularioEstudiante.html', contexto)
     else:
         print("Debe iniciar sesión para acceder a este contenido")
