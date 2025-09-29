@@ -11,6 +11,12 @@
 
     {% block cuerpo %}
         <h2>Pagina para ver instituciones</h2>
+
+        <div class="row text-center">
+
+            <a href="{% url 'mostrarRegistroInstitucion' %}">Agregar instituciones</a>
+
+        </div>
         <div class="row">
             <div class="col-md-2"></div>
             {% for insti in instituciones %}
