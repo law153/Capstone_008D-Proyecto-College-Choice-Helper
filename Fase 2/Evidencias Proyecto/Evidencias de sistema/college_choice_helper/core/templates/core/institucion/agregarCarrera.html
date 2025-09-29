@@ -1,0 +1,41 @@
+{% extends 'core/sinCuenta/plantillaSinCuenta.html'%}
+{% load static %}
+
+    {% block titulo %}
+        <title> Agregar carrera </title>
+    {% endblock titulo %}
+
+    {% block disenos %}
+    
+    {% endblock disenos %}
+
+    {% block cuerpo %}
+        <h2>Pagina para agregar una carrera</h2>
+        <div>
+            <form id="form_agregarCarrera" action="{% url 'agregarCarrera' insti.idInstitucion %}" method="POST">
+                {% csrf_token %}
+                <div>  
+                    <label for="nombre_carrera">Nombre de la carrera:</label>
+                    <input type="text" id="nombre_carrera" name="nombre_carrera" placeholder="Nombre de la carrera">
+                </div>
+
+                <div>  
+                    <label for="costo">Costo de la carrera</label>
+                    <input type="number" id="costo" name="costo" min="0" placeholder="0">
+                </div>
+
+                <div>  
+                    <label for="puntaje">Puntaje minimo de la carrera</label>
+                    <input type="number" id="puntaje" name="puntaje" placeholder="0" min="0" max="1000">
+                </div>
+
+                <div>
+                    <button type="submit">Agregar carrera</button>
+                </div>
+
+            </form>
+        </div>
+    {% endblock cuerpo %}
+
+    {% block js %}
+    {% endblock js %}

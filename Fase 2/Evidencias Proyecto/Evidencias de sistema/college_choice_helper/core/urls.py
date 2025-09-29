@@ -2,7 +2,7 @@ from django.urls import path,include
 from django.conf.urls import handler404
 from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarOlvidoClave, inicioSesion, registrarUsuario
 from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta, mostrarHacerPeticion, mostrarEliminarCuenta, cierreSesion, generarPeticion, cambiarCorreo, cambiarClave, eliminarCuenta, definirParametros
-from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion, insertarInsti, actualizarInsti, mostrarListadoInstitucion, eliminarInsti, mostrarListadoCarreras
+from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion, insertarInsti, actualizarInsti, mostrarListadoInstitucion, eliminarInsti, mostrarListadoCarreras, mostrarAgregarCarrera, agregarCarrera
 from .viewsAdmin import mostrarGestionUsuarios, mostrarGestionInsti, mostrarVerPeticiones, mostrarVerPeticion, cambiarRol, eliminarUsuarioAdm
 
 urlpatterns = [
@@ -30,17 +30,19 @@ urlpatterns = [
     path('definir_parametros/', definirParametros, name="definirParametros"),
     #Instituciones
     path('agregar_institucion/', mostrarRegistroInstitucion, name="mostrarRegistroInstitucion"),
-    path('editar_institucion/<id_insti>', mostrarEditarInstitucion, name="mostrarEditarInstitucion"),
+    path('editar_institucion/<id_insti>/', mostrarEditarInstitucion, name="mostrarEditarInstitucion"),
     path('listado_institucion/', mostrarListadoInstitucion, name="mostrarListadoInstitucion"),
-    path('listado_carreras/', mostrarListadoCarreras, name="mostrarListadoCarreras"),
+    path('listado_carreras/<id_insti>/', mostrarListadoCarreras, name="mostrarListadoCarreras"),
+    path('Mostrar_agregar_carrera/<id_insti>/', mostrarAgregarCarrera, name="mostrarAgregarCarrera"),
     path('insertar_institucion/', insertarInsti, name="insertarInsti"),
     path('actualizar_institucion/', actualizarInsti, name="actualizarInsti"),
-    path('eliminar_institucion/<id_insti>', eliminarInsti, name="eliminarInsti"),
+    path('eliminar_institucion/<id_insti>/', eliminarInsti, name="eliminarInsti"),
+    path('agregar_carrera/<int:id_insti>/', agregarCarrera, name="agregarCarrera"),
     #Admin
     path('gestionar_usu/', mostrarGestionUsuarios, name="mostrarGestionUsuarios"),
     path('gestionar_insti/', mostrarGestionInsti, name="mostrarGestionInsti"),
     path('ver_peticiones/', mostrarVerPeticiones, name="mostrarVerPeticiones"),
-    path('ver_peticion/<idPeticiones>', mostrarVerPeticion, name="mostrarVerPeticion"),
-    path('cambiar_rol/<idPeticion>/<correo>', cambiarRol, name="cambiarRol"),
-    path('eliminar_usuario/<correoU>', eliminarUsuarioAdm, name="eliminarUsuarioAdm"),
+    path('ver_peticion/<idPeticiones>/', mostrarVerPeticion, name="mostrarVerPeticion"),
+    path('cambiar_rol/<idPeticion>/<correo>/', cambiarRol, name="cambiarRol"),
+    path('eliminar_usuario/<correoU>/', eliminarUsuarioAdm, name="eliminarUsuarioAdm"),
 ]

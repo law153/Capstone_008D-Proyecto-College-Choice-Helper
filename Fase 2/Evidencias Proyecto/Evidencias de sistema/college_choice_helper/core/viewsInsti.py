@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate,login, logout
 from .models import Institucion, Usuario, Carrera
+import re
+import unicodedata
 
 
 # Instituciones
@@ -30,7 +32,7 @@ def mostrarListadoInstitucion(request):
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
     
-def mostrarListadoCarreras(request):
+def mostrarListadoCarreras(request, id_insti):
     if request.user.is_authenticated == False:
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
@@ -41,13 +43,30 @@ def mostrarListadoCarreras(request):
         print("No tiene rol de Gestor institucional para acceder a este contenido")
         return redirect('mostrarIndex')
     
-    correo = request.session.get('correo', None)
-    usuario1 = Usuario.objects.get(correo=correo)
-    instituciones = Institucion.objects.filter(usuario=usuario1)
-    carreras = Carrera.objects.filter(institucion__in=instituciones)
-    contexto = {'rol': rol, 'instituciones': instituciones, 'carreras': carreras}
+    
+    institucion = Institucion.objects.get(idInstitucion=id_insti)
+
+    carreras = Carrera.objects.filter(institucion=institucion)
+    contexto = {'rol': rol,  'carreras': carreras, 'insti': institucion}
 
     return render(request, 'core/institucion/verCarreras.html', contexto)
+
+def mostrarAgregarCarrera(request, id_insti):
+    if request.user.is_authenticated == False:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
+    
+    rol = request.session.get('rol', None)
+
+    if rol != 1:
+        print("No tiene rol de Gestor institucional para acceder a este contenido")
+        return redirect('mostrarIndex')
+    
+    institucion = Institucion.objects.get(idInstitucion=id_insti)
+
+    contexto = {'rol': rol, 'insti': institucion}
+
+    return render(request, 'core/institucion/agregarCarrera.html', contexto)
 
 def mostrarEditarInstitucion(request, id_insti):
     if request.user.is_authenticated:
@@ -166,3 +185,84 @@ def eliminarInsti(request, id_insti):
     else:
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
+    
+def agregarCarrera(request, id_insti):
+    print("presionaste para agregar carrera")
+    if request.user.is_authenticated == False:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
+    
+    rol = request.session.get('rol', None)
+
+    if rol != 1:
+        print("No tiene rol de Gestor institucional para acceder a este contenido")
+        return redirect('mostrarIndex')
+    
+    
+    institucion = Institucion.objects.get(idInstitucion=id_insti)
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre_carrera', None)
+        puntaje = request.POST.get('puntaje', None)
+        costo = request.POST.get('costo', None)
+
+        if nombre:
+            nombre = normalizar_nombre(nombre)
+
+
+        control = False #Si False todo bien, si True hay un error
+        errores = []
+        print(id_insti, nombre, puntaje, costo)
+
+        if not nombre or nombre.strip() == "":
+            errores.append("El nombre de la carrera no puede estar vacío.")
+            control = True
+        if not puntaje or not puntaje.isdigit() or int(puntaje) < 0:
+            errores.append("El puntaje mínimo debe ser un número entero positivo.")
+            control = True
+
+        if not costo or not costo.isdigit() or int(costo) < 0:
+            errores.append("El costo debe ser un número entero positivo.")
+            control = True
+
+        if Carrera.objects.filter(nombreCarrera=nombre.strip(), institucion=institucion).exists():
+            errores.append("Ya existe una carrera con este nombre en la institución.")
+            control = True
+
+
+        if control:
+            for error in errores:
+                print("Error:", error)
+            return redirect('mostrarAgregarCarrera', id_insti=id_insti)
+        
+        puntaje = int(puntaje)
+        costo = int(costo)
+
+        Carrera.objects.create(nombreCarrera = nombre, puntajeMinimo = puntaje, costo = costo, institucion = institucion)
+        print("La carrera fue agregada correctamente")
+        return redirect('mostrarListadoCarreras', id_insti=id_insti)
+
+
+    else:
+        print("Método no permitido")
+        return redirect('mostrarAgregarCarrera', id_insti=id_insti)
+    
+import re
+import unicodedata
+
+def normalizar_nombre(nombre: str) -> str:
+    # 1. Eliminar espacios al inicio y final
+    nombre = nombre.strip()
+
+    # 2. Reemplazar múltiples espacios por uno solo
+    nombre = re.sub(r'\s+', ' ', nombre)
+
+    # 3. Quitar tildes
+    nombre = ''.join(
+        c for c in unicodedata.normalize('NFD', nombre)
+        if unicodedata.category(c) != 'Mn'
+    )
+
+    # 4. Primera letra mayúscula, resto minúsculas
+    nombre = nombre.capitalize()
+
+    return nombre
