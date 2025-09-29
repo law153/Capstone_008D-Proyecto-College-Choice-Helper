@@ -1,7 +1,7 @@
 from django.urls import path,include
 from django.conf.urls import handler404
 from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarOlvidoClave, inicioSesion, registrarUsuario
-from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta, mostrarHacerPeticion, mostrarEliminarCuenta, cierreSesion, generarPeticion, cambiarCorreo, cambiarClave, eliminarCuenta
+from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta, mostrarHacerPeticion, mostrarEliminarCuenta, cierreSesion, generarPeticion, cambiarCorreo, cambiarClave, eliminarCuenta, definirParametros
 from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion, insertarInsti, actualizarInsti, mostrarListadoInstitucion, eliminarInsti
 from .viewsAdmin import mostrarGestionUsuarios, mostrarGestionInsti, mostrarVerPeticiones, mostrarVerPeticion, cambiarRol, eliminarUsuarioAdm
 
@@ -27,6 +27,7 @@ urlpatterns = [
     path('cambiar_correo_usuario/', cambiarCorreo, name="cambiarCorreo"),
     path('cambiar_clave_usuario/', cambiarClave, name="cambiarClave"),
     path('eliminar_cuenta_usuario/', eliminarCuenta, name="eliminarCuenta"),
+    path('definir_parametros/', definirParametros, name="definirParametros"),
     #Instituciones
     path('agregar_institucion/', mostrarRegistroInstitucion, name="mostrarRegistroInstitucion"),
     path('editar_institucion/<id_insti>', mostrarEditarInstitucion, name="mostrarEditarInstitucion"),

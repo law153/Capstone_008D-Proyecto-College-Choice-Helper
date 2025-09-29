@@ -26,7 +26,7 @@ def mostrarFormularioEstudiante(request):
         carreras = Carrera.objects.values_list('nombreCarrera', flat=True).distinct().order_by('nombreCarrera')
 
         contexto = {'rol': rol, 'parametros': parametros, 'carreras': carreras}
-        
+
         return render(request, 'core/estudiantes/formularioEstudiante.html', contexto)
     else:
         print("Debe iniciar sesión para acceder a este contenido")
@@ -279,5 +279,96 @@ def eliminarCuenta(request):
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
 
+def definirParametros(request):
+    if request.user.is_authenticated == False:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
+    
+    rol = request.session.get('rol', None)
 
+    if rol != 0:
+        print("No tiene rol estudiante")
+        return redirect('mostrarIndex')
+    
+    if request.method == 'POST':
+
+        correo = request.session.get('correo', None)
+        usuario = Usuario.objects.get(correo=correo)
+        parametros = Parametros.objects.get(idParametros=usuario)
+
+        comunaRelevancia = request.POST.get('toggleComuna', None)
+        comuna = request.POST.get('comuna', None)
+        budget = request.POST.get('presupuesto', None)
+        budgetRelevancia = request.POST.get('togglePresupuesto', None)
+        gratuidad = request.POST.get('gratuidad', None)
+        gratuidadRelevancia = request.POST.get('toggleGratuidad', None)
+        acreditacion = request.POST.get('acreditacion', None)
+        acreditacionRelevancia = request.POST.get('toggleAcreditacion', None)
+        esUniversidad = request.POST.get('EsUni', None)
+        esUniversidadRelevancia = request.POST.get('toggleUni', None)
+        puntajeNem = request.POST.get('nem', None)
+        puntajeNemRelevancia = request.POST.get('toggleNem', None)
+        carrera = request.POST.get('carrera', "")
+        carreraRelevancia = request.POST.get('toggleCarrera', None)
+
+
+        print(comunaRelevancia)
+        parametros.comunaRelevancia = bool(comunaRelevancia)
+        parametros.budgetRelevancia = bool(budgetRelevancia)
+        parametros.gratuidadRelevancia = bool(gratuidadRelevancia)
+        parametros.acreditacionRelevancia = bool(acreditacionRelevancia)
+        parametros.esUniversidadRelevancia = bool(esUniversidadRelevancia)
+        parametros.puntajeNemRelevancia = bool(puntajeNemRelevancia)
+        parametros.carreraRelevancia = bool(carreraRelevancia)
+
+        control = False ##False = todo bien, True = hay error
+        msjControl = ""
+        try:
+            parametros.budget = int(budget)
+        except ValueError:
+            control = True
+            msjControl += "\n El valor de budget no es un número válido \n"
+
+        parametros.gratuidad = (gratuidad == 'si')
+        parametros.esUniversidad = (esUniversidad == 'si')
+
+
+        try:
+            parametros.acreditacionDeseado = int(acreditacion)
+
+        except ValueError:
+            control = True
+            msjControl += "\n El valor de acreditacion no es un número válido \n"
+
+        if int(acreditacion) < 0 or int(acreditacion) > 7:
+            control = True
+            msjControl += "\n El valor de acreditacion debe estar entre 0 y 7 \n"
+        
+        try:
+            parametros.puntajeNem = int(puntajeNem)
+        except ValueError:
+            control = True
+            msjControl += "\n El valor de puntaje NEM no es un número válido \n"
+        
+        if int(puntajeNem) < 100 or int(puntajeNem) > 1000:
+            control = True
+            msjControl += "\n El valor de puntaje NEM debe estar entre 100 y 1000 \n"
+        
+        parametros.carrera = carrera
+
+        if control:
+            print("Error en los datos ingresados:", msjControl)
+            return redirect('mostrarFormularioEstudiante')
+        else:
+            usuario.comunaUsuario = comuna
+            usuario.save()
+            
+            parametros.save()
+            print("Parámetros actualizados con éxito")
+            return redirect('mostrarFormularioEstudiante')
+    else:
+        print("Error en la solicitud")
+        return redirect('mostrarFormularioEstudiante')
+    
+    
 
