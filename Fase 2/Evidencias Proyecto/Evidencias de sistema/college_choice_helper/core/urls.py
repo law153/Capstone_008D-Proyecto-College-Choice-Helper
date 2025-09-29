@@ -2,7 +2,7 @@ from django.urls import path,include
 from django.conf.urls import handler404
 from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarOlvidoClave, inicioSesion, registrarUsuario
 from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta, mostrarHacerPeticion, mostrarEliminarCuenta, cierreSesion, generarPeticion, cambiarCorreo, cambiarClave, eliminarCuenta, definirParametros
-from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion, insertarInsti, actualizarInsti, mostrarListadoInstitucion, eliminarInsti, mostrarListadoCarreras, mostrarAgregarCarrera, agregarCarrera
+from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion, insertarInsti, actualizarInsti, mostrarListadoInstitucion, eliminarInsti, mostrarListadoCarreras, mostrarAgregarCarrera, agregarCarrera, mostrarEditarCarrera, editarCarrera
 from .viewsAdmin import mostrarGestionUsuarios, mostrarGestionInsti, mostrarVerPeticiones, mostrarVerPeticion, cambiarRol, eliminarUsuarioAdm
 
 urlpatterns = [
@@ -34,10 +34,12 @@ urlpatterns = [
     path('listado_institucion/', mostrarListadoInstitucion, name="mostrarListadoInstitucion"),
     path('listado_carreras/<id_insti>/', mostrarListadoCarreras, name="mostrarListadoCarreras"),
     path('Mostrar_agregar_carrera/<id_insti>/', mostrarAgregarCarrera, name="mostrarAgregarCarrera"),
+    path('Mostrar_editar_carrera/<id_carrera>/<id_insti>/', mostrarEditarCarrera, name="mostrarEditarCarrera"),
     path('insertar_institucion/', insertarInsti, name="insertarInsti"),
     path('actualizar_institucion/', actualizarInsti, name="actualizarInsti"),
     path('eliminar_institucion/<id_insti>/', eliminarInsti, name="eliminarInsti"),
     path('agregar_carrera/<int:id_insti>/', agregarCarrera, name="agregarCarrera"),
+    path('editar_carrera/<int:id_carrera>/<int:id_insti>/', editarCarrera, name="editarCarrera"),
     #Admin
     path('gestionar_usu/', mostrarGestionUsuarios, name="mostrarGestionUsuarios"),
     path('gestionar_insti/', mostrarGestionInsti, name="mostrarGestionInsti"),

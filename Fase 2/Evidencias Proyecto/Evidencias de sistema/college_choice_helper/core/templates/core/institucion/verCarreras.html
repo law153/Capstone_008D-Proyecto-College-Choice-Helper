@@ -36,7 +36,7 @@
                     <p>Institución: {{ carre.institucion.nombreInstitucion }}</p>
                 </div>
 
-                <a href="">Editar carrera</a>
+                <a href="{% url 'mostrarEditarCarrera' carre.idCarrera insti.idInstitucion %}">Editar carrera</a>
 
             </div>
             
