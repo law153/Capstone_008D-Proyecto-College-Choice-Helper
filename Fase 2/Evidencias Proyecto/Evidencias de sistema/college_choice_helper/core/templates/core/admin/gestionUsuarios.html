@@ -18,10 +18,10 @@
                 {% for e in estu %}
                     <p>Correo: {{e.correo}}</p>
                     <p>Rol: {{e.rol}}</p>
-                    <!--<a href="{% url 'eliminarUsuarioAdm' e.idUsuario%}">Sexo gratis</a>-->
+                    <!--<a href="{% url 'eliminarUsuarioAdm' e.idUsuario%}">Eliminar</a>-->
                     <form action="{% url 'eliminarUsuarioAdm'e.idUsuario% %}" method="post" enctype="application/x-www-form-urlencoded"></form>
                     {% csrf_token %}
-                    <button type="submit">Sexo gratis</button>
+                    <button type="submit">Eliminar</button>
                 {% endfor %}
                 
             </div>
