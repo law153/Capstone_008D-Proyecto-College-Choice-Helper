@@ -19,19 +19,19 @@
                 <form id="formulario" action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div>
-                        <label for="toggleComuna"><input type="checkbox" id="toggleComuna" checked>¿Te interesa este parametro?</label>
+                        <label for="toggleComuna"><input type="checkbox" id="toggleComuna" {% if parametros.comunaRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="comuna">¿En que comuna te gustaria estudiar?</label>
-                        <input type="text" id="comuna" name="comuna" placeholder="{{parametros.idParametros.comuna}}">
+                        <input type="text" id="comuna" name="comuna" value="{{parametros.idParametros.comuna}}">
                     </div>
 
                     <div>
-                        <label for="togglePresupuesto"><input type="checkbox" id="togglePresupuesto" checked>¿Te interesa este parametro?</label>
+                        <label for="togglePresupuesto"><input type="checkbox" id="togglePresupuesto" {% if parametros.budgetRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="presupuesto">¿Cuanto es tu presupuesto?</label>
-                        <input type="number" id="presupuesto" name="presupuesto" placeholder="{{parametros.budget}}" min="0">
+                        <input type="number" id="presupuesto" name="presupuesto" value="{{parametros.budget}}" min="0">
                     </div>
 
                     <div>
-                        <label for="toggleGratuidad"><input type="checkbox" id="toggleGratuidad" checked>¿Te interesa este parametro?</label>
+                        <label for="toggleGratuidad"><input type="checkbox" id="toggleGratuidad" {% if parametros.gratuidadRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="gratuidad">¿Cuentas con la gratuidad?</label>
                         <label for="siGratu">Si</label>
                         <input type="radio" id="siGratu" name="gratuidad" value="si" {% if parametros.gratuidad %}checked{% endif %}>
@@ -40,13 +40,13 @@
                     </div>
 
                     <div>
-                        <label for="toggleAcreditacion"><input type="checkbox" id="toggleAcreditacion" checked>¿Te interesa este parametro?</label>
+                        <label for="toggleAcreditacion"><input type="checkbox" id="toggleAcreditacion" {% if parametros.acreditacionRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="acreditacion">¿Cuantos años de acreditación buscas?</label>
-                        <input type="number" id="acreditacion" name="acreditacion" placeholder="{{parametros.acreditacionDeseado}}" max="7" min="0">
+                        <input type="number" id="acreditacion" name="acreditacion" value="{{parametros.acreditacionDeseado}}" max="7" min="0">
                     </div>
                     
                     <div>
-                        <label for="toggleUni"><input type="checkbox" id="toggleUni" checked>¿Te interesa este parametro?</label>
+                        <label for="toggleUni"><input type="checkbox" id="toggleUni" {% if parametros.esUniversidadRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="esUni">¿Buscas preferentemente una universidad?</label>
                         <label for="UniSi">Si</label>
                         <input type="radio" id="UniSi" name="EsUni" value="si" {% if parametros.esUniversidad %}checked{% endif %}>
@@ -55,13 +55,13 @@
                     </div>
 
                     <div>
-                        <label for="toggleNem"><input type="checkbox" id="toggleNem" checked>¿Te interesa este parametro?</label>
+                        <label for="toggleNem"><input type="checkbox" id="toggleNem" {% if parametros.puntajeNemRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="nem">¿Cual es tu puntaje NEM aproximado?</label>
-                        <input type="number" id="nem"  name="nem" placeholder="{{parametros.puntajeNem}}" max="1000" min="100">
+                        <input type="number" id="nem"  name="nem" value="{{parametros.puntajeNem}}" max="1000" min="100">
                     </div>
 
                     <div>
-                        <label for="toggleCarrera"><input type="checkbox" id="toggleCarrera" checked>¿Te interesa este parametro?</label>
+                        <label for="toggleCarrera"><input type="checkbox" id="toggleCarrera" {% if parametros.carreraRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="carrera">¿Que carrera llama tu atención?</label>
                         <select id="carrera" name="carrera">
                             <option value="">-- Selecciona una carrera --</option>
