@@ -404,17 +404,17 @@ def calcular_score(usuario, idInsti):
         totalParam +=1
         if usuario.comunaUsuario == insti.comunaInstitucion:
             score += 10
-            detalles['Comuna en '+insti.comunaInstitucion] = True
+            detalles['La institución se ubica en '+insti.comunaInstitucion] = True
         else:
-            detalles['Comuna en '+insti.comunaInstitucion] = False
+            detalles['La institución se ubica en '+insti.comunaInstitucion] = False
     
     if parametros.gratuidadRelevancia:
         totalParam +=1
         if parametros.gratuidad == insti.adscritoGratuidad:
             score += 10
-            detalles['Adscrita a gratuidad!'] = True
+            detalles['¿Esta adscrita a la gratuidad?'] = True
         else:
-            detalles['Adscrita a gratuidad!'] = False
+            detalles['¿Esta adscrita a la gratuidad?'] = False
     
     if parametros.acreditacionRelevancia:
         totalParam +=1
@@ -428,9 +428,9 @@ def calcular_score(usuario, idInsti):
         totalParam +=1
         if parametros.esUniversidad == insti.esUniversidadInsti:
             score += 10
-            detalles['Es una universidad!'] = True
+            detalles['¿Es una universidad?'] = True
         else:
-            detalles['Es una universidad!'] = False
+            detalles['¿Es una universidad?'] = False
     
     if parametros.carreraRelevancia:
         totalParam +=1
