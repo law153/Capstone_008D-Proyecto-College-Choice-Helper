@@ -26,7 +26,7 @@
                     <p>Porcentaje de compatibilidad: {{ recom.porcentaje }}%</p>
                 </div>
                 <div>
-                    <a href="">Ver mas</a>
+                    <a href="{% url 'mostrarVistaInstituciones' recom.institucion.idInstitucion %}">Ver mas</a>
                 </div>
             </div>
             {% endfor %}

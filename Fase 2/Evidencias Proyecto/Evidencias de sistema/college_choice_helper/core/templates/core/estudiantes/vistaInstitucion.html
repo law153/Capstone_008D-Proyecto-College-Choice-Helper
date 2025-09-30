@@ -13,29 +13,55 @@
     {% block cuerpo %}
         <h2>Pagina de una Institución</h2>
         <div>
-            <div>
-                <h3>Nombre de la Institución</h3>
+            <div class="row">
+                <h3>Nombre de la Institución: {{ institucion.nombreInstitucion }}</h3>
             </div>
-            <div>
-                <h3>Costo: </h3>
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="{{institucion.fotoInstitucion.url}}" alt="No hay imagen disponible">
+                </div>
             </div>
-            <div>
-                <h3>Sitio web: </h3>
+            <div class="row">
+                <h3>Sitio web: {{ institucion.webInstitucion }}</h3>
             </div>
-            <div>
-                <h3>Adscrita a gratuidad: </h3>
+            <div class="row">
+                {% if institucion.adscritoGratuidad %}
+                    <h3>Adscrita a gratuidad: Si</h3>
+                {% else %}
+                    <h3>Adscrita a gratuidad: No</h3>
+                {% endif %}
             </div>
-            <div>
-                <h3>Años de acreditacion: </h3>
+            <div class="row">
+                <h3>Años de acreditacion: {{ institucion.acreditacion }}</h3>
             </div>
-            <div>
-                <h3>Comuna: </h3>
+            <div class="row">
+                <h3>Comuna: {{ institucion.comunaInstitucion }} </h3>
             </div>
-            <div>
-                <h3>Es una universidad: </h3>
+            <div class="row">
+                {% if institucion.esUniversidadInsti %}
+                    <h3>Es una universidad: Si</h3>
+                {% else %}
+                    <h3>Es una universidad: No</h3>
+                {% endif %}
             </div>
-            <div>
-                <h3>NEM minimo: </h3>
+            <div class="row">
+                <h3>Carreras disponibles: </h3>
+            </div>
+
+            <div class="row">
+                {% for carre in carreras %}
+                <div class="col-md-2">
+                    <div>
+                        <p>Nombre carrera: {{ carre.nombreCarrera }}</p>
+                    </div>
+                    <div>
+                        <p>Puntaje minimo: {{ carre.puntajeMinimo }}</p>
+                    </div>
+                    <div>
+                        <p>Costo: {{ carre.costo }}</p>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
             <div>
                 <h3>Posee tu carrera de interes: </h3>
