@@ -11,31 +11,26 @@
 
 
     {% block cuerpo %}
-        <h2>Pagina de las recomendaciones</h2>
+        <h1>Pagina de las recomendaciones</h1>
         <div>
-            <div>
-                <h1>Estas son las recomendaciones que tenemos para ti</h1>
+            <h2>Estas son las recomendaciones que tenemos para ti</h2>
+            {% for recom in recomendaciones %}
+            <div class="col-md-2">
+                <div class="card">
+                    <img src="{{recom.institucion.fotoInstitucion.url}}" alt="No hay imagen disponible">
+                </div>
                 <div>
-                    <div>
-                        <label for="recomendacion1">Recomendacion 1:</label>
-                        <input type="text" id="recomendacion1" placeholder="Recomendacion 1">
-                        <label for="recomendacion1"> 67%</label>
-                    </div>
-                   
-
-                    <div>
-                        <label for="recomendacion2">Recomendacion 2:</label>
-                        <input type="text" id="recomendacion2" placeholder="Recomendacion 2">
-                        <label for="recomendacion1"> 58%</label>
-                    </div>
-
-                    <div>
-                        <label for="recomendacion3">Recomendacion 3:</label>
-                        <input type="text" id="recomendacion3" placeholder="Recomendacion 3">
-                        <label for="recomendacion1"> 49%</label>
-                    </div>
+                    <p>Nombre: {{ recom.institucion.nombreInstitucion }}</p>
+                </div>
+                <div>
+                    <p>Porcentaje de compatibilidad: {{ recom.porcentaje }}%</p>
+                </div>
+                <div>
+                    <a href="">Ver mas</a>
                 </div>
             </div>
+            {% endfor %}
+        </div>
     {% endblock cuerpo %}
 
     {% block js %}

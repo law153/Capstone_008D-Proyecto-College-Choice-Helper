@@ -39,8 +39,14 @@ def mostrarRecomendaciones(request):
         if rol != 0:
             print("No tiene rol estudiante")
             return redirect('mostrarIndex')
+        correo = request.session.get('correo', None)
+        usuario = Usuario.objects.get(correo=correo)
 
-        contexto = {'rol': rol}
+        recomendaciones = generar_recomendaciones(usuario)
+
+
+
+        contexto = {'rol': rol, 'recomendaciones' : recomendaciones}
         return render(request, 'core/estudiantes/recomendaciones.html', contexto)
     else:
         print("Debe iniciar sesión para acceder a este contenido")
@@ -365,10 +371,69 @@ def definirParametros(request):
             
             parametros.save()
             print("Parámetros actualizados con éxito")
-            return redirect('mostrarFormularioEstudiante')
+            return redirect('mostrarRecomendaciones')
     else:
         print("Error en la solicitud")
         return redirect('mostrarFormularioEstudiante')
     
+def calcular_score(usuario, idInsti):
     
+    
+    parametros = Parametros.objects.get(idParametros=usuario)
+    insti = Institucion.objects.get(idInstitucion=idInsti)
+    carreras = Carrera.objects.filter(institucion=insti)
+
+    carrera = Carrera.objects.filter(institucion=insti, nombreCarrera=parametros.carrera).first()
+
+    score = 0
+
+    if parametros.comunaRelevancia:
+        if usuario.comunaUsuario == insti.comunaInstitucion:
+            score += 10
+    
+    if parametros.gratuidadRelevancia:
+        if parametros.gratuidad == insti.adscritoGratuidad:
+            score += 10
+    
+    if parametros.acreditacionRelevancia:
+        if insti.acreditacion >= parametros.acreditacionDeseado:
+            score += 10
+    
+    if parametros.esUniversidadRelevancia:
+        if parametros.esUniversidad == insti.esUniversidadInsti:
+            score += 10
+    
+    if parametros.carreraRelevancia:
+        if carreras.filter(nombreCarrera=parametros.carrera).exists():
+            score += 10
+        
+    if parametros.puntajeNemRelevancia and carrera:
+        if carrera.puntajeMinimo <= parametros.puntajeNem:
+            score += 10
+    
+    if parametros.budgetRelevancia and carrera:
+        if carrera.costo <= parametros.budget:
+            score += 10
+
+    porcentaje = round((score / 70) * 100, 2)
+
+    return score, porcentaje
+
+
+    
+def generar_recomendaciones(usuario):
+    instituciones = Institucion.objects.all()
+    
+    recomendaciones = []
+    for insti in instituciones:
+        score, porcentaje = calcular_score(usuario, insti.idInstitucion)
+        recomendaciones.append({
+            "institucion": insti,
+            "score": score,
+            "porcentaje": porcentaje
+        })
+    
+    recomendaciones.sort(key=lambda x: x["score"], reverse=True)
+    return recomendaciones
+
 
