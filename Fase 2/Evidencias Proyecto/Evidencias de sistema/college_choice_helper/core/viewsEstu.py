@@ -52,13 +52,17 @@ def mostrarRecomendaciones(request):
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
 
-def mostrarVistaInstituciones(request):
+def mostrarVistaInstituciones(request, id_insti):
     if request.user.is_authenticated:
         rol = request.session.get('rol', None)
         if rol != 0:
             print("No tiene rol estudiante")
             return redirect('mostrarIndex')
-        contexto = {'rol': rol}
+        
+        institucion = Institucion.objects.get(idInstitucion = id_insti)
+        carreras = Carrera.objects.filter(institucion = institucion)
+
+        contexto = {'rol': rol, 'institucion': institucion, 'carreras' : carreras}
         return render(request, 'core/estudiantes/vistaInstitucion.html', contexto)
     else:
         print("Debe iniciar sesión para acceder a este contenido")
@@ -387,35 +391,53 @@ def calcular_score(usuario, idInsti):
 
     score = 0
 
+    totalParam = 0
+
     if parametros.comunaRelevancia:
+        totalParam +=1
         if usuario.comunaUsuario == insti.comunaInstitucion:
             score += 10
     
     if parametros.gratuidadRelevancia:
+        totalParam +=1
         if parametros.gratuidad == insti.adscritoGratuidad:
             score += 10
     
     if parametros.acreditacionRelevancia:
+        totalParam +=1
         if insti.acreditacion >= parametros.acreditacionDeseado:
             score += 10
     
     if parametros.esUniversidadRelevancia:
+        totalParam +=1
         if parametros.esUniversidad == insti.esUniversidadInsti:
             score += 10
     
     if parametros.carreraRelevancia:
+        totalParam +=1
         if carreras.filter(nombreCarrera=parametros.carrera).exists():
             score += 10
         
-    if parametros.puntajeNemRelevancia and carrera:
-        if carrera.puntajeMinimo <= parametros.puntajeNem:
-            score += 10
+    if parametros.puntajeNemRelevancia:
+        totalParam +=1
+        if carrera:
+            if carrera.puntajeMinimo <= parametros.puntajeNem:
+                score += 10
     
-    if parametros.budgetRelevancia and carrera:
-        if carrera.costo <= parametros.budget:
-            score += 10
+    if parametros.budgetRelevancia:
+        totalParam +=1
+        if carrera: 
+            if carrera.costo <= parametros.budget:
+                score += 10
 
-    porcentaje = round((score / 70) * 100, 2)
+    totalParam *=10 #Multiplicar la cantidad de parametros del usuario * 10 (valor de cada parametro) para tener el puntaje maximo posible dado los intereses
+
+    if totalParam == 0:
+        porcentaje = 100 ##Si el usuario no marco nada como relevante, todo le sirve
+    else:
+        porcentaje = round((score / totalParam) * 100, 2)
+
+    print(totalParam, score)
 
     return score, porcentaje
 
