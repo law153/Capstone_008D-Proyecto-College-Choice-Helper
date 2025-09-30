@@ -61,8 +61,15 @@ def mostrarVistaInstituciones(request, id_insti):
         
         institucion = Institucion.objects.get(idInstitucion = id_insti)
         carreras = Carrera.objects.filter(institucion = institucion)
-
-        contexto = {'rol': rol, 'institucion': institucion, 'carreras' : carreras}
+        correo = request.session.get('correo',None)
+        usuario =  Usuario.objects.get(correo=correo)
+        score, porcen, detalles = calcular_score(usuario, id_insti)
+        print(detalles)
+        try:
+            porcentaje = float(porcen) 
+        except ValueError:
+            porcentaje = 0
+        contexto = {'rol': rol, 'institucion': institucion, 'carreras' : carreras, 'porcentaje': porcentaje, 'detalles': detalles}
         return render(request, 'core/estudiantes/vistaInstitucion.html', contexto)
     else:
         print("Debe iniciar sesión para acceder a este contenido")
@@ -390,45 +397,66 @@ def calcular_score(usuario, idInsti):
     carrera = Carrera.objects.filter(institucion=insti, nombreCarrera=parametros.carrera).first()
 
     score = 0
-
+    detalles = {}
     totalParam = 0
 
     if parametros.comunaRelevancia:
         totalParam +=1
         if usuario.comunaUsuario == insti.comunaInstitucion:
             score += 10
+            detalles['Comuna en '+insti.comunaInstitucion] = True
+        else:
+            detalles['Comuna en '+insti.comunaInstitucion] = False
     
     if parametros.gratuidadRelevancia:
         totalParam +=1
         if parametros.gratuidad == insti.adscritoGratuidad:
             score += 10
+            detalles['Adscrita a gratuidad!'] = True
+        else:
+            detalles['Adscrita a gratuidad!'] = False
     
     if parametros.acreditacionRelevancia:
         totalParam +=1
         if insti.acreditacion >= parametros.acreditacionDeseado:
             score += 10
+            detalles['Acreditación de '+ str(parametros.acreditacionDeseado) + " años"] = True
+        else:
+            detalles['Acreditación de '+ str(parametros.acreditacionDeseado) + " años"] = False
     
     if parametros.esUniversidadRelevancia:
         totalParam +=1
         if parametros.esUniversidad == insti.esUniversidadInsti:
             score += 10
+            detalles['Es una universidad!'] = True
+        else:
+            detalles['Es una universidad!'] = False
     
     if parametros.carreraRelevancia:
         totalParam +=1
         if carreras.filter(nombreCarrera=parametros.carrera).exists():
             score += 10
+            detalles['Tiene la carrera '+parametros.carrera] = True
+        else:
+            detalles['Tiene la carrera '+parametros.carrera] = False
         
     if parametros.puntajeNemRelevancia:
         totalParam +=1
         if carrera:
             if carrera.puntajeMinimo <= parametros.puntajeNem:
                 score += 10
+                detalles['El puntaje NEM te alcanza!'] = True
+            else:
+                detalles['El puntaje NEM te alcanza!'] = False
     
     if parametros.budgetRelevancia:
         totalParam +=1
         if carrera: 
             if carrera.costo <= parametros.budget:
                 score += 10
+                detalles['Tu presupuesto alcanza!'] = True
+            else:
+                detalles['Tu presupuesto alcanza!'] = False
 
     totalParam *=10 #Multiplicar la cantidad de parametros del usuario * 10 (valor de cada parametro) para tener el puntaje maximo posible dado los intereses
 
@@ -437,9 +465,9 @@ def calcular_score(usuario, idInsti):
     else:
         porcentaje = round((score / totalParam) * 100, 2)
 
-    print(totalParam, score)
+    print(totalParam, score, detalles)
 
-    return score, porcentaje
+    return score, porcentaje, detalles
 
 
     
@@ -448,11 +476,12 @@ def generar_recomendaciones(usuario):
     
     recomendaciones = []
     for insti in instituciones:
-        score, porcentaje = calcular_score(usuario, insti.idInstitucion)
+        score, porcentaje, detalles = calcular_score(usuario, insti.idInstitucion)
         recomendaciones.append({
             "institucion": insti,
             "score": score,
-            "porcentaje": porcentaje
+            "porcentaje": porcentaje,
+            "detalles" : detalles
         })
     
     recomendaciones.sort(key=lambda x: x["score"], reverse=True)

@@ -16,7 +16,7 @@ urlpatterns = [
     #Estudiante
     path('formulario_estudiante/', mostrarFormularioEstudiante, name='mostrarFormularioEstudiante'),
     path('recomendaciones/', mostrarRecomendaciones, name='mostrarRecomendaciones'),
-    path('ver_institucion/<id_insti>', mostrarVistaInstituciones, name='mostrarVistaInstituciones'),
+    path('ver_institucion/<id_insti>/', mostrarVistaInstituciones, name='mostrarVistaInstituciones'),
     path('cambio_clave/', mostrarCambioClave, name="mostrarCambioClave"),
     path('cambio_correo/', mostrarCambioCorreo, name="mostrarCambioCorreo"),
     path('gestion_cuenta/', mostrarGestionCuenta, name="mostrarGestionCuenta"),

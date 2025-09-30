@@ -17,9 +17,38 @@
                 <h3>Nombre de la Institución: {{ institucion.nombreInstitucion }}</h3>
             </div>
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-6">
                     <img src="{{institucion.fotoInstitucion.url}}" alt="No hay imagen disponible">
                 </div>
+            </div>
+            <div class="row">
+                {% if porcentaje >= 75.0 %}
+                    <h3 style="color: #4DC45C">Porcentaje de compatibilidad: {{porcentaje}}% </h3>
+                {% endif %}
+                {% if porcentaje >= 25.0 and porcentaje < 75.0 %}
+                    <h3 style="color: #D6D667">Porcentaje de compatibilidad: {{porcentaje}}% </h3>
+                {% endif %}
+                {% if porcentaje < 25.0 %}
+                    <h3 style="color: #BD473A">Porcentaje de compatibilidad: {{porcentaje}}% </h3>
+                {% endif %}
+            </div>
+            <div class="row">
+                
+                <canvas id="compatChart" width="200" height="200"></canvas>
+            </div>
+            <div class="row">
+                <h3>Detalles de compatibilidad:</h3>
+                <ul>
+                    {% for criterio, cumple in detalles.items %}
+                        <li>
+                            {% if cumple %}
+                                <span style="color: green;">✔ {{ criterio }}</span>
+                            {% else %}
+                                <span style="color: red;">✘ {{ criterio }}</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="row">
                 <h3>Sitio web: {{ institucion.webInstitucion }}</h3>
@@ -63,13 +92,43 @@
                 </div>
                 {% endfor %}
             </div>
-            <div>
-                <h3>Posee tu carrera de interes: </h3>
-            </div>
         </div>
         {% endblock cuerpo %}
         
         
 
     {% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var porcentaje = parseFloat("{{ porcentaje|floatformat:2 }}");
+        var colorCompat = '#4caf50'; 
+
+        if (porcentaje < 25.0) {
+            colorCompat = '#BD473A';
+        } else if (porcentaje < 75.0) {
+            colorCompat = '#D6D667';
+        }
+
+        var ctx = document.getElementById('compatChart').getContext('2d');
+        var compatChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Compatibilidad', 'No Compatibilidad'],
+                datasets: [{
+                    data: [porcentaje, 100 - porcentaje],
+                    backgroundColor: [colorCompat, '#e0e0e0'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+
+
     {% endblock js %}
