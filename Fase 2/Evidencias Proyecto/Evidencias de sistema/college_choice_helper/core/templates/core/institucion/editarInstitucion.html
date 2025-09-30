@@ -32,7 +32,7 @@
                     <div>
                         <label>¿Es universidad?</label>
                         <label for="es_uni">Si</label>
-                        <input type="radio" id="es_uni" name="es_uni"value="True" {% if insti.esUniversidadInsti %}checked{% endif %}>
+                        <input type="radio" id="es_uni" name="es_uni" value="True" {% if insti.esUniversidadInsti %}checked{% endif %}>
                         <label for="es_uni_b">No</label>
                         <input type="radio" id="es_uni_b" name="es_uni" value="False" {% if not insti.esUniversidadInsti %}checked{% endif %}>
                     </div>
@@ -45,7 +45,7 @@
                     <div>
                         <label>¿Está adscrita a gratuidad?</label>
                         <label for="gratuidad">Si</label>
-                        <input type="radio" id="gratuidad" name="gratuidad "value="True" {% if insti.adscritoGratuidad %}checked{% endif %}>
+                        <input type="radio" id="gratuidad" name="gratuidad" value="True" {% if insti.adscritoGratuidad %}checked{% endif %}>
 
                         <label for="gratuidad_b">No</label>
                         <input type="radio" id="gratuidad_b" name="gratuidad" value="False" {% if not insti.adscritoGratuidad %}checked{% endif %}>

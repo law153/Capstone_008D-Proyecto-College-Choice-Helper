@@ -101,105 +101,119 @@ def mostrarEditarInstitucion(request, id_insti):
 
 def insertarInsti(request):
     if request.user.is_authenticated:
-        nombreI = request.POST['nombre_insti']
-        comunaI = request.POST['comuna_insti']
-        esUniversidadI = request.POST['es_uni']
-        gratuidadI = request.POST['gratuidad']
-        aniosAcreditacionI = request.POST['anios_acreditacion']
-        webInstiI = request.POST['web_insti']
-        fotoI = request.FILES['foto_insti']
+        if request.method == 'POST':
 
-        username = request.session.get('correo')
-        tomarIdUser = Usuario.objects.get(correo=username)
-        
-        existeInsti = Institucion.objects.filter(
-            nombreInstitucion = nombreI,
-            comunaInstitucion = comunaI
-        ).first()
+            nombreI = request.POST['nombre_insti']
+            comunaI = request.POST['comuna_insti']
+            esUniversidadI = request.POST['es_uni']
+            gratuidadI = request.POST['gratuidad']
+            aniosAcreditacionI = request.POST['anios_acreditacion']
+            webInstiI = request.POST['web_insti']
+            fotoI = request.FILES['foto_insti']
 
-        confirmarUni = True if esUniversidadI == "True" else False
-        
-        confirmarGratuidad = True if gratuidadI == "True" else False
-
-        if existeInsti:
-            print("Ya existe una institucion con el mismo nombre y comuna")
-            return redirect('mostrarRegistroInstitucion')
-        else:
-            Institucion.objects.create(
+            username = request.session.get('correo')
+            tomarIdUser = Usuario.objects.get(correo=username)
+            
+            existeInsti = Institucion.objects.filter(
                 nombreInstitucion = nombreI,
-                comunaInstitucion = comunaI,
-                esUniversidadInsti = confirmarUni,
-                webInstitucion = webInstiI,
-                adscritoGratuidad = confirmarGratuidad,
-                acreditacion = aniosAcreditacionI,
-                fotoInstitucion = fotoI,
-                usuario = tomarIdUser
-            )
-            print("La institución fue agregada correctamente")
-            return redirect('mostrarIndex')
+                comunaInstitucion = comunaI
+            ).first()
+
+            confirmarUni = True if esUniversidadI == "True" else False
+            
+            confirmarGratuidad = True if gratuidadI == "True" else False
+
+            if existeInsti:
+                print("Ya existe una institucion con el mismo nombre y comuna")
+                return redirect('mostrarRegistroInstitucion')
+            else:
+                Institucion.objects.create(
+                    nombreInstitucion = nombreI,
+                    comunaInstitucion = comunaI,
+                    esUniversidadInsti = confirmarUni,
+                    webInstitucion = webInstiI,
+                    adscritoGratuidad = confirmarGratuidad,
+                    acreditacion = aniosAcreditacionI,
+                    fotoInstitucion = fotoI,
+                    usuario = tomarIdUser
+                )
+                print("La institución fue agregada correctamente")
+                return redirect('mostrarIndex')
+        else:
+            print("Error en la solicitud")
+            return redirect('mostrarRegistroInstitucion')
     else:
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
 
 def actualizarInsti(request):
     if request.user.is_authenticated:
-        idI = request.POST['id_insti']
-        nombreI = request.POST['nombre_insti']
-        comunaI = request.POST['comuna_insti']
-        esUniversidadI = request.POST['es_uni']
-        gratuidadI = request.POST['gratuidad']
-        aniosAcreditacionI = request.POST['anios_acreditacion']
-        webInstiI = request.POST['web_insti']
-        
+        if request.method == 'POST':
 
-        #username = request.session.get('correo')
-        #tomarIdUser = Usuario.objects.get(correo=username)
+            idI = request.POST['id_insti']
+            nombreI = request.POST['nombre_insti']
+            comunaI = request.POST['comuna_insti']
+            esUniversidadI = request.POST['es_uni']
+            gratuidadI = request.POST['gratuidad']
+            aniosAcreditacionI = request.POST['anios_acreditacion']
+            webInstiI = request.POST['web_insti']
+            
 
-        confirmarUni = True if esUniversidadI == "True" else False
-        confirmarGratuidad = True if gratuidadI == "True" else False
+            #username = request.session.get('correo')
+            #tomarIdUser = Usuario.objects.get(correo=username)
 
-        institucion = Institucion.objects.get(idInstitucion = idI)
-        fotoI = request.FILES.get('foto_insti', institucion.fotoInstitucion)
+            confirmarUni = True if esUniversidadI == "True" else False
+            confirmarGratuidad = True if gratuidadI == "True" else False
 
-        existeInsti = Institucion.objects.filter(
-            nombreInstitucion = nombreI
-        ).first()
+            institucion = Institucion.objects.get(idInstitucion = idI)
+            fotoI = request.FILES.get('foto_insti', institucion.fotoInstitucion)
 
-        if existeInsti:
-            print("Ya hay una institución con el mismo nombre")
-            return redirect('mostrarEditarInstitucion')
+            existeInsti = Institucion.objects.filter(
+                nombreInstitucion = nombreI
+            ).first()
+
+            if existeInsti:
+                print("Ya hay una institución con el mismo nombre")
+                return redirect('mostrarEditarInstitucion', idI)
+            else:
+                # 🔎 PRINTS DE DEBUG
+                print("DEBUG nombreI:", nombreI)
+                print("DEBUG comunaI:", comunaI)
+                print("DEBUG confirmarUni:", confirmarUni)
+                print("DEBUG confirmarGratuidad:", confirmarGratuidad)
+                print("DEBUG aniosAcreditacionI:", aniosAcreditacionI)
+                print("DEBUG webInstiI:", webInstiI)
+                print("DEBUG fotoI:", fotoI)
+                print("DEBUG tipo fotoI:", type(fotoI))
+
+                institucion.nombreInstitucion = nombreI
+                institucion.comunaInstitucion = comunaI
+                institucion.esUniversidadInsti = confirmarUni
+                institucion.adscritoGratuidad = confirmarGratuidad
+                institucion.acreditacion = aniosAcreditacionI
+                institucion.webInstitucion = webInstiI
+                institucion.fotoInstitucion = fotoI
+                #institucion.usuario = tomarIdUser
+                institucion.save()
+                print("La institución se edito correctamente")
+                return redirect('mostrarIndex')
         else:
-            # 🔎 PRINTS DE DEBUG
-            print("DEBUG nombreI:", nombreI)
-            print("DEBUG comunaI:", comunaI)
-            print("DEBUG confirmarUni:", confirmarUni)
-            print("DEBUG confirmarGratuidad:", confirmarGratuidad)
-            print("DEBUG aniosAcreditacionI:", aniosAcreditacionI)
-            print("DEBUG webInstiI:", webInstiI)
-            print("DEBUG fotoI:", fotoI)
-            print("DEBUG tipo fotoI:", type(fotoI))
-
-            institucion.nombreInstitucion = nombreI
-            institucion.comunaInstitucion = comunaI
-            institucion.esUniversidadInsti = confirmarUni
-            institucion.adscritoGratuidad = confirmarGratuidad
-            institucion.acreditacion = aniosAcreditacionI
-            institucion.webInstitucion = webInstiI
-            institucion.fotoInstitucion = fotoI
-            #institucion.usuario = tomarIdUser
-            institucion.save()
-            print("La institución se edito correctamente")
-            return redirect('mostrarIndex')
+            print("Error en la solicitud")
+            return('mostrarEditarInstitucion')
     else:
         print("Debe iniciar sesión para acceder a este contenido")
     return redirect('mostrarLogin')
 
 def eliminarInsti(request, id_insti):
     if request.user.is_authenticated:
-        institucion = Institucion.objects.get(idInstitucion = id_insti)
-        institucion.delete()
-        print("Se eliminó la institución")
-        return redirect('mostrarIndex')
+        if request.method == 'POST':
+            institucion = Institucion.objects.get(idInstitucion = id_insti)
+            institucion.delete()
+            print("Se eliminó la institución")
+            return redirect('mostrarIndex')
+        else:
+            print("Error en la solicitud")
+            return("mostrarEditarInstitucion")
     else:
         print("Debe iniciar sesión para acceder a este contenido")
         return redirect('mostrarLogin')
