@@ -457,34 +457,39 @@ def calcular_score(usuario, idInsti):
     if parametros.budgetRelevancia:
         totalParam +=1
         if carrera: 
-
-            if carrera.costo <= 3000000 and parametros.budget == 1:
-                score += 10
-                detalles['Tu presupuesto alcanza!'] = True 
-            elif parametros.budget == 1 and carrera.costo > 3000000:
-                detalles['Tu presupuesto alcanza!'] = False
             
-            if (carrera.costo > 3000000 and carrera.costo <= 5000000) and parametros.budget == 2:
+            if parametros.gratuidad and insti.adscritoGratuidad:
                 score += 10
-                detalles['Tu presupuesto alcanza!'] = True 
-            elif parametros.budget == 2 and carrera.costo > 5000000:
-                detalles['Tu presupuesto alcanza!'] = False
+                detalles['La gratuidad lo cubre'] = True 
+            else:
+                if carrera.costo <= 3000000 and parametros.budget == 1:
+                    score += 10
+                    detalles['Tu presupuesto alcanza!'] = True 
+                elif parametros.budget == 1 and carrera.costo > 3000000:
+                    detalles['Tu presupuesto alcanza!'] = False
+                
+                if (carrera.costo > 3000000 and carrera.costo <= 5000000) and parametros.budget == 2:
+                    score += 10
+                    detalles['Tu presupuesto alcanza!'] = True 
+                elif parametros.budget == 2 and carrera.costo > 5000000:
+                    detalles['Tu presupuesto alcanza!'] = False
 
-            if (carrera.costo > 5000000 and carrera.costo <= 7000000) and parametros.budget == 3:
-                score += 10
-                detalles['Tu presupuesto alcanza!'] = True 
-            elif parametros.budget == 3 and carrera.costo > 7000000:
-                detalles['Tu presupuesto alcanza!'] = False
+                if (carrera.costo > 5000000 and carrera.costo <= 7000000) and parametros.budget == 3:
+                    score += 10
+                    detalles['Tu presupuesto alcanza!'] = True 
+                elif parametros.budget == 3 and carrera.costo > 7000000:
+                    detalles['Tu presupuesto alcanza!'] = False
 
-            if (carrera.costo > 7000000 and carrera.costo <= 10000000) and parametros.budget == 4:
-                score += 10
-                detalles['Tu presupuesto alcanza!'] = True 
-            elif parametros.budget == 4 and carrera.costo > 10000000:
-                detalles['Tu presupuesto alcanza!'] = False
+                if (carrera.costo > 7000000 and carrera.costo <= 10000000) and parametros.budget == 4:
+                    score += 10
+                    detalles['Tu presupuesto alcanza!'] = True 
+                elif parametros.budget == 4 and carrera.costo > 10000000:
+                    detalles['Tu presupuesto alcanza!'] = False
 
-            if carrera.costo > 3000000 and parametros.budget == 5:
-                score += 10
-                detalles['Tu presupuesto alcanza!'] = True 
+                if carrera.costo > 3000000 and parametros.budget == 5:
+                    score += 10
+                    detalles['Tu presupuesto alcanza!'] = True
+            
             
 
     totalParam *=10 #Multiplicar la cantidad de parametros del usuario * 10 (valor de cada parametro) para tener el puntaje maximo posible dado los intereses
