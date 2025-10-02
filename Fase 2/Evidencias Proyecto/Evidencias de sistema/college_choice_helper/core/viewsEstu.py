@@ -25,7 +25,12 @@ def mostrarFormularioEstudiante(request):
 
         carreras = Carrera.objects.values_list('nombreCarrera', flat=True).distinct().order_by('nombreCarrera')
 
-        contexto = {'rol': rol, 'parametros': parametros, 'carreras': carreras}
+        comunas = Institucion.objects.values_list('comunaInstitucion', flat=True).distinct().order_by('comunaInstitucion') 
+
+        acreditaciones = [0,1,2,3,4,5,6,7]
+
+
+        contexto = {'rol': rol, 'parametros': parametros, 'carreras': carreras, 'comunas': comunas, 'acreditaciones': acreditaciones}
 
         return render(request, 'core/estudiantes/formularioEstudiante.html', contexto)
     else:
@@ -420,9 +425,9 @@ def calcular_score(usuario, idInsti):
         totalParam +=1
         if insti.acreditacion >= parametros.acreditacionDeseado:
             score += 10
-            detalles['Acreditación de '+ str(parametros.acreditacionDeseado) + " años"] = True
+            detalles['Acreditación de '+ str(insti.acreditacion) + " años"] = True
         else:
-            detalles['Acreditación de '+ str(parametros.acreditacionDeseado) + " años"] = False
+            detalles['Acreditación de '+ str(insti.acreditacion) + " años"] = False
     
     if parametros.esUniversidadRelevancia:
         totalParam +=1

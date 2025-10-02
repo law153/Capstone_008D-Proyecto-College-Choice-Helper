@@ -21,7 +21,15 @@
                     <div>
                         <label for="toggleComuna"><input type="checkbox" id="toggleComuna" name="toggleComuna" {% if parametros.comunaRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="comuna">¿En que comuna te gustaria estudiar?</label>
-                        <input type="text" id="comuna" name="comuna" value="{{parametros.idParametros.comunaUsuario}}">
+                        <select id="comuna" name="comuna">
+                        <option value="">-- Selecciona una comuna --</option>
+                        {% for comuna in comunas %}
+                            <option value="{{ comuna }}" {% if parametros.idParametros.comunaUsuario == comuna %}selected{% endif %}>
+                            {{ comuna }}
+                            </option>
+                        {% endfor %}
+                        </select>
+
                     </div>
 
                     <div>
@@ -41,8 +49,15 @@
 
                     <div>
                         <label for="toggleAcreditacion"><input type="checkbox" id="toggleAcreditacion" name="toggleAcreditacion" {% if parametros.acreditacionRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
-                        <label for="acreditacion">¿Cuantos años de acreditación buscas?</label>
-                        <input type="number" id="acreditacion" name="acreditacion" value="{{parametros.acreditacionDeseado}}" max="7" min="0">
+                        <label for="acreditacion">¿Cuantos años de acreditación minima buscas?</label>
+                        <select id="acreditacion" name="acreditacion">
+                        <option value="">-- Selecciona tu acreditacion deseada --</option>
+                        {% for acredi in acreditaciones %}
+                            <option value="{{ acredi }}" {% if parametros.acreditacionDeseado == acredi %}selected{% endif %}>
+                            {{ acredi }}
+                            </option>
+                        {% endfor %}
+                        </select>
                     </div>
                     
                     <div>
