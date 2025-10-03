@@ -8,33 +8,47 @@
     {% block disenos %}
     
     {% endblock disenos %}
-
+    <style>
+        .contenedorPadre{
+            margin: 0; 
+            padding: 0;
+            height: 85vh;
+            width: 100%;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 
     {% block cuerpo %}
-        <div>
-            <h2>Pagina login</h2>
+        <div class="contenedorPadre">
+            <div class="contenedorForm">
+                <form id="ini-sesion"  action="{% url 'inicioSesion' %}" method="post" enctype="application/x-www-form-urlencoded">
+                    {% csrf_token %}
+                    <h1>Iniciar Sesión</h1>
+                    <h2>Ingrese sus datos</h2>
+                    <div>
+                        <label for="correo_ini">Correo:</label>
+                        <input type="email" id="correo_ini" name="correo_ini" placeholder="Correo">
+                    </div>
 
-            <form id="ini-sesion" action="{% url 'inicioSesion' %}" method="post" enctype="application/x-www-form-urlencoded">
-                {% csrf_token %}
-                <h1>Inicie Sesión</h1>
-                <div>
-                    <label for="correo_ini">Correo:</label>
-                    <input type="email" id="correo_ini" name="correo_ini" placeholder="Correo">
-                </div>
+                    <div>
+                        <label for="contrasena_ini">Contraseña:</label>
+                        <input type="password" id="contrasena_ini" name="contrasena_ini" placeholder="Contraseña">
+                    </div>
 
-                <div>
-                    <label for="contrasena_ini">Contraseña:</label>
-                    <input type="password" id="contrasena_ini" name="contrasena_ini" placeholder="Contraseña">
-                </div>
-
-                <div class="form-group container-link">
-                    <a href="{% url 'password_reset' %}">Olvide mi contraseña</a>
-                </div>
-                <div>
-                    <input type="submit" value="Iniciar Sesión" id="btn_entrar">
-                </div>
-            </form>
+                    <div class="form-group container-link">
+                        <a href="{% url 'password_reset' %}">Olvide mi contraseña</a>
+                    </div>
+                    <div>
+                        <input type="submit" value="Iniciar Sesión" id="btn_entrar" class="btn btn-aceptar">
+                    </div>
+                </form>
+            </div>
         </div>
+        
+
     {% endblock cuerpo %}
 
     {% block js %}
