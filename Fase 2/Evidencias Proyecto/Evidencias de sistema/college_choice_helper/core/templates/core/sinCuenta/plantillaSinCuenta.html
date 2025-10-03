@@ -13,52 +13,60 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
         <!--Diseño propio-->
+        <link rel="stylesheet" type="text/css" href="{% static  'core/css/estilo.css'%}">
         {% block disenos %}
         {% endblock disenos %}
     </head>
 
     <body>
         
-        <div class="container-fluid text-center"  style="height: 15vh;">
+        <div class="container-fluid barraSuperior">
             <div class="row">
                 <h1><a href="{% url 'mostrarIndex' %}">College Choice Helper</a></h1>
             </div>
         </div>
-        <div class="container-fluid" style="height: 85vh;">
-            <div class="row">
-                <div class="col-3 col-md-2">
-                    <ul style="padding-bottom: 100px;">
-                        <!--Sin cuenta-->
-                        {% if rol == None %}
-                            <li><a href="{% url 'mostrarLogin' %}">Iniciar sesión</a></li>
-                            <li><a href="{% url 'mostrarRegistro'%}">Registrarme</a></li>
+        <div class="container-fluid">
+            <div class="row contenidoTotal">
+                {% if rol == None %}
+                <div class="col-md-3" style="border: 2px solid #000;">
+                    <ul>
+                        <li><a href="{% url 'mostrarLogin' %}">Iniciar sesión</a></li>
+                        <li><a href="{% url 'mostrarRegistro'%}">Registrarme</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+                {% if rol != None %}
+                <div class="col-md-1" style="border: 2px solid #000;">
+                        {% if rol == 2 %}
+                            <li><a href="{% url 'mostrarVerPeticiones'%}">Ver peticiones</a></li>
                         {% endif %}
+                        {% if rol == 0 or rol == 1 %}
+                            <li><a href="{% url 'mostrarHacerpeticion'%}">Hacer una petición</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'mostrarGestionCuenta' %}">Gestionar cuenta</a></li>
+                        <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>
+                </div>
+                <div class="col-md-2" style="border: 2px solid #000;">
+                    <ul>
                         <!--Estudiante-->
                         {% if rol == 0 %}
                             <li><a href="{% url 'mostrarFormularioEstudiante'%}">Formulario</a></li>
                             <li><a href="{% url 'mostrarRecomendaciones'%}">Recomendaciones</a></li>
-                            <li><a href="{% url 'mostrarHacerpeticion'%}">Hacer una petición</a></li>
-                            <li><a href="{% url 'mostrarGestionCuenta' %}">Gestionar cuenta</a></li>
-                            <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>
+                            
                         {% endif %}
                         <!--Institution manager-->
                         {% if rol == 1 %}
                             <li><a href="{% url 'mostrarListadoInstitucion' %}">Gestionar instituciones</a></li>
-                            <li><a href="{% url 'mostrarHacerpeticion'%}">Hacer una petición</a></li>
-                            <li><a href="{% url 'mostrarGestionCuenta' %}">Gestionar cuenta</a></li>
-                            <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>
                         {% endif %}
                         <!--Administrador-->
                         {% if rol == 2 %}
                             <li><a href="{% url 'mostrarGestionUsuarios' %}">Gestionar usuarios</a></li>
                             <li><a href="{% url 'mostrarGestionInsti' %}">Gestionar instituciones</a></li>
-                            <li><a href="{% url 'mostrarVerPeticiones'%}">Ver peticiones</a></li>
-                            <li><a href="{% url 'mostrarGestionCuenta' %}">Gestionar cuenta</a></li>
-                            <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>
                         {% endif %}
                     </ul>
                 </div>
-                <div class="col-9 col-md-10">
+                {% endif %}
+                <div class="col-md-9" style="border: 2px solid #000;">
                     {% block cuerpo %}
 
                     {% endblock cuerpo %}

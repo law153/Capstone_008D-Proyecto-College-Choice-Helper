@@ -1,0 +1,30 @@
+.barraSuperior{
+    text-decoration: none !important;
+    background: #6595ff !important;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+}
+
+.contenidoTotal{
+    height: 85vh;
+}
+
+.barraSuperior a{
+    text-decoration: none;
+    color: #fff;
+    margin-left: 10vh;
+}
+
+.contenedor-img{
+    width: 40%;
+    height: 100%;
+    object-fit: cover;
+    border: 2px solid #000;
+    background: #fff;
+}
+
+.contenedor-img > img{
+    width: 100%;
+    height: 100%;
+}
