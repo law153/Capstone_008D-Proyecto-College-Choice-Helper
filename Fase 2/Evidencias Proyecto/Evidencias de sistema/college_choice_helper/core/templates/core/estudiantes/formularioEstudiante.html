@@ -79,7 +79,14 @@
                     <div>
                         <label for="toggleNem"><input type="checkbox" id="toggleNem" name="toggleNem" {% if parametros.puntajeNemRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="nem">¿Cual es tu puntaje NEM aproximado?</label>
-                        <input type="number" id="nem"  name="nem" value="{{parametros.puntajeNem}}" max="1000" min="100">
+                        <select id="nem" name="nem">
+                            <option value="0">-- Selecciona tu rango de puntaje NEM--</option>
+                            <option value="1" {% if parametros.puntajeNem == 1 %}selected{% endif %}> Entre 100 a 300 </option>
+                            <option value="2" {% if parametros.puntajeNem == 2 %}selected{% endif %}> Entre 301 a 500 </option>
+                            <option value="3" {% if parametros.puntajeNem == 3 %}selected{% endif %}> Entre 501 a 700 </option>
+                            <option value="4" {% if parametros.puntajeNem == 4 %}selected{% endif %}> Entre 701 a 900 </option>
+                            <option value="5" {% if parametros.puntajeNem == 5 %}selected{% endif %}> Entre 901 a 1000 </option>
+                        </select>
                     </div>
 
                     <div>

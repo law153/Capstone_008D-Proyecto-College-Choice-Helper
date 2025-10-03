@@ -17,39 +17,32 @@
                 <h3>Nombre de la Institución: {{ institucion.nombreInstitucion }}</h3>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <img src="{{institucion.fotoInstitucion.url}}" alt="No hay imagen disponible">
+                <div class="col-md-12">
+                    <div  style="width: 20%; height: 20%;">
+                        <img src="{{institucion.fotoInstitucion.url}}" alt="No hay imagen disponible" style=" object-fit: fill;">
+                    </div>
                 </div>
             </div>
             <div class="row">
-                {% if porcentaje >= 75.0 %}
-                    <h3 style="color: #4DC45C">Porcentaje de compatibilidad: {{porcentaje}}% </h3>
-                {% endif %}
-                {% if porcentaje >= 25.0 and porcentaje < 75.0 %}
-                    <h3 style="color: #D6D667">Porcentaje de compatibilidad: {{porcentaje}}% </h3>
-                {% endif %}
-                {% if porcentaje < 25.0 %}
-                    <h3 style="color: #BD473A">Porcentaje de compatibilidad: {{porcentaje}}% </h3>
-                {% endif %}
+                <div class="col-md-6">
+                    <h3>Detalles de compatibilidad:</h3>
+                    <ul>
+                        {% for criterio, cumple in detalles.items %}
+                            <li>
+                                {% if cumple %}
+                                    <span style="color: green;">✔ {{ criterio }}</span>
+                                {% else %}
+                                    <span style="color: red;">✘ {{ criterio }}</span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-6" style="width: 20%; height: 20%;">
+                    <canvas id="compatChart" width="100" height="100"></canvas>
+                </div>
             </div>
-            <div class="row">
-                
-                <canvas id="compatChart" width="200" height="200"></canvas>
-            </div>
-            <div class="row">
-                <h3>Detalles de compatibilidad:</h3>
-                <ul>
-                    {% for criterio, cumple in detalles.items %}
-                        <li>
-                            {% if cumple %}
-                                <span style="color: green;">✔ {{ criterio }}</span>
-                            {% else %}
-                                <span style="color: red;">✘ {{ criterio }}</span>
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+            
             <div class="row">
                 <h3>Sitio web: {{ institucion.webInstitucion }}</h3>
             </div>

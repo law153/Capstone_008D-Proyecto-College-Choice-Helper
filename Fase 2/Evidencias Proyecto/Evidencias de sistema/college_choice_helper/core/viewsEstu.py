@@ -49,8 +49,6 @@ def mostrarRecomendaciones(request):
 
         recomendaciones = generar_recomendaciones(usuario)
 
-
-
         contexto = {'rol': rol, 'recomendaciones' : recomendaciones}
         return render(request, 'core/estudiantes/recomendaciones.html', contexto)
     else:
@@ -362,9 +360,6 @@ def definirParametros(request):
             control = True
             msjControl += "\n El valor de acreditacion no es un número válido \n"
 
-        if int(acreditacion) < 0 or int(acreditacion) > 7:
-            control = True
-            msjControl += "\n El valor de acreditacion debe estar entre 0 y 7 \n"
         
         try:
             parametros.puntajeNem = int(puntajeNem)
@@ -372,9 +367,6 @@ def definirParametros(request):
             control = True
             msjControl += "\n El valor de puntaje NEM no es un número válido \n"
         
-        if int(puntajeNem) < 100 or int(puntajeNem) > 1000:
-            control = True
-            msjControl += "\n El valor de puntaje NEM debe estar entre 100 y 1000 \n"
         
         parametros.carrera = carrera
 
@@ -411,15 +403,15 @@ def calcular_score(usuario, idInsti):
             score += 10
             detalles['La institución se ubica en '+insti.comunaInstitucion] = True
         else:
-            detalles['La institución se ubica en '+insti.comunaInstitucion] = False
+            detalles['La institución no se ubica en '+usuario.comunaUsuario] = False
     
     if parametros.gratuidadRelevancia:
         totalParam +=1
         if parametros.gratuidad == insti.adscritoGratuidad:
             score += 10
-            detalles['¿Esta adscrita a la gratuidad?'] = True
+            detalles['Esta adscrita a la gratuidad'] = True
         else:
-            detalles['¿Esta adscrita a la gratuidad?'] = False
+            detalles['No esta adscrita a la gratuidad'] = False
     
     if parametros.acreditacionRelevancia:
         totalParam +=1
@@ -433,69 +425,96 @@ def calcular_score(usuario, idInsti):
         totalParam +=1
         if parametros.esUniversidad == insti.esUniversidadInsti:
             score += 10
-            detalles['¿Es una universidad?'] = True
+            detalles['Es una universidad'] = True
         else:
-            detalles['¿Es una universidad?'] = False
-    
+            detalles['No es una universidad'] = False
+    tieneCarrera = True
+
     if parametros.carreraRelevancia:
         totalParam +=1
         if carreras.filter(nombreCarrera=parametros.carrera).exists():
             score += 10
             detalles['Tiene la carrera '+parametros.carrera] = True
         else:
-            detalles['Tiene la carrera '+parametros.carrera] = False
-        
-    if parametros.puntajeNemRelevancia:
-        totalParam +=1
-        if carrera:
-            if carrera.puntajeMinimo <= parametros.puntajeNem:
-                score += 10
-                detalles['El puntaje NEM te alcanza!'] = True
-            else:
-                detalles['El puntaje NEM te alcanza!'] = False
+            tieneCarrera = False
+            detalles['No tiene la carrera '+parametros.carrera] = False
     
-    if parametros.budgetRelevancia:
-        totalParam +=1
-        if carrera: 
-            
-            if parametros.gratuidad and insti.adscritoGratuidad:
-                score += 10
-                detalles['La gratuidad lo cubre'] = True 
-            else:
-                if carrera.costo <= 3000000 and parametros.budget == 1:
+    if tieneCarrera:
+        if parametros.puntajeNemRelevancia: 
+            totalParam +=1
+            if carrera:
+
+                if carrera.puntajeMinimo <= 300 and parametros.puntajeNem == 1:
                     score += 10
-                    detalles['Tu presupuesto alcanza!'] = True 
-                elif parametros.budget == 1 and carrera.costo > 3000000:
-                    detalles['Tu presupuesto alcanza!'] = False
+                    detalles['El puntaje NEM te alcanza'] = True
+                elif carrera.puntajeMinimo > 300 and parametros.puntajeNem == 1:   
+                    detalles['El puntaje no NEM te alcanza'] = False
+
+                if (carrera.puntajeMinimo > 300 and carrera.puntajeMinimo <= 500 )and parametros.puntajeNem == 2:
+                    score += 10
+                    detalles['El puntaje NEM te alcanza'] = True
+                elif carrera.puntajeMinimo > 500 and parametros.puntajeNem == 2:
+                    detalles['El puntaje no NEM te alcanza'] = False
+
+                if (carrera.puntajeMinimo > 500 and carrera.puntajeMinimo <= 700  )and parametros.puntajeNem == 3:
+                    score += 10
+                    detalles['El puntaje NEM te alcanza'] = True
+                elif carrera.puntajeMinimo > 700 and parametros.puntajeNem == 3:
+                    detalles['El puntaje no NEM te alcanza'] = False
+
+                if (carrera.puntajeMinimo > 700 and carrera.puntajeMinimo <= 900  )and parametros.puntajeNem == 4:
+                    score += 10
+                    detalles['El puntaje NEM te alcanza'] = True
+                elif carrera.puntajeMinimo > 900 and parametros.puntajeNem == 4:
+                    detalles['El puntaje no NEM te alcanza'] = False
+
+                if (carrera.puntajeMinimo > 900 and carrera.puntajeMinimo <= 1000 )and parametros.puntajeNem == 5:
+                    score += 10
+                    detalles['El puntaje NEM te alcanza'] = True
                 
-                if (carrera.costo > 3000000 and carrera.costo <= 5000000) and parametros.budget == 2:
+        
+        if parametros.budgetRelevancia:
+            totalParam +=1
+            if carrera: 
+                
+                if parametros.gratuidad and insti.adscritoGratuidad:
                     score += 10
-                    detalles['Tu presupuesto alcanza!'] = True 
-                elif parametros.budget == 2 and carrera.costo > 5000000:
-                    detalles['Tu presupuesto alcanza!'] = False
+                    detalles['La gratuidad lo cubre'] = True 
+                else:
+                    if carrera.costo <= 3000000 and parametros.budget == 1:
+                        score += 10
+                        detalles['Tu presupuesto alcanza'] = True 
+                    elif parametros.budget == 1 and carrera.costo > 3000000:
+                        detalles['Tu presupuesto no alcanza'] = False
+                    
+                    if (carrera.costo > 3000000 and carrera.costo <= 5000000) and parametros.budget == 2:
+                        score += 10
+                        detalles['Tu presupuesto alcanza'] = True 
+                    elif parametros.budget == 2 and carrera.costo > 5000000:
+                        detalles['Tu presupuesto no alcanza'] = False
 
-                if (carrera.costo > 5000000 and carrera.costo <= 7000000) and parametros.budget == 3:
-                    score += 10
-                    detalles['Tu presupuesto alcanza!'] = True 
-                elif parametros.budget == 3 and carrera.costo > 7000000:
-                    detalles['Tu presupuesto alcanza!'] = False
+                    if (carrera.costo > 5000000 and carrera.costo <= 7000000) and parametros.budget == 3:
+                        score += 10
+                        detalles['Tu presupuesto alcanza'] = True 
+                    elif parametros.budget == 3 and carrera.costo > 7000000:
+                        detalles['Tu presupuesto no alcanza'] = False
 
-                if (carrera.costo > 7000000 and carrera.costo <= 10000000) and parametros.budget == 4:
-                    score += 10
-                    detalles['Tu presupuesto alcanza!'] = True 
-                elif parametros.budget == 4 and carrera.costo > 10000000:
-                    detalles['Tu presupuesto alcanza!'] = False
+                    if (carrera.costo > 7000000 and carrera.costo <= 10000000) and parametros.budget == 4:
+                        score += 10
+                        detalles['Tu presupuesto alcanza'] = True 
+                    elif parametros.budget == 4 and carrera.costo > 10000000:
+                        detalles['Tu presupuesto no alcanza'] = False
 
-                if carrera.costo > 3000000 and parametros.budget == 5:
-                    score += 10
-                    detalles['Tu presupuesto alcanza!'] = True
+                    if carrera.costo >= 10000000 and parametros.budget == 5:
+                        score += 10
+                        detalles['Tu presupuesto alcanza'] = True
             
             
 
-    totalParam *=10 #Multiplicar la cantidad de parametros del usuario * 10 (valor de cada parametro) para tener el puntaje maximo posible dado los intereses
+    totalParam *=10 
 
     if totalParam == 0:
-        porcentaje = 100 ##Si el usuario no marco nada como relevante, todo le sirve
+        porcentaje = 100
     else:
         porcentaje = round((score / totalParam) * 100, 2)
 
