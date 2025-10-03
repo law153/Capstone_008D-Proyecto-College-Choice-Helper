@@ -6,16 +6,27 @@
     {% endblock titulo %}
 
     {% block disenos %}
-    
+    <style>
+        .contenedorPadre{
+            background: url("{% static 'core/img/fondo.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0; 
+            padding: 0;
+            height: 85vh;
+            width: 100%;
+            border: 2px solid #000;
+        }
+    </style>
     {% endblock disenos %}
 
 
     {% block cuerpo %}
-        <h2>Pagina registro</h2>
-        <div>
-            <div>
-                <h1>Ingrese los siguientes campos para registrarse</h1>
-                <form id="registro" action="{% url 'registrarUsuario' %}" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="contenedorPadre">
+            
+            <div class="contenedorForm">
+                <h1>Unete!</h1>
+                <h2>Ingrese los siguientes campos para registrarse</h2>
+                <form class="Formulario" id="registro" action="{% url 'registrarUsuario' %}" method="post" enctype="application/x-www-form-urlencoded">
                     {% csrf_token %}
                     <div>
                         <label for="correo">Correo:</label>
@@ -34,11 +45,11 @@
 
                     <div>
                         <label for="toggleRol"><input type="checkbox" id="toggleRol" name="toggleRol">¿Quieres solicitar cuenta de Gestor de instituciones?</label>
-                        <p>Las solicitudes para cuenta de Gestor de instituciones son revisadas y aprobadas por los administradores</p>
+                        <p>(Las solicitudes para cuenta de Gestor de instituciones son revisadas y aprobadas por los administradores)</p>
                     </div>
 
                     <div>
-                        <input type="submit" value="Confirmar" id="btn-confirmar">
+                        <input type="submit" value="Confirmar" id="btn-confirmar" class="btn btn-aceptar">
                     </div>
                 </form>
             </div>
