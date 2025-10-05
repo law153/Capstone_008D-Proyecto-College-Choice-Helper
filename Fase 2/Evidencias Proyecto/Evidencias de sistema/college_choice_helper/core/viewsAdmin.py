@@ -89,4 +89,13 @@ def eliminarUsuarioAdm(request, correoU):
         user.delete()
         print("Se eliminó el usuario")
         return redirect('mostrarIndex')
+def eliminarInstiAdm(request, id_insti):
+    if request.user.is_authenticated == False:
+        print("Debe iniciar sesión para acceder a este contenido")
+        return redirect('mostrarLogin')
+    if request.method == 'POST':
+        insti = Institucion.objects.get(idInstitucion = id_insti)
+        insti.delete()
+        print('Se eliminó la institución') 
+        return redirect('mostrarIndex')
 

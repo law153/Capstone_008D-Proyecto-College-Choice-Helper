@@ -19,9 +19,10 @@
                     <p>Correo: {{e.correo}}</p>
                     <p>Rol: {{e.rol}}</p>
                     <!--<a href="{% url 'eliminarUsuarioAdm' e.idUsuario%}">Eliminar</a>-->
-                    <form action="{% url 'eliminarUsuarioAdm' e.idUsuario %}" method="post" enctype="application/x-www-form-urlencoded"></form>
+                    <form action="{% url 'eliminarUsuarioAdm' e.idUsuario %}" method="post" enctype="application/x-www-form-urlencoded">
                     {% csrf_token %}
-                    <button type="submit">Eliminar</button>     
+                    <button type="submit">Eliminar</button>
+                    </form>     
                 {% endfor %} 
             </div>
 
@@ -30,6 +31,10 @@
                 {% for i in insti %}
                     <p>Correo: {{i.correo}}</p>
                     <p>Rol: {{i.rol}}</p>
+                    <form action="{% url 'eliminarUsuarioAdm' i.idUsuario %}" method="post" enctype="application/x-www-form-urlencoded">
+                    {% csrf_token %}
+                    <button type="submit">Eliminar</button>
+                    </form>    
                 {% endfor %}
             </div>
 

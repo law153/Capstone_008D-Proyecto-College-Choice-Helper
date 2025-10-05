@@ -16,17 +16,14 @@
             <div>
                 <h1>Lista de instituciones</h1>
                 {% for i in insti %}
-                <p>{{i.idInstitucion}}</p>
-                <p>{{i.nombreInstitucion}}</p>
-                <p>{{i.comunaInstitucion}}</p>
-                {% endfor %}
-                
-            </div>
-
-            <div>
-                <p>Gestionar<p>
-            </div>
-                
+                <p>ID: {{i.idInstitucion}}</p>
+                <p>Nombre: {{i.nombreInstitucion}}</p>
+                <p>Comuna: {{i.comunaInstitucion}}</p>
+                <form action="{% url 'eliminarInstiAdm' i.idInstitucion %}" method="post" enctype="application/x-www-form-urlencoded">
+                {% csrf_token %}
+                <button type="submit">Eliminar</button>
+                </form>  
+                {% endfor %}         
             </div>
         </div>
     {% endblock cuerpo %}
