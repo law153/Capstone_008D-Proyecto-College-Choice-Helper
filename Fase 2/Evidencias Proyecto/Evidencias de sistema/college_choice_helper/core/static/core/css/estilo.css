@@ -170,7 +170,7 @@ html, body{
     color: #333;
 }
 
-.contenedorForm input[type="email"], .contenedorForm input[type="password"]{
+.contenedorForm input[type="email"], .contenedorForm input[type="password"], .contenedorForm input[type="text"]{
     width: 100%;
     padding: 8px 5px;
     margin-bottom: 15px;
@@ -181,7 +181,7 @@ html, body{
     background: transparent;
 }
 
-.contenedorForm input[type="email"]:focus, .contenedorForm input[type="password"]:focus{
+.contenedorForm input[type="email"]:focus, .contenedorForm input[type="password"]:focus, .contenedorForm input[type="text"]{
     border-bottom: 2px solid #6595ff;
 }
 
@@ -218,6 +218,15 @@ html, body{
 
 .contenedorForm .btn-aceptar:hover {
     background: #4a7bdb;
+}
+
+.contenedorForm .btn-eliminar {
+    background: #a00;
+    color: #fff;
+}
+
+.contenedorForm .btn-eliminar:hover {
+    background: #700;
 }
 
 .titulo{
