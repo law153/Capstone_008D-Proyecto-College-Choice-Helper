@@ -220,6 +220,15 @@ html, body{
     background: #4a7bdb;
 }
 
+.contenedorForm .btn-eliminar {
+    background: #a00;
+    color: #fff;
+}
+
+.contenedorForm .btn-eliminar:hover {
+    background: #700;
+}
+
 .titulo{
     font-size: 35px;
     margin-bottom: 20px;
