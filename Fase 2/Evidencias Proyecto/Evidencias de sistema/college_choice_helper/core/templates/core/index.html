@@ -7,14 +7,18 @@
 
     {% block disenos %}
     <style>
-        .contenedorPadre{
+        .contenedorPadre {
             background: url("{% static 'core/img/fondoIndex.jpg' %}") no-repeat center center fixed;
             background-size: cover;
-            margin: 0; 
+            height: 85vh; 
+            width: 100vw;
+            margin: 0;
             padding: 0;
-            height: 85vh;
-            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
     </style>
     {% endblock disenos %}
 
@@ -24,9 +28,18 @@
         <div class="contenedorPadre">
             
             {% if rol == None %}
-            <div class="contenedorForm">
+            <div class="contenedorForm" style="margin-right: 50%;">
                 <h2 class="titulo">Bienvenido!</h2>
-                <p class="texto">Usuario sin sesión iniciada</p>
+                <p class="texto">College Choice Helper es tu ayuda para encontrar la institución que más se adapte a ti!</p>
+                <br>
+                <p class="texto">Crear tu cuenta hoy, define tus preferencias y descubre donde estudiar cómo quieres!</p>
+                <br>
+                <br>
+                <p class="texto">Ten en mente que:</p>
+                <br>
+                <p class="texto">College choice helper <strong>no</strong> busca decidir por ti, sino solamente darte sugerencias considerando lo que tu elijas importante</p>
+                <br>
+                <p class="texto">No buscamos tomar la decisión por ti, solo queremos ayudarte a encontrar opciones y salir de la duda :D</p>
             </div>
             {% endif %}
 
