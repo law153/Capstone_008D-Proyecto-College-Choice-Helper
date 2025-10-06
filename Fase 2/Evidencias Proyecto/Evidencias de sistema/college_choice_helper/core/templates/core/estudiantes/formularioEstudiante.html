@@ -6,19 +6,36 @@
     {% endblock titulo %}
 
     {% block disenos %}
-    
+    <style>
+        .contenedorParametro {
+            border-bottom: 2px solid #a0b8ff;
+        }
+
+        
+        .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 10px; 
+        }
+
+        .radio-group label {
+            margin: 0;
+        }
+
+        
+
+    </style>
     {% endblock disenos %}
 
 
     {% block cuerpo %}
-        <h2>Pagina del formulario</h2>
         <div>
             <div class="contenedorForm">
                 <h1>Defina los parametros de su interes</h1>
 
                 <form class="Formulario" id="formulario" action="{% url 'definirParametros' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div>
+                    <div class="contenedorParametro">
                         <label for="toggleComuna"><input type="checkbox" id="toggleComuna" name="toggleComuna" {% if parametros.comunaRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="comuna">¿En que comuna te gustaria estudiar?</label>
                         <select id="comuna" name="comuna">
@@ -32,7 +49,7 @@
 
                     </div>
 
-                    <div>
+                    <div class="contenedorParametro">
                         <label for="togglePresupuesto"><input type="checkbox" id="togglePresupuesto" name="togglePresupuesto" {% if parametros.budgetRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="presupuesto">¿Cuanto es tu presupuesto?</label>
                         <select id="presupuesto" name="presupuesto">
@@ -45,16 +62,17 @@
                         </select>
                     </div>
 
-                    <div>
-                        <label for="toggleGratuidad"><input type="checkbox" id="toggleGratuidad" name="toggleGratuidad" {% if parametros.gratuidadRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
+                    <div class="radio-group contenedorParametro">
+                        <label class="preguntaToggle" for="toggleGratuidad"><input type="checkbox" id="toggleGratuidad" name="toggleGratuidad" {% if parametros.gratuidadRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="gratuidad">¿Cuentas con la gratuidad?</label>
+
                         <label for="siGratu">Si</label>
                         <input type="radio" id="siGratu" name="gratuidad" value="si" {% if parametros.gratuidad %}checked{% endif %}>
                         <label for="noGratu">No</label>
                         <input type="radio" id="noGratu" name="gratuidad" value="no" {% if not parametros.gratuidad %}checked{% endif %}>
                     </div>
 
-                    <div>
+                    <div class="contenedorParametro">
                         <label for="toggleAcreditacion"><input type="checkbox" id="toggleAcreditacion" name="toggleAcreditacion" {% if parametros.acreditacionRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="acreditacion">¿Cuantos años de acreditación minima buscas?</label>
                         <select id="acreditacion" name="acreditacion">
@@ -67,7 +85,7 @@
                         </select>
                     </div>
                     
-                    <div>
+                    <div class="contenedorParametro radio-group">
                         <label for="toggleUni"><input type="checkbox" id="toggleUni" name="toggleUni" {% if parametros.esUniversidadRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="esUni">¿Buscas preferentemente una universidad?</label>
                         <label for="UniSi">Si</label>
@@ -76,7 +94,7 @@
                         <input type="radio" id="UniNo" name="EsUni" value="no" {% if not parametros.esUniversidad %}checked{% endif %}>
                     </div>
 
-                    <div>
+                    <div class="contenedorParametro">
                         <label for="toggleNem"><input type="checkbox" id="toggleNem" name="toggleNem" {% if parametros.puntajeNemRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="nem">¿Cual es tu puntaje NEM aproximado?</label>
                         <select id="nem" name="nem">
@@ -89,7 +107,7 @@
                         </select>
                     </div>
 
-                    <div>
+                    <div class="contenedorParametro">
                         <label for="toggleCarrera"><input type="checkbox" id="toggleCarrera" name="toggleCarrera" {% if parametros.carreraRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
                         <label for="carrera">¿Que carrera llama tu atención?</label>
                         <select id="carrera" name="carrera">
