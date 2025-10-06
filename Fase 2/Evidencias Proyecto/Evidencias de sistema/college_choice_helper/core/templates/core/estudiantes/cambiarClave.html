@@ -12,11 +12,9 @@
 
     {% block cuerpo %}
         <div>
-            <div>
-                <h2>Cambiar mi clave</h2>
-            </div>
-            
+
             <div class="contenedorForm">
+                <h2>Cambiar mi clave</h2>
                 <form action="{% url 'cambiarClave' %}" method="post" enctype="application/x-www-form-urlencoded">
                 {% csrf_token %}
                     <div>

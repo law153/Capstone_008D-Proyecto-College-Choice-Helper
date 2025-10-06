@@ -6,18 +6,21 @@
     {% endblock titulo %}
 
     {% block disenos %}
-    
+    <style>
+        .contenedorForm{
+            width: 50%;
+
+        }
+    </style>
     {% endblock disenos %}
 
 
     {% block cuerpo %}
-        <div>
-            <h2>Gestionar mi cuenta</h2>
-
+        <div class="contenedorForm">
             <form>
-                
+                <h2>Gestionar mi cuenta</h2>
                 <div>
-                    <label for="btn-correo">SI desea cambiar su correo:</label>
+                    <label for="btn-correo">Si desea cambiar su correo:</label>
                     <a href="{% url 'mostrarCambioCorreo' %}">Cambiar correo</a>
                 </div>
 

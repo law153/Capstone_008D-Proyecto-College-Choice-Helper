@@ -12,11 +12,8 @@
 
     {% block cuerpo %}
         <div>
-            <div>
-                <h2>Eliminar cuenta</h2>
-            </div>
-            
             <div class="contenedorForm">
+                <h2>Eliminar cuenta</h2>
                 <form action="{% url 'eliminarCuenta' %}" method="post" enctype="application/x-www-form-urlencoded">
                 {% csrf_token %}
                     <div>
