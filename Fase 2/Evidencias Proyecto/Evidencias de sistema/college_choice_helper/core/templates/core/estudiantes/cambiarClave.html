@@ -1,4 +1,4 @@
-{% extends 'core/sinCuenta/plantillaSinCuenta.html'%}
+{% extends 'core/sinCuenta/plantillaSinCuenta.html' %}
 {% load static %}
 
     {% block titulo %}
@@ -16,7 +16,7 @@
                 <h2>Cambiar mi clave</h2>
             </div>
             
-            <div>
+            <div class="contenedorForm">
                 <form action="{% url 'cambiarClave' %}" method="post" enctype="application/x-www-form-urlencoded">
                 {% csrf_token %}
                     <div>
@@ -35,7 +35,7 @@
                     </div>
 
                     <div>
-                        <button type="submit">Cambiar contraseña</button>
+                        <button class="btn btn-aceptar" type="submit">Cambiar contraseña</button>
                     </div>
 
 

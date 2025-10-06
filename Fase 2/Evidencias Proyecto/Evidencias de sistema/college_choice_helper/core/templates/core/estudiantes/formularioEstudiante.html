@@ -13,10 +13,10 @@
     {% block cuerpo %}
         <h2>Pagina del formulario</h2>
         <div>
-            <div>
+            <div class="contenedorForm">
                 <h1>Defina los parametros de su interes</h1>
 
-                <form id="formulario" action="{% url 'definirParametros' %}" method="post" enctype="multipart/form-data">
+                <form class="Formulario" id="formulario" action="{% url 'definirParametros' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div>
                         <label for="toggleComuna"><input type="checkbox" id="toggleComuna" name="toggleComuna" {% if parametros.comunaRelevancia %}checked{% endif %}>¿Te interesa este parametro?</label>
@@ -104,7 +104,7 @@
                     </div>
 
                     <div>
-                        <button type="submit">Enviar</button>
+                        <button class="btn btn-aceptar" type="submit">Enviar</button>
                     </div>
 
                 </form>
