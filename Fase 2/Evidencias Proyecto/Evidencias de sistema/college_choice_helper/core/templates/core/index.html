@@ -44,13 +44,41 @@
             {% endif %}
 
             {% if rol == 0 %}
-                <p>Usuario estudiante</p>
+            <div class="contenedorForm" style="margin-right: 50%;">
+                <h2 class="titulo">Bienvenido!</h2>
+                <p class="texto">College Choice Helper es tu ayuda para encontrar la institución que más se adapte a ti!</p>
+                <br>
+                <p class="texto">Entra a la pagina del Formulario para definir tus preferencias o ve directamente a Recomendaciones si ya lo hiciste!</p>
+                <br>
+                <br>
+                <p class="texto">Ten en mente que:</p>
+                <br>
+                <p class="texto">College choice helper <strong>no</strong> busca decidir por ti, sino solamente darte sugerencias considerando lo que tu elijas importante</p>
+                <br>
+                <p class="texto">No buscamos tomar la decisión por ti, solo queremos ayudarte a encontrar opciones y salir de la duda :D</p>
+            </div>
             {% endif %}
             {% if rol == 1 %}
-                <p>Usuario institution manager</p>
+            <div class="contenedorForm" style="margin-right: 50%;">
+                <h2 class="titulo">Bienvenido Gestor institucional!</h2>
+                <p class="texto">College Choice Helper busca ayudar a los estudiantes de Chile a encontrar las instituciones que mejor se adapte a ellos!</p>
+                <br>
+                <p class="texto">Agrega la institución que representas en la pagina de Gestionar Instituciones, y luego podrás agregar la oferta academica disponible!</p>
+                <br>
+            </div>
             {% endif %}
             {% if rol == 2 %}
-                <p>Usuario administrador</p>
+            <div class="contenedorForm" style="margin-right: 50%;">
+                <h2 class="titulo">Bienvenido Administrador!</h2>
+                <p class="texto">College Choice Helper busca ayudar a los estudiantes de Chile a encontrar las instituciones que mejor se adapte a ellos!</p>
+                <br>
+                <p class="texto">Entra en Ver Peticiones para ver las sugerencias y problema que han enviado los usuarios!</p>
+                <br>
+                <p class="texto">Accede a Gestionar instituciones para revisar que todo se encuentre en orden!</p>
+                <br>
+                <p class="texto">Entra en Gestionar usuarios para verificar que los roles estén bien asignados!</p>
+                <br>
+            </div>
             {% endif %}
         </div>
         

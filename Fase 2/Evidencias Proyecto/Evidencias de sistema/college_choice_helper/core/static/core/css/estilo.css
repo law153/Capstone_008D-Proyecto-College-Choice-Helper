@@ -62,13 +62,17 @@ html, body{
 }
 
 .columnaCuenta li {
-    margin: 8px 0;   
+    margin: 8px 0;
+    border: 2px solid #a6c3ff;
+    border-radius: 12px;
+    padding: 2px;
 }
 
 .columnaCuenta a{
     text-decoration: none;
     color: #000;
     font-size: 15px;
+    font-weight: bold;
 }
 
 .columnaNav{
@@ -93,12 +97,16 @@ html, body{
 
 .columnaNav li {
     margin: 8px 0;   
+    border: 2px solid #fff;
+    border-radius: 12px;
+    padding: 2px;
 }
 
 .columnaNav a{
     text-decoration: none;
     color: #fff;
     font-size: 25px;
+    font-weight: bold;
 } 
 
 .columnaNoCuenta{
@@ -219,10 +227,6 @@ html, body{
     color: #000 !important;
 }
 
-.texto-chikito{
-    font-size: 15px !important; 
-    color: #000 !important;
-}   
 
 .container-fluid,
 .row,
