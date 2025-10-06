@@ -11,21 +11,21 @@
 
 
     {% block cuerpo %}
-        <h1>Pagina de las recomendaciones</h1>
-        <div>
-            <h2>Estas son las recomendaciones que tenemos para ti</h2>
+        <div class="contenedorRecomendaciones">
+            <h1>Recomendaciones</h1>
+            <h2>Estas son las recomendaciones que tenemos para ti:</h2>
             {% for recom in recomendaciones %}
-            <div class="col-md-2">
-                <div class="card">
+            <div class="col-md-3 contenedorInsti">
+                <div class="card contenedor-img">
                     <img src="{{recom.institucion.fotoInstitucion.url}}" alt="No hay imagen disponible">
                 </div>
                 <div>
-                    <p>Nombre: {{ recom.institucion.nombreInstitucion }}</p>
+                    <p class="texto">{{ recom.institucion.nombreInstitucion }}</p>
                 </div>
                 <div>
-                    <p>Porcentaje de compatibilidad: {{ recom.porcentaje }}%</p>
+                    <p class="texto">Compatibilidad: {{ recom.porcentaje }}%</p>
                 </div>
-                <div>
+                <div class="contenedor-link">
                     <a href="{% url 'mostrarVistaInstituciones' recom.institucion.idInstitucion %}">Ver mas</a>
                 </div>
             </div>
