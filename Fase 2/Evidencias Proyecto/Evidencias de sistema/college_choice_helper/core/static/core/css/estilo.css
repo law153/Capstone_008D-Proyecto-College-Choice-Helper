@@ -2,6 +2,13 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+}
+
 .barraSuperior{
     text-decoration: none !important;
     background: #6595ff !important;
@@ -126,7 +133,7 @@
 }
 
 .contenedorForm{
-    width: 400px;
+    width: 40%;
     margin: 40px auto;
     padding: 20px 30px;
     background: #fff;
@@ -198,4 +205,17 @@
 
 .contenedorForm .btn-aceptar:hover {
     background: #4a7bdb;
+}
+
+.titulo{
+    font-size: 35px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.texto{
+    font-size: 25px;
+    color: #333;
+    
 }

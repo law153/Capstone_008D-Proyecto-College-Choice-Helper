@@ -6,26 +6,41 @@
     {% endblock titulo %}
 
     {% block disenos %}
-    
+    <style>
+        .contenedorPadre{
+            background: url("{% static 'core/img/fondoIndex.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0; 
+            padding: 0;
+            height: 85vh;
+            width: 100%;
+        }
+    </style>
     {% endblock disenos %}
 
 
     {% block cuerpo %}
-        <h2>Pagina index</h2>
+        
+        <div class="contenedorPadre">
+            
+            {% if rol == None %}
+            <div class="contenedorForm">
+                <h2 class="titulo">Bienvenido!</h2>
+                <p class="texto">Usuario sin sesión iniciada</p>
+            </div>
+            {% endif %}
 
-        {% if rol == None %}
-            <p>Usuario sin sesión iniciada</p>
-        {% endif %}
-
-        {% if rol == 0 %}
-            <p>Usuario estudiante</p>
-        {% endif %}
-        {% if rol == 1 %}
-            <p>Usuario institution manager</p>
-        {% endif %}
-        {% if rol == 2 %}
-            <p>Usuario administrador</p>
-        {% endif %}
+            {% if rol == 0 %}
+                <p>Usuario estudiante</p>
+            {% endif %}
+            {% if rol == 1 %}
+                <p>Usuario institution manager</p>
+            {% endif %}
+            {% if rol == 2 %}
+                <p>Usuario administrador</p>
+            {% endif %}
+        </div>
+        
         
     {% endblock cuerpo %}
 

@@ -28,7 +28,7 @@
         <div class="container-fluid">
             <div class="row contenidoTotal">
                 {% if rol == None %}
-                <div class="col-md-3 columnaNoCuenta" style="border: 2px solid #000;">
+                <div class="col-md-3 columnaNoCuenta" >
                     <ul>
                         <li><a href="{% url 'mostrarLogin' %}">Iniciar sesión</a></li>
                         <li><a href="{% url 'mostrarRegistro'%}">Registrarme</a></li>
@@ -36,7 +36,7 @@
                 </div>
                 {% endif %}
                 {% if rol != None %}
-                <div class="col-md-1 columnaCuenta" style="border: 2px solid #000;">
+                <div class="col-md-1 columnaCuenta">
                         <ul>
                             {% if rol == 2 %}
                                 <li><a href="{% url 'mostrarVerPeticiones'%}">Ver peticiones</a></li>
@@ -48,7 +48,7 @@
                             <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>
                         </ul>
                 </div>
-                <div class="col-md-2 columnaNav" style="border: 2px solid #000;">
+                <div class="col-md-2 columnaNav">
                     <ul>
                         <!--Estudiante-->
                         {% if rol == 0 %}
@@ -68,7 +68,7 @@
                     </ul>
                 </div>
                 {% endif %}
-                <div class="col-md-9" style="border: 2px solid #000;">
+                <div class="col-md-9">
                     {% block cuerpo %}
 
                     {% endblock cuerpo %}
