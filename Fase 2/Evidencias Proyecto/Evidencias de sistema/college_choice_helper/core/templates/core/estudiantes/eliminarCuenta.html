@@ -16,9 +16,10 @@
                 <h2>Eliminar cuenta</h2>
                 <form action="{% url 'eliminarCuenta' %}" method="post" enctype="application/x-www-form-urlencoded">
                 {% csrf_token %}
-                    <div>
-                        <label for="clave">Ingrese su clave actual:</label>
+                <label for="clave">Ingrese su clave actual:</label>
+                    <div class="campo-password">
                         <input type="password" id="clave" name="clave" placeholder="Contraseña actual">
+                        <span class="toggle-password">👁️</span>
                     </div>
                     <div>
                         <label for="confirmar">Si esta seguro escriba ELIMINAR</label>

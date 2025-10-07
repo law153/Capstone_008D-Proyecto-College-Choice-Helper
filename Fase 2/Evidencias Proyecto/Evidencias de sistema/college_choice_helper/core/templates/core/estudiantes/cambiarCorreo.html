@@ -16,10 +16,11 @@
                 <h2>Cambiar mi correo</h2>
                 <form action="{% url 'cambiarCorreo' %}" method="post" enctype="application/x-www-form-urlencoded">
                 {% csrf_token %}
-
-                    <div>
-                        <label for="clave">Ingrese su clave:</label>
+                    <label for="clave">Ingrese su clave:</label>
+                    <div class="campo-password">
+                        
                         <input type="password" id="clave" name="clave" placeholder="Clave">
+                        <span class="toggle-password">👁️</span>
                     </div>
 
                     <div>
