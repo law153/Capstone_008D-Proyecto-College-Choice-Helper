@@ -1,31 +1,61 @@
 {% extends 'core/sinCuenta/plantillaSinCuenta.html'%}
 {% load static %}
+{% load humanize %}
 
     {% block titulo %}
         <title>Institución</title>
     {% endblock titulo %}
 
     {% block disenos %}
-    
+    <style>
+      
+        .contenedorForm{
+            width: 80% !important;
+        }
+
+        .contenedor-img{
+            width: 20%;
+            height: 90%;
+            object-fit: cover;
+            border: 2px solid #000;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            margin-top: 10px;
+        }
+
+        .contenedor-img > img{
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        li{
+            list-style: none;
+        }
+    </style>
     {% endblock disenos %}
 
 
     {% block cuerpo %}
-        <h2>Pagina de una Institución</h2>
-        <div>
-            <div class="row">
-                <h3>Nombre de la Institución: {{ institucion.nombreInstitucion }}</h3>
-            </div>
+        <div class="contenedorForm">
+            
             <div class="row">
                 <div class="col-md-12">
-                    <div  style="width: 20%; height: 20%;">
+                    <div class="contenedor-img">
                         <img src="{{institucion.fotoInstitucion.url}}" alt="No hay imagen disponible" style=" object-fit: fill;">
                     </div>
                 </div>
             </div>
             <div class="row">
+                <h2>Nombre de la Institución: {{ institucion.nombreInstitucion }}</h2>
+            </div>
+            <div class="row">
+                <h2>Detalles de compatibilidad:</h2>
                 <div class="col-md-6">
-                    <h3>Detalles de compatibilidad:</h3>
+                    
                     <ul>
                         {% for criterio, cumple in detalles.items %}
                             <li>
@@ -44,35 +74,35 @@
             </div>
             
             <div class="row">
-                <h3>Sitio web: {{ institucion.webInstitucion }}</h3>
+                <h2>Sitio web: {{ institucion.webInstitucion }}</h2>
             </div>
             <div class="row">
                 {% if institucion.adscritoGratuidad %}
-                    <h3>Adscrita a gratuidad: Si</h3>
+                    <h2>Adscrita a gratuidad: Si</h2>
                 {% else %}
-                    <h3>Adscrita a gratuidad: No</h3>
+                    <h2>Adscrita a gratuidad: No</h2>
                 {% endif %}
             </div>
             <div class="row">
-                <h3>Años de acreditacion: {{ institucion.acreditacion }}</h3>
+                <h2>Años de acreditacion: {{ institucion.acreditacion }}</h2>
             </div>
             <div class="row">
-                <h3>Comuna: {{ institucion.comunaInstitucion }} </h3>
+                <h2>Comuna: {{ institucion.comunaInstitucion }} </h2>
             </div>
             <div class="row">
                 {% if institucion.esUniversidadInsti %}
-                    <h3>Es una universidad: Si</h3>
+                    <h2>Es una universidad: Si</h2>
                 {% else %}
-                    <h3>Es una universidad: No</h3>
+                    <h2>Es una universidad: No</h2>
                 {% endif %}
             </div>
             <div class="row">
-                <h3>Carreras disponibles: </h3>
+                <h2>Carreras disponibles: </h2>
             </div>
 
             <div class="row">
                 {% for carre in carreras %}
-                <div class="col-md-2">
+                <div class="col-md-2 contenedorInsti">
                     <div>
                         <p>Nombre carrera: {{ carre.nombreCarrera }}</p>
                     </div>
@@ -80,7 +110,7 @@
                         <p>Puntaje minimo: {{ carre.puntajeMinimo }}</p>
                     </div>
                     <div>
-                        <p>Costo: {{ carre.costo }}</p>
+                        <p>Costo: ${{ carre.costo|intcomma:"." }}</p>
                     </div>
                 </div>
                 {% endfor %}
