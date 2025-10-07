@@ -240,4 +240,35 @@
     {% endblock cuerpo %}
 
     {% block js %}
+        <script>
+        $(document).ready(function() {
+            
+            function actualizarCampos() {
+                $('.parametro-header input[type="checkbox"]').each(function() {
+                    const toggle = $(this);
+                    const contenedor = toggle.closest('.contenedorParametro');
+                    
+                    
+                    const campos = contenedor.find('input[type="text"], input[type="radio"], select');
+                    
+                    if (toggle.is(':checked')) {
+                        campos.prop('disabled', false);
+                        campos.css('background-color', 'white');
+                        contenedor.css('opacity', '1');
+                    } else {
+                        campos.prop('disabled', true);
+                        campos.css('background-color', '#e0e0e0');
+                        contenedor.css('opacity', '0.8');
+                    }
+                });
+            }
+
+            
+            actualizarCampos();
+
+            
+            $('.parametro-header input[type="checkbox"]').on('change', actualizarCampos);
+        });
+        </script>
+
     {% endblock js %}
