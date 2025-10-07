@@ -1,4 +1,4 @@
-{% extends 'core/sinCuenta/plantillaSinCuenta.html'%}
+{% extends 'core/sinCuenta/plantillaSinCuenta.html' %}
 {% load static %}
 
     {% block titulo %}
@@ -6,14 +6,65 @@
     {% endblock titulo %}
 
     {% block disenos %}
+    <style>
+        .contenedorForm{
+            width: 50%;
+        }
+
+        .contenedorForm input[type="number"], .contenedorForm input[type="url"], .contenedorForm input[type="file"]{
+            width: 100%;
+            padding: 8px 5px;
+            margin-bottom: 15px;
+            border: none;
+            border-bottom: 2px solid #a0b8ff;
+            outline: none;
+            font-size: 14px;
+            background: transparent;
+
+        }
+
+        .contenedorForm input[type="number"]:focus, .contenedorForm input[type="url"]:focus, .contenedorForm input[type="file"]{
+            border-bottom: 2px solid #6595ff;
+        }
+
+        .contenedorForm input[type="file"]::file-selector-button{
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .radio-group {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 8px 5px;
+            margin-bottom: 15px;
+            border: none;
+            border-bottom: 2px solid #a0b8ff;
+            outline: none;
+            background: transparent;
+            gap: 10px; 
+        }
+
+        .radio-group:focus {
+            border-bottom: 2px solid #6595ff;
+        }
+
+        .radio-group label {
+            margin: 0;
+        }
+
+    </style>
     
     {% endblock disenos %}
 
     {% block cuerpo %}
-        <h2>Pagina para agregar Instituciones</h2>
         <div>
-            <div>
-                <h2>Ingrese los siguientes campos para registrar su institución</h2>
+            <div class="contenedorForm">
+                <h2>Ingrese los campos de la Institución</h2>
 
                 <form id="form_agregarInsti" action="{% url 'insertarInsti' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -22,8 +73,9 @@
                         <input type="text" id="nombre_insti" name="nombre_insti" placeholder="Nombre de la Institución">
                     </div>
 
-                    <div>
-                        <label>¿Es universidad?</label>
+                    <label>¿Es universidad?</label>
+                    <div class="radio-group">
+                        
                         <label for="es_uni">Si</label>
                         <input type="radio" id="es_uni" name="es_uni" value="True">
 
@@ -43,9 +95,8 @@
                         <input type="number" id="costo_insti" name="" placeholder="Costo">
                     </div>
                     !-->
-
-                    <div>
-                        <label>¿Está adscrita a gratuidad?</label>
+                    <label>¿Está adscrita a gratuidad?</label>
+                    <div class="radio-group">
                         <label for="gratuidad">Si</label>
                         <input type="radio" id="gratuidad" name="gratuidad" value="True">
 
@@ -69,7 +120,7 @@
                     </div>
 
                     <div>
-                        <input type="submit" value="Enviar" id="btn_agregarInsti" name="btn_agregarInsti">
+                        <button class="btn btn-aceptar" type="submit" value="Enviar" id="btn_agregarInsti" name="btn_agregarInsti">Enviar</button>
                     </div>
 
                 </form>
