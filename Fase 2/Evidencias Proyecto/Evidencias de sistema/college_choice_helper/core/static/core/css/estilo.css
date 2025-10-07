@@ -163,7 +163,11 @@ body, ul, li {
 }
 
 .columnaNoCuenta li:hover{
-    background-color: #ccc;
+    background-color: #6595ff;
+}
+
+.columnaNoCuenta a:hover{
+    color: #666 !important;
 }
 
 
