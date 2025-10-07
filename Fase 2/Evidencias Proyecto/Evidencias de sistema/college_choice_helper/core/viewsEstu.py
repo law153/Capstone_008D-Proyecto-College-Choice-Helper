@@ -148,10 +148,13 @@ def generarPeticion(request):
             tipoPeticion = request.POST.get('tipo')
             mensaje = request.POST.get('mensaje')
 
-            Peticiones.objects.create(asunto = asunto, tipoPeticion = tipoPeticion, mensaje = mensaje, usuario = usuario)
-            print("Petición creada con éxito")
-            return redirect('mostrarHacerpeticion')
-
+            if asunto and tipoPeticion and mensaje:
+                Peticiones.objects.create(asunto = asunto, tipoPeticion = tipoPeticion, mensaje = mensaje, usuario = usuario)
+                print("Petición creada con éxito")
+                return redirect('mostrarHacerpeticion')
+            else:
+                print("Los campos están vacíos")
+                return redirect('mostrarHacerpeticion')
         else:
             print("Petición fallada :,c", asunto, tipoPeticion, mensaje, correo)
             return redirect('mostrarHacerpeticion')
