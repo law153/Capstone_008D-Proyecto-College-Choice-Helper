@@ -1,4 +1,3 @@
-
 {% extends 'core/sinCuenta/plantillaSinCuenta.html'%}
 
 {% load static %}
@@ -8,12 +7,34 @@
     {% endblock titulo %}
 
     {% block disenos %}
-    
+    <style>
+        .contenedorForm {
+            width: 50%;
+        }
+
+        .contenedorForm select, .contenedorForm textarea{
+            width: 100%;
+            padding: 8px 5px;
+            margin-bottom: 15px;
+            border: none;
+            border-bottom: 2px solid #a0b8ff;
+            outline: none;
+            font-size: 14px;
+            background: transparent;
+
+        }
+
+        .contenedorForm select, .contenedorForm textarea :focus{
+            border-bottom: 2px solid #6595ff;
+        }
+
+
+    </style>
     {% endblock disenos %}
 
 
     {% block cuerpo %}
-        <div class="row">
+        <div class="contenedorForm">
             <h2>Enviar una petición</h2>
 
             <form id="crear-peticion" action="{% url 'generarPeticion' %}" method="post" enctype="application/x-www-form-urlencoded"> 
@@ -34,11 +55,11 @@
 
                 <div>
                     <label for="mensaje">Mensaje:</label>
-                    <textarea name="mensaje" id="mensaje" placeholder="Escriba aqui su petición"> </textarea>
+                    <textarea name="mensaje" id="mensaje" placeholder="Escriba aqui su petición"></textarea>
                 </div>
 
                 <div>
-                    <input type="submit" value="Enviar petición" id="submit">
+                    <button class="btn btn-aceptar" type="submit" id="submit">Enviar</button>  
                 </div>
             </form>
         </div>
