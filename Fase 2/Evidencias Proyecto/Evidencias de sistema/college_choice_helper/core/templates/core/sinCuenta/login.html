@@ -35,8 +35,12 @@
 
                     <div>
                         <label for="contrasena_ini">Contraseña:</label>
-                        <input type="password" id="contrasena_ini" name="contrasena_ini" placeholder="Contraseña">
+                        <div style="position: relative; display: flex; align-items: center;">
+                            <input type="password" id="contrasena_ini" name="contrasena_ini" placeholder="Contraseña" style="padding-right: 35px;">
+                            <span id="togglePassword" style="position: absolute; right: 10px; cursor: pointer; user-select: none;">👁️</span>
+                        </div>
                     </div>
+
 
                     <div class="form-group container-link">
                         <a href="{% url 'password_reset' %}">Olvide mi contraseña</a>
@@ -52,4 +56,13 @@
     {% endblock cuerpo %}
 
     {% block js %}
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordInput = document.getElementById('contrasena_ini');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? '👁️' : '🙈'; // cambia icono
+        });
+    </script>
+
     {% endblock js %}

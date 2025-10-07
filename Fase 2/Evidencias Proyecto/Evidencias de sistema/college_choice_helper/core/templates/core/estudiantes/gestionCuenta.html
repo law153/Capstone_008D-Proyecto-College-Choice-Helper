@@ -21,17 +21,17 @@
                 <h2>Gestionar mi cuenta</h2>
                 <div>
                     <label for="btn-correo">Si desea cambiar su correo:</label>
-                    <a href="{% url 'mostrarCambioCorreo' %}">Cambiar correo</a>
+                    <a class="btn btn-aceptar" href="{% url 'mostrarCambioCorreo' %}">Cambiar correo</a>
                 </div>
 
                 <div>
                     <label for="btn-clave">Si desea cambiar su clave: </label>
-                    <a href="{% url 'mostrarCambioClave' %}">Cambiar clave</a>
+                    <a class="btn btn-aceptar" href="{% url 'mostrarCambioClave' %}">Cambiar clave</a>
                 </div>
 
                 <div>
                     <label for="btn-borrar">Si desea eliminar su cuenta: </label>
-                    <a href="{% url 'mostrarEliminarCuenta' %}">Eliminar cuenta</a>
+                    <a class="btn btn-eliminar" href="{% url 'mostrarEliminarCuenta' %}">Eliminar cuenta</a>
                 </div>
 
 
