@@ -17,18 +17,21 @@
                 <h2>Cambiar mi clave</h2>
                 <form action="{% url 'cambiarClave' %}" method="post" enctype="application/x-www-form-urlencoded">
                 {% csrf_token %}
-                    <div>
-                        <label for="clave">Ingrese su clave actual:</label>
+                    <label for="clave">Ingrese su clave actual:</label>
+                    <div class="campo-password">
+                        
                         <input type="password" id="clave" name="clave" placeholder="Contraseña actual">
                     </div>
 
-                    <div>
-                        <label for="clave_new">Ingrese su clave nueva:</label>
+                    <label for="clave_new">Ingrese su clave nueva:</label>
+                    <div class="campo-password">
+                        
                         <input type="password" id="clave_new" name="clave_new" placeholder="Contraseña nueva">
                     </div>
-
-                    <div>
-                        <label for="clave_rep">Repita su clave nueva: </label>
+                    
+                    <label for="clave_rep">Repita su clave nueva: </label>
+                    <div class="campo-password">
+                        
                         <input type="password" id="clave_rep" name="clave_rep" placeholder="Repita la contraseña">
                     </div>
 

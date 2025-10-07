@@ -76,6 +76,26 @@
 
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Selecciona todos los toggles
+                const toggles = document.querySelectorAll('.toggle-password');
+
+                toggles.forEach(toggle => {
+                    toggle.addEventListener('click', function() {
+                        const input = this.previousElementSibling;
+                        if (input && input.type === 'password') {
+                            input.type = 'text';
+                            this.textContent = '🙈'; 
+                        } else if (input) {
+                            input.type = 'password';
+                            this.textContent = '👁️';
+                        }
+                    });
+                });
+            });
+        </script>
+
         {% block js %}
         {% endblock js %}
 

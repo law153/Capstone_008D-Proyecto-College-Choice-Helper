@@ -361,3 +361,24 @@ body, ul, li {
     text-align: center;    
 }
 
+.campo-password {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.campo-password input[type="password"],
+.campo-password input[type="text"] {
+    width: 100%;
+    padding-right: 35px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 16px;
+}
+
+
