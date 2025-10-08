@@ -319,20 +319,20 @@ def definirParametros(request):
         usuario = Usuario.objects.get(correo=correo)
         parametros = Parametros.objects.get(idParametros=usuario)
 
-        comunaRelevancia = request.POST.get('toggleComuna', None)
-        comuna = request.POST.get('comuna', None)
-        budget = request.POST.get('presupuesto', None)
-        budgetRelevancia = request.POST.get('togglePresupuesto', None)
-        gratuidad = request.POST.get('gratuidad', None)
-        gratuidadRelevancia = request.POST.get('toggleGratuidad', None)
-        acreditacion = request.POST.get('acreditacion', None)
-        acreditacionRelevancia = request.POST.get('toggleAcreditacion', None)
-        esUniversidad = request.POST.get('EsUni', None)
-        esUniversidadRelevancia = request.POST.get('toggleUni', None)
-        puntajeNem = request.POST.get('nem', None)
-        puntajeNemRelevancia = request.POST.get('toggleNem', None)
-        carrera = request.POST.get('carrera', "")
-        carreraRelevancia = request.POST.get('toggleCarrera', None)
+        comunaRelevancia = request.POST.get('toggleComuna', False)
+        comuna = request.POST.get('comuna', usuario.comunaUsuario)
+        budget = request.POST.get('presupuesto', parametros.budget)
+        budgetRelevancia = request.POST.get('togglePresupuesto', False)
+        gratuidad = request.POST.get('gratuidad', False)
+        gratuidadRelevancia = request.POST.get('toggleGratuidad', False)
+        acreditacion = request.POST.get('acreditacion', parametros.acreditacionDeseado)
+        acreditacionRelevancia = request.POST.get('toggleAcreditacion', False)
+        esUniversidad = request.POST.get('EsUni', False)
+        esUniversidadRelevancia = request.POST.get('toggleUni', False)
+        puntajeNem = request.POST.get('nem', parametros.puntajeNem)
+        puntajeNemRelevancia = request.POST.get('toggleNem', False)
+        carrera = request.POST.get('carrera', parametros.carrera)
+        carreraRelevancia = request.POST.get('toggleCarrera', False)
 
 
         print(comunaRelevancia)
@@ -370,7 +370,7 @@ def definirParametros(request):
             control = True
             msjControl += "\n El valor de puntaje NEM no es un número válido \n"
         
-        
+        print(comuna)
         parametros.carrera = carrera
 
         if control:
