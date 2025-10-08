@@ -10,19 +10,45 @@
         .contenedorPadre {
             background: url("{% static 'core/img/fondoIndex.jpg' %}") no-repeat center center fixed;
             background-size: cover;
-            height: 85vh; 
+            min-height: 85vh;
             width: 100vw;
             margin: 0;
-            padding: 0;
+            padding: 40px 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column; 
         }
 
         html, body{
-            overflow: hidden;
+             overflow-x: hidden;
+             overflow-y: auto;
         }
 
+        .contenedorForm {
+            width: 40%;
+            max-width: 800px;
+            min-width: 300px;
+            margin: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 1024px) {
+            .contenedorForm {
+                width: 70%;
+                margin-right: 0;
+            }
+
+            .texto {
+                font-size: 16px !important;
+            }
+
+            .titulo {
+                font-size: 28px;
+            }
+        }
+        
     </style>
     {% endblock disenos %}
 
@@ -32,7 +58,7 @@
         <div class="contenedorPadre">
             
             {% if rol == None %}
-            <div class="contenedorForm" style="margin-right: 50%;">
+            <div class="contenedorForm">
                 <h2 class="titulo">Bienvenido!</h2>
                 <p class="texto">College Choice Helper es tu ayuda para encontrar la institución que más se adapte a ti!</p>
                 <br>
@@ -48,7 +74,7 @@
             {% endif %}
 
             {% if rol == 0 %}
-            <div class="contenedorForm" style="margin-right: 50%;">
+            <div class="contenedorForm">
                 <h2 class="titulo">Bienvenido!</h2>
                 <p class="texto">College Choice Helper es tu ayuda para encontrar la institución que más se adapte a ti!</p>
                 <br>
