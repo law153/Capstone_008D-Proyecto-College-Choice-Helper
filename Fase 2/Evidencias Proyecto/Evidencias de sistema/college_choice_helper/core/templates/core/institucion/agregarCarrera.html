@@ -11,7 +11,7 @@
 
     {% block cuerpo %}
         <h2>Pagina para agregar una carrera</h2>
-        <div>
+        <div class="">
             <form id="form_agregarCarrera" action="{% url 'agregarCarrera' insti.idInstitucion %}" method="POST">
                 {% csrf_token %}
                 <div>  
