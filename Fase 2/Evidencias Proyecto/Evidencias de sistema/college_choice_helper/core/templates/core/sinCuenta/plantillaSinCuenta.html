@@ -12,6 +12,7 @@
         <!--Javascript-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <!--Diseño propio-->
         <link rel="stylesheet" type="text/css" href="{% static  'core/css/estilo.css'%}">
         {% block disenos %}
@@ -71,6 +72,10 @@
                 <div class="col-md-9">
                     {% block cuerpo %}
 
+
+        
+        
+                       
                     {% endblock cuerpo %}
                 </div>
 
@@ -95,6 +100,21 @@
                 });
             });
         </script>
+
+                        {% if messages %}
+                                {% for message in messages %}
+                                    <script>
+                                        Swal.fire({
+                                            "title": "Atención",
+                                            "text": "{{ message|escapejs }}",
+                                            "icon": "{{ message.tags }}",
+                                            "confirmButtonColor": "#000",
+                                            "background": "#ff0"
+                                        })
+                                    </script>
+                                {% endfor %}
+                        {% endif %}
+
 
         {% block js %}
         {% endblock js %}

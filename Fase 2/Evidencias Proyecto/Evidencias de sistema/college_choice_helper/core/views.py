@@ -6,6 +6,7 @@ from django.db import transaction
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
+from django.contrib import messages
 
 # Sin cuenta
 def mostrarIndex(request):
@@ -20,7 +21,7 @@ def mostrarLogin(request):
     if request.user.is_authenticated == False:
         return render(request, 'core/sinCuenta/login.html')
     else:
-        print("Ya has iniciado sesión")
+        messages.warning(request,'Ya has iniciado sesión!')
         return redirect('mostrarIndex')
     
 def mostrarRegistro(request):
