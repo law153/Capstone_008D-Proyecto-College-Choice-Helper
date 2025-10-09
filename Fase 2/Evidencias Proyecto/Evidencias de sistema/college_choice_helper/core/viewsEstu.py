@@ -397,13 +397,13 @@ def calcular_score(usuario, idInsti):
     detalles = {}
     totalParam = 0
 
-    if parametros.comunaRelevancia:
+    if parametros.comunaRelevancia and usuario.comunaUsuario.strip() != "":
         totalParam +=1
         if usuario.comunaUsuario == insti.comunaInstitucion:
             score += 10
-            detalles['La institución se ubica en '+insti.comunaInstitucion] = True
+            detalles[f'La institución se ubica en '+insti.comunaInstitucion] = True
         else:
-            detalles['La institución no se ubica en '+usuario.comunaUsuario] = False
+            detalles[f'La institución no se ubica en '+usuario.comunaUsuario] = False
     
     if parametros.gratuidadRelevancia:
         totalParam +=1
@@ -430,7 +430,7 @@ def calcular_score(usuario, idInsti):
             detalles['No es una universidad'] = False
     tieneCarrera = True
 
-    if parametros.carreraRelevancia:
+    if parametros.carreraRelevancia and parametros.carrera.strip() != "":
         totalParam +=1
         if carreras.filter(nombreCarrera=parametros.carrera).exists():
             score += 10
@@ -474,7 +474,7 @@ def calcular_score(usuario, idInsti):
                     detalles['El puntaje NEM te alcanza'] = True
                 
         
-        if parametros.budgetRelevancia:
+        if parametros.budgetRelevancia and parametros.budget != 0:
             totalParam +=1
             if carrera: 
                 
