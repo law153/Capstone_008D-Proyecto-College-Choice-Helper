@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate,login, logout
 from .models import Institucion, Usuario, Carrera
 import re
 import unicodedata
+from django.contrib import messages
 
 # Instituciones
 def mostrarRegistroInstitucion(request):
@@ -14,7 +15,7 @@ def mostrarRegistroInstitucion(request):
 
         return render(request, 'core/institucion/agregarInstitucion.html', contexto)
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
 def mostrarListadoInstitucion(request):
@@ -28,12 +29,12 @@ def mostrarListadoInstitucion(request):
 
         return render(request, 'core/institucion/listadoInstituciones.html', contexto)
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
 def mostrarListadoCarreras(request, id_insti):
     if request.user.is_authenticated == False:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
     rol = request.session.get('rol', None)
@@ -52,7 +53,7 @@ def mostrarListadoCarreras(request, id_insti):
 
 def mostrarAgregarCarrera(request, id_insti):
     if request.user.is_authenticated == False:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
     rol = request.session.get('rol', None)
@@ -69,7 +70,7 @@ def mostrarAgregarCarrera(request, id_insti):
 
 def mostrarEditarCarrera(request, id_carrera, id_insti):
     if request.user.is_authenticated == False:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
     rol = request.session.get('rol', None)
@@ -96,7 +97,7 @@ def mostrarEditarInstitucion(request, id_insti):
         }
         return render(request, 'core/institucion/editarInstitucion.html', contexto)
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
 
 def insertarInsti(request):
@@ -143,7 +144,7 @@ def insertarInsti(request):
             print("Error en la solicitud")
             return redirect('mostrarRegistroInstitucion')
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
 
 def actualizarInsti(request):
@@ -201,7 +202,7 @@ def actualizarInsti(request):
             print("Error en la solicitud")
             return('mostrarEditarInstitucion')
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
     return redirect('mostrarLogin')
 
 def eliminarInsti(request, id_insti):
@@ -215,12 +216,12 @@ def eliminarInsti(request, id_insti):
             print("Error en la solicitud")
             return("mostrarEditarInstitucion")
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
 def agregarCarrera(request, id_insti):
     if request.user.is_authenticated == False:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
     rol = request.session.get('rol', None)
@@ -278,7 +279,7 @@ def agregarCarrera(request, id_insti):
 
 def editarCarrera(request, id_carrera, id_insti):
     if request.user.is_authenticated == False:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
     rol = request.session.get('rol', None)
@@ -335,7 +336,7 @@ def editarCarrera(request, id_carrera, id_insti):
     
 def eliminarCarrera(request, id_carrera, id_insti):
     if request.user.is_authenticated == False:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
     rol = request.session.get('rol', None)

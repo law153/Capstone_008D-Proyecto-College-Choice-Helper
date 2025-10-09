@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Usuario, Rol, Peticiones, Institucion
 from django.db import transaction
 from django.contrib.auth.models import User
-
+from django.contrib import messages
 #Admin
 def mostrarGestionUsuarios(request):
     if request.user.is_authenticated:
@@ -23,12 +23,12 @@ def mostrarGestionUsuarios(request):
         }
         return render (request,'core/admin/gestionUsuarios.html', contexto)
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
 
 def mostrarGestionInsti(request):
     if request.user.is_authenticated == False:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
 
     rol = request.session.get('rol', None)
@@ -79,7 +79,7 @@ def cambiarRol(request, idPeticion, correo):
     
 def eliminarUsuarioAdm(request, correoU):
     if request.user.is_authenticated == False:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
     if request.method == 'POST':
@@ -91,7 +91,7 @@ def eliminarUsuarioAdm(request, correoU):
         return redirect('mostrarIndex')
 def eliminarInstiAdm(request, id_insti):
     if request.user.is_authenticated == False:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     if request.method == 'POST':
         insti = Institucion.objects.get(idInstitucion = id_insti)

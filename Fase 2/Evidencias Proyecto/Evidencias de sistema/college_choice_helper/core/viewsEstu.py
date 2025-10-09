@@ -7,7 +7,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.contrib.auth.hashers import check_password
-
+from django.contrib import messages
 # Estudiantes
 def mostrarFormularioEstudiante(request):
     if request.user.is_authenticated:
@@ -34,7 +34,7 @@ def mostrarFormularioEstudiante(request):
 
         return render(request, 'core/estudiantes/formularioEstudiante.html', contexto)
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
 
 def mostrarRecomendaciones(request):
@@ -52,7 +52,7 @@ def mostrarRecomendaciones(request):
         contexto = {'rol': rol, 'recomendaciones' : recomendaciones}
         return render(request, 'core/estudiantes/recomendaciones.html', contexto)
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
 
 def mostrarVistaInstituciones(request, id_insti):
@@ -75,7 +75,7 @@ def mostrarVistaInstituciones(request, id_insti):
         contexto = {'rol': rol, 'institucion': institucion, 'carreras' : carreras, 'porcentaje': porcentaje, 'detalles': detalles}
         return render(request, 'core/estudiantes/vistaInstitucion.html', contexto)
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
 
@@ -87,7 +87,7 @@ def mostrarCambioClave(request):
         contexto = {'rol': rol}
         return render(request, 'core/estudiantes/cambiarClave.html', contexto)
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
 
 def mostrarCambioCorreo(request):
@@ -97,7 +97,7 @@ def mostrarCambioCorreo(request):
         contexto = {'rol': rol}
         return render(request, 'core/estudiantes/cambiarCorreo.html', contexto)
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
 
 def mostrarGestionCuenta(request):
@@ -107,7 +107,7 @@ def mostrarGestionCuenta(request):
         contexto = {'rol': rol}
         return render(request, 'core/estudiantes/gestionCuenta.html', contexto)
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
 
 def mostrarHacerPeticion(request):
@@ -117,7 +117,7 @@ def mostrarHacerPeticion(request):
         contexto = {'rol': rol}
         return render(request, 'core/estudiantes/hacerPeticion.html', contexto)
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
 def mostrarEliminarCuenta(request):
@@ -127,7 +127,7 @@ def mostrarEliminarCuenta(request):
         contexto = {'rol': rol}
         return render(request, 'core/estudiantes/eliminarCuenta.html', contexto)
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
 
 def cierreSesion(request):
@@ -135,7 +135,7 @@ def cierreSesion(request):
         logout(request)
         return redirect('mostrarIndex')
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
 
 def generarPeticion(request):
@@ -159,7 +159,7 @@ def generarPeticion(request):
             print("Petición fallada :,c", asunto, tipoPeticion, mensaje, correo)
             return redirect('mostrarHacerpeticion')
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
 
@@ -210,7 +210,7 @@ def cambiarCorreo(request):
             print("Error en la solicitud")
             return redirect('mostrarCambioCorreo')
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
 def cambiarClave(request):
@@ -258,7 +258,7 @@ def cambiarClave(request):
             print("Error en la solicitud")
             return redirect('mostrarCambioClave')
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
 def eliminarCuenta(request):
@@ -299,12 +299,12 @@ def eliminarCuenta(request):
             print("Error en la solicitud")
             return redirect('mostrarEliminarCuenta')
     else:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
 
 def definirParametros(request):
     if request.user.is_authenticated == False:
-        print("Debe iniciar sesión para acceder a este contenido")
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
         return redirect('mostrarLogin')
     
     rol = request.session.get('rol', None)

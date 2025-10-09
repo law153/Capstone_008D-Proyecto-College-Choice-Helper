@@ -25,22 +25,22 @@ def mostrarLogin(request):
         return redirect('mostrarIndex')
     
 def mostrarRegistro(request):
-    if request.user.is_authenticated == False:
+    if request.user.is_authenticated == False: 
         return render(request, 'core/sinCuenta/registrarse.html')
     else:
-        print("Ya has iniciado sesión")
+        messages.warning(request,'Ya has iniciado sesión!')
         return redirect('mostrarIndex')
 
 def mostrarOlvidoClave(request):
     if request.user.is_authenticated == False:
         return render(request, 'core/sinCuenta/olvideClave.html')
     else:
-        print("Ya has iniciado sesión")
+        messages.warning(request,'Ya has iniciado sesión!')
         return redirect('mostrarIndex')
 
 def inicioSesion(request):
     if request.user.is_authenticated:
-        print("Ya has iniciado sesión")
+        messages.warning(request,'Ya has iniciado sesión!')
         return redirect('mostrarIndex')
     
     if request.method == 'POST':
@@ -49,7 +49,6 @@ def inicioSesion(request):
 
         userAuth = authenticate(username = correoI, password = contrasenaI)
 
-        print(correoI, contrasenaI)
 
         if userAuth is not None:
 
@@ -57,21 +56,21 @@ def inicioSesion(request):
 
             usuario = Usuario.objects.get(correo = correoI)
 
-            print("su rol es: ", usuario.rol.nombre_rol)
+            
             
             request.session['rol'] = usuario.rol.id_rol
             request.session['correo'] = userAuth.username
 
             return redirect('mostrarIndex')
         else:
-            print("El correo o la contraseña son incorrectos")
+            messages.error(request,'El correo o contraseña ingresados son incorrectos!')
             return redirect('mostrarLogin')
     else:
         return redirect('mostrarLogin')
     
 def registrarUsuario(request):
     if request.user.is_authenticated:
-        print("Ya has iniciado sesión")
+        messages.warning(request,'Ya has iniciado sesión!')
         return redirect('mostrarIndex')
     
     if request.method == 'POST':
@@ -84,11 +83,11 @@ def registrarUsuario(request):
         try:
             validate_email(correo)
         except ValidationError:
-            print("El correo no es válido")
+            messages.error(request,'El correo no es valido!')
             return redirect('mostrarRegistro')
 
         if User.objects.filter(username=correo).exists():
-            print("El correo ya está registrado")
+            messages.error(request,'El correo ingresado ya esta registrado!')
             return redirect('mostrarRegistro')
         
         try:
@@ -99,7 +98,7 @@ def registrarUsuario(request):
             return redirect('mostrarRegistro')
         
         if contrasena != contrasena_rep:
-            print("Las contraseñas no coinciden")
+            messages.error(request,'Las contraseñas no coinciden!')
             return redirect('mostrarRegistro')
         
         try:
@@ -118,7 +117,7 @@ def registrarUsuario(request):
                 if toggleRol == 'on':
                     Peticiones.objects.create(asunto="Solicitud de cuenta de Gestor de instituciones", tipoPeticion="Cambio de rol", mensaje="El usuario con correo " + correo + " solicita una cuenta de Gestor de instituciones.", usuario=usuario)
 
-            print("Usuario registrado exitosamente")
+            messages.success(request,'Su cuenta se creó exitosamente!')
             return redirect('mostrarLogin')
         
         except Exception as e:

@@ -391,3 +391,22 @@ body, ul, li {
     flex-direction: column; 
 }
 
+/* Estilos de alerta */
+.mi-alerta {
+  border: 3px solid #6595ff; 
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  font-family: 'Poppins', sans-serif;
+}
+
+.mi-alerta-titulo {
+  font-weight: 600;
+  color: #333;
+}
+
+.mi-alerta-boton {
+  background-color: #6595ff !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-weight: bold !important;
+}

@@ -101,19 +101,27 @@
             });
         </script>
 
-                        {% if messages %}
-                                {% for message in messages %}
-                                    <script>
-                                        Swal.fire({
-                                            "title": "Atención",
-                                            "text": "{{ message|escapejs }}",
-                                            "icon": "{{ message.tags }}",
-                                            "confirmButtonColor": "#000",
-                                            "background": "#ff0"
-                                        })
-                                    </script>
-                                {% endfor %}
-                        {% endif %}
+        {% if messages %}
+        {% for message in messages %}
+            <script>
+            Swal.fire({
+                title: "Atención",
+                text: "{{ message|escapejs }}",
+                icon: "{{ message.tags }}",
+                background: "#fff",
+                color: "#000",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#000",
+                customClass: {
+                popup: 'mi-alerta',
+                title: 'mi-alerta-titulo',
+                confirmButton: 'mi-alerta-boton'
+                }
+            })
+            </script>
+        {% endfor %}
+        {% endif %}
+
 
 
         {% block js %}
