@@ -94,7 +94,7 @@ def registrarUsuario(request):
             validate_password(contrasena, user=None)
         except ValidationError as e:
             for error in e:
-                print(error) 
+                messages.error(request,'La contraseña debe cumplir con las siguientes reglas: ',e)
             return redirect('mostrarRegistro')
         
         if contrasena != contrasena_rep:
@@ -121,7 +121,7 @@ def registrarUsuario(request):
             return redirect('mostrarLogin')
         
         except Exception as e:
-            print("Error al registrar el usuario:", e)
+            messages.error(request,'Error al registrar el usuario: ', e)
             return redirect('mostrarRegistro')
             
         

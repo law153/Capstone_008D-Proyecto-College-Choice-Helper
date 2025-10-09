@@ -133,7 +133,7 @@ def insertarInsti(request):
             confirmarGratuidad = True if gratuidadI == "True" else False
 
             if existeInsti:
-                print("Ya existe una institucion con el mismo nombre y comuna")
+                messages.error(request,"Ya existe una institucion con el mismo nombre y comuna")
                 return redirect('mostrarRegistroInstitucion')
             else:
                 Institucion.objects.create(
@@ -146,7 +146,7 @@ def insertarInsti(request):
                     fotoInstitucion = fotoI,
                     usuario = tomarIdUser
                 )
-                print("La institución fue agregada correctamente")
+                messages.success(request,"La institución fue agregada correctamente")
                 return redirect('mostrarIndex')
         else:
             messages.warning(request,'Algo salío mal')
@@ -182,18 +182,9 @@ def actualizarInsti(request):
             ).first()
 
             if existeInsti:
-                print("Ya hay una institución con el mismo nombre")
+                messages.error(request,"Ya hay una institución con el mismo nombre")
                 return redirect('mostrarEditarInstitucion', idI)
             else:
-                # 🔎 PRINTS DE DEBUG
-                print("DEBUG nombreI:", nombreI)
-                print("DEBUG comunaI:", comunaI)
-                print("DEBUG confirmarUni:", confirmarUni)
-                print("DEBUG confirmarGratuidad:", confirmarGratuidad)
-                print("DEBUG aniosAcreditacionI:", aniosAcreditacionI)
-                print("DEBUG webInstiI:", webInstiI)
-                print("DEBUG fotoI:", fotoI)
-                print("DEBUG tipo fotoI:", type(fotoI))
 
                 institucion.nombreInstitucion = nombreI
                 institucion.comunaInstitucion = comunaI
@@ -204,7 +195,7 @@ def actualizarInsti(request):
                 institucion.fotoInstitucion = fotoI
                 #institucion.usuario = tomarIdUser
                 institucion.save()
-                print("La institución se edito correctamente")
+                messages.success(request,"La institución se editó correctamente")
                 return redirect('mostrarIndex')
         else:
             messages.warning(request,'Algo salío mal')
@@ -218,7 +209,7 @@ def eliminarInsti(request, id_insti):
         if request.method == 'POST':
             institucion = Institucion.objects.get(idInstitucion = id_insti)
             institucion.delete()
-            print("Se eliminó la institución")
+            messages.success(request,"Se eliminó la institución")
             return redirect('mostrarIndex')
         else:
             messages.warning(request,'Algo salío mal')
@@ -270,19 +261,19 @@ def agregarCarrera(request, id_insti):
 
         if control:
             for error in errores:
-                print("Error:", error)
+                messages.error(request,"Error: "+ error)
             return redirect('mostrarAgregarCarrera', id_insti=id_insti)
         
         puntaje = int(puntaje)
         costo = int(costo)
 
         Carrera.objects.create(nombreCarrera = nombre, puntajeMinimo = puntaje, costo = costo, institucion = institucion)
-        print("La carrera fue agregada correctamente")
+        messages.success(request,"La carrera fue agregada correctamente")
         return redirect('mostrarListadoCarreras', id_insti=id_insti)
 
 
     else:
-        print("Método no permitido")
+        messages.warning(request,'Algo salío mal')
         return redirect('mostrarAgregarCarrera', id_insti=id_insti)
 
 def editarCarrera(request, id_carrera, id_insti):
@@ -329,7 +320,7 @@ def editarCarrera(request, id_carrera, id_insti):
 
         if control:
             for error in errores:
-                print("Error:", error)
+                messages.error(request,"Error: "+ error)
             return redirect('mostrarEditarCarrera', id_carrera=id_carrera, id_insti=id_insti)
         
         puntaje = int(puntaje)
@@ -339,7 +330,7 @@ def editarCarrera(request, id_carrera, id_insti):
         carrera.puntajeMinimo = puntaje
         carrera.costo = costo
         carrera.save()
-        print("La carrera fue editada correctamente")
+        messages.success(request,"La carrera fue editada correctamente")
         return redirect('mostrarListadoCarreras', id_insti=id_insti)
     
 def eliminarCarrera(request, id_carrera, id_insti):
@@ -357,10 +348,10 @@ def eliminarCarrera(request, id_carrera, id_insti):
         carrera = get_object_or_404(Carrera, idCarrera=id_carrera)
         id_insti = carrera.institucion.idInstitucion
         carrera.delete()
-        print("La carrera fue eliminada correctamente")
+        messages.success(request,"La carrera fue eliminada correctamente")
         return redirect('mostrarListadoCarreras', id_insti=id_insti)
     else:
-        print("Método no permitido")
+        messages.warning(request,'Algo salío mal')
         return redirect('mostrarListadoCarreras', id_insti=id_insti)
 
 
