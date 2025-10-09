@@ -9,6 +9,10 @@ def mostrarGestionUsuarios(request):
         rol = request.session.get('rol', None)
         correo = request.session.get('correo', None)
 
+        if rol != 2:
+            messages.warning(request,'No tiene rol de administrador!')
+            return redirect('mostrarIndex')
+
         rolEstu = Rol.objects.get(id_rol = 0)
         rolInsti = Rol.objects.get(id_rol = 1)
 
@@ -32,6 +36,11 @@ def mostrarGestionInsti(request):
         return redirect('mostrarLogin')
 
     rol = request.session.get('rol', None)
+
+    if rol != 2:
+            messages.warning(request,'No tiene rol de administrador!')
+            return redirect('mostrarIndex')
+    
     correo = request.session.get('correo', None)
  
     instituciones = Institucion.objects.all()
@@ -44,6 +53,11 @@ def mostrarGestionInsti(request):
 
 def mostrarVerPeticiones(request):
     rol = request.session.get('rol', None)
+
+    if rol != 2:
+            messages.warning(request,'No tiene rol de administrador!')
+            return redirect('mostrarIndex')
+    
     correo = request.session.get('correo', None)
 
     peticionesRol = Peticiones.objects.filter(tipoPeticion="Cambio de rol")
@@ -54,6 +68,11 @@ def mostrarVerPeticiones(request):
 
 def mostrarVerPeticion(request, idPeticiones):
     rol = request.session.get('rol', None)
+
+    if rol != 2:
+            messages.warning(request,'No tiene rol de administrador!')
+            return redirect('mostrarIndex')
+    
     correo = request.session.get('correo', None)
 
     peticion = Peticiones.objects.get(idPeticiones=idPeticiones)
@@ -64,6 +83,7 @@ def mostrarVerPeticion(request, idPeticiones):
 
 def cambiarRol(request, idPeticion, correo):
     if request.method == 'POST':
+        
         cambio = request.POST.get('toggleCambio', None)
         if cambio == 'on':
             usuario = Usuario.objects.get(correo=correo)

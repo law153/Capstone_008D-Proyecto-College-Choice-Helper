@@ -15,7 +15,7 @@ def mostrarFormularioEstudiante(request):
         rol = request.session.get('rol', None)
 
         if rol != 0:
-            print("No tiene rol estudiante")
+            messages.warning(request,'No tiene rol estudiante!')
             return redirect('mostrarIndex')
 
         correo = request.session.get('correo', None)
@@ -42,7 +42,7 @@ def mostrarRecomendaciones(request):
         rol = request.session.get('rol', None)
 
         if rol != 0:
-            print("No tiene rol estudiante")
+            messages.warning(request,'No tiene rol estudiante!')
             return redirect('mostrarIndex')
         correo = request.session.get('correo', None)
         usuario = Usuario.objects.get(correo=correo)
@@ -59,7 +59,7 @@ def mostrarVistaInstituciones(request, id_insti):
     if request.user.is_authenticated:
         rol = request.session.get('rol', None)
         if rol != 0:
-            print("No tiene rol estudiante")
+            messages.warning(request,'No tiene rol estudiante!')
             return redirect('mostrarIndex')
         
         institucion = Institucion.objects.get(idInstitucion = id_insti)
@@ -67,7 +67,6 @@ def mostrarVistaInstituciones(request, id_insti):
         correo = request.session.get('correo',None)
         usuario =  Usuario.objects.get(correo=correo)
         score, porcen, detalles = calcular_score(usuario, id_insti)
-        print(detalles)
         try:
             porcentaje = float(porcen) 
         except ValueError:
@@ -150,13 +149,15 @@ def generarPeticion(request):
 
             if asunto and tipoPeticion and mensaje:
                 Peticiones.objects.create(asunto = asunto, tipoPeticion = tipoPeticion, mensaje = mensaje, usuario = usuario)
-                print("Petición creada con éxito")
+                
+                messages.success(request,'Petición creada con éxito!')
                 return redirect('mostrarHacerpeticion')
             else:
-                print("Los campos están vacíos")
+                
+                messages.error(request,'Los campos están vacíos!')
                 return redirect('mostrarHacerpeticion')
         else:
-            print("Petición fallada :,c", asunto, tipoPeticion, mensaje, correo)
+            messages.warning(request,'Algo salio mal')
             return redirect('mostrarHacerpeticion')
     else:
         messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
@@ -175,21 +176,21 @@ def cambiarCorreo(request):
             userAuth = authenticate(username = correoActual, password = clave)
 
             if userAuth is None:
-                print("Los contraseña es incorrecta")
+                messages.error(request,'La contraseña ingresada no es correcta!')
                 return redirect('mostrarCambioCorreo')
             
             if User.objects.filter(username=nuevoCorreo).exists():
-                print("Ese correo ya está en uso.")
+                messages.error(request,'Ese correo ya esta en uso!')
                 return redirect('mostrarCambioCorreo')
             
             try:
                 validate_email(nuevoCorreo)
             except ValidationError:
-                print("El correo no es válido")
+                messages.error(request,'El correo ingresado no es valido!')
                 return redirect('mostrarCambioCorreo')
 
             if nuevoCorreo != repetirCorreo:
-                print("Los correos no coinciden")
+                messages.error(request,'El correos no coinciden!')
                 return redirect('mostrarCambioCorreo')
             
             with transaction.atomic():
@@ -203,11 +204,11 @@ def cambiarCorreo(request):
                 user.save()
 
                 logout(request)
-                print("Correo cambiado con éxito, por favor inicie sesión nuevamente")
+                messages.success(request,'Correo cambiado con exito, por favor inicie sesión nuevamente')
                 return redirect('mostrarLogin')
         
         else:
-            print("Error en la solicitud")
+            messages.warning(request,'Algo salío mal')
             return redirect('mostrarCambioCorreo')
     else:
         messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
@@ -225,22 +226,22 @@ def cambiarClave(request):
             userAuth = authenticate(username = correo, password = clave)
 
             if userAuth is None:
-                print("Los contraseña es incorrecta")
+                messages.error(request,'La contraseña ingresada no es correcta!')
                 return redirect('mostrarCambioClave')
             
             if check_password(nuevaClave, request.user.password):
-                print("La nueva contraseña no puede ser igual a la actual")
+                messages.error(request,'Su nueva contraseña no puede ser igual a la actual!')
                 return redirect('mostrarCambioClave')
 
             if nuevaClave != repetirClave:
-                print("Las claves no coinciden")
+                messages.error(request,'Las contraseñas no coinciden')
                 return redirect('mostrarCambioClave')
 
             try:
                 validate_password(nuevaClave, user=request.user)
             except ValidationError as e:
                 for error in e:
-                    print(error)
+                    messages.error(request,'La contraseña debe cumplir con las siguientes reglas:' + error)
                 return redirect('mostrarCambioClave')
 
             
@@ -251,11 +252,11 @@ def cambiarClave(request):
                 user.save()
 
                 logout(request)
-                print("Contraseña cambiado con éxito, por favor inicie sesión nuevamente")
+                messages.success(request,'Contraseña cambiada con exito, por favor inicie sesión nuevamente')
                 return redirect('mostrarLogin')
         
         else:
-            print("Error en la solicitud")
+            messages.warning(request,'Algo salío mal')
             return redirect('mostrarCambioClave')
     else:
         messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
@@ -271,12 +272,12 @@ def eliminarCuenta(request):
             confirmacion = request.POST.get('confirmar', None)
 
             if not request.user.check_password(clave):
-                print("La contraseña es incorrecta")
+                messages.error(request,'La contraseña ingresada no es correcta!')
                 return redirect('mostrarEliminarCuenta')
 
             
             if confirmacion.strip() != 'ELIMINAR':
-                print("Debe escribir 'ELIMINAR' para confirmar la eliminación de la cuenta")
+                messages.error(request,'Debe escribir ELIMINAR para confirmar la eliminación de la cuenta!')
                 return redirect('mostrarEliminarCuenta')
 
             try:
@@ -289,14 +290,14 @@ def eliminarCuenta(request):
                     usuario.delete()
                     
                     logout(request)
-                    print("Cuenta eliminada con éxito")
+                    messages.error(request,"Cuenta eliminada con éxito")
                     return redirect('mostrarIndex')
                 
             except Exception as e:
-                print("Error al eliminar la cuenta:", str(e))
+                messages.error(request,"Error al eliminar la cuenta:", str(e))
                 return redirect('mostrarEliminarCuenta')
         else:
-            print("Error en la solicitud")
+            messages.warning(request,'Algo salío mal')
             return redirect('mostrarEliminarCuenta')
     else:
         messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
@@ -310,7 +311,7 @@ def definirParametros(request):
     rol = request.session.get('rol', None)
 
     if rol != 0:
-        print("No tiene rol estudiante")
+        messages.warning(request,'No tiene rol estudiante!')
         return redirect('mostrarIndex')
     
     if request.method == 'POST':
@@ -373,15 +374,13 @@ def definirParametros(request):
         if carreraRelevancia and carrera:
             parametros.carrera = carrera
         
-        print(budget)
-        print(budgetRelevancia)
         usuario.save()
             
         parametros.save()
-        print("Parámetros actualizados con éxito")
+        messages.success(request,'Preferencias actualizadas con éxito')
         return redirect('mostrarRecomendaciones')
     else:
-        print("Error en la solicitud")
+        messages.warning(request,'Algo salío mal')
         return redirect('mostrarFormularioEstudiante')
     
 def calcular_score(usuario, idInsti):
@@ -520,8 +519,6 @@ def calcular_score(usuario, idInsti):
         porcentaje = 100
     else:
         porcentaje = round((score / totalParam) * 100, 2)
-
-    print(totalParam, score, detalles)
 
     return score, porcentaje, detalles
 

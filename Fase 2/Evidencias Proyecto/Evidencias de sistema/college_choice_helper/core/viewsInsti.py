@@ -9,7 +9,9 @@ from django.contrib import messages
 def mostrarRegistroInstitucion(request):
     if request.user.is_authenticated:
         rol = request.session.get('rol', None)
-
+        if rol != 1:
+            messages.warning(request,'No tiene rol de gestor institucional!')
+            return redirect('mostrarIndex')
         contexto = {'rol': rol}
 
 
@@ -21,6 +23,9 @@ def mostrarRegistroInstitucion(request):
 def mostrarListadoInstitucion(request):
     if request.user.is_authenticated:
         rol = request.session.get('rol', None)
+        if rol != 1:
+            messages.warning(request,'No tiene rol de gestor institucional!')
+            return redirect('mostrarIndex')
         correo = request.session.get('correo', None)
         usuario1 = Usuario.objects.get(correo=correo)
         instituciones = Institucion.objects.filter(usuario=usuario1)
@@ -38,10 +43,10 @@ def mostrarListadoCarreras(request, id_insti):
         return redirect('mostrarLogin')
     
     rol = request.session.get('rol', None)
-
     if rol != 1:
-        print("No tiene rol de Gestor institucional para acceder a este contenido")
+        messages.warning(request,'No tiene rol de gestor institucional!')
         return redirect('mostrarIndex')
+
     
     
     institucion = Institucion.objects.get(idInstitucion=id_insti)
@@ -59,7 +64,7 @@ def mostrarAgregarCarrera(request, id_insti):
     rol = request.session.get('rol', None)
 
     if rol != 1:
-        print("No tiene rol de Gestor institucional para acceder a este contenido")
+        messages.warning(request,'No tiene rol de gestor institucional!')
         return redirect('mostrarIndex')
     
     institucion = Institucion.objects.get(idInstitucion=id_insti)
@@ -76,7 +81,7 @@ def mostrarEditarCarrera(request, id_carrera, id_insti):
     rol = request.session.get('rol', None)
 
     if rol != 1:
-        print("No tiene rol de Gestor institucional para acceder a este contenido")
+        messages.warning(request,'No tiene rol de gestor institucional!')
         return redirect('mostrarIndex')
     
     institucion = Institucion.objects.get(idInstitucion=id_insti)
@@ -90,6 +95,9 @@ def mostrarEditarCarrera(request, id_carrera, id_insti):
 def mostrarEditarInstitucion(request, id_insti):
     if request.user.is_authenticated:
         rol = request.session.get('rol', None)
+        if rol != 1:
+            messages.warning(request,'No tiene rol de gestor institucional!')
+            return redirect('mostrarIndex')
         institucion = Institucion.objects.get(idInstitucion = id_insti)
         contexto = {
             "insti" : institucion,
@@ -141,7 +149,7 @@ def insertarInsti(request):
                 print("La institución fue agregada correctamente")
                 return redirect('mostrarIndex')
         else:
-            print("Error en la solicitud")
+            messages.warning(request,'Algo salío mal')
             return redirect('mostrarRegistroInstitucion')
     else:
         messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
@@ -199,7 +207,7 @@ def actualizarInsti(request):
                 print("La institución se edito correctamente")
                 return redirect('mostrarIndex')
         else:
-            print("Error en la solicitud")
+            messages.warning(request,'Algo salío mal')
             return('mostrarEditarInstitucion')
     else:
         messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
@@ -213,7 +221,7 @@ def eliminarInsti(request, id_insti):
             print("Se eliminó la institución")
             return redirect('mostrarIndex')
         else:
-            print("Error en la solicitud")
+            messages.warning(request,'Algo salío mal')
             return("mostrarEditarInstitucion")
     else:
         messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
@@ -227,7 +235,7 @@ def agregarCarrera(request, id_insti):
     rol = request.session.get('rol', None)
 
     if rol != 1:
-        print("No tiene rol de Gestor institucional para acceder a este contenido")
+        messages.warning(request,'No tiene rol de gestor institucional!')
         return redirect('mostrarIndex')
     
     
@@ -285,7 +293,7 @@ def editarCarrera(request, id_carrera, id_insti):
     rol = request.session.get('rol', None)
 
     if rol != 1:
-        print("No tiene rol de Gestor institucional para acceder a este contenido")
+        messages.warning(request,'No tiene rol de gestor institucional!')
         return redirect('mostrarIndex')
     
     institucion = get_object_or_404(Institucion, idInstitucion=id_insti)
@@ -342,7 +350,7 @@ def eliminarCarrera(request, id_carrera, id_insti):
     rol = request.session.get('rol', None)
 
     if rol != 1:
-        print("No tiene rol de Gestor institucional para acceder a este contenido")
+        messages.warning(request,'No tiene rol de gestor institucional!')
         return redirect('mostrarIndex')
     
     if request.method == 'POST':
