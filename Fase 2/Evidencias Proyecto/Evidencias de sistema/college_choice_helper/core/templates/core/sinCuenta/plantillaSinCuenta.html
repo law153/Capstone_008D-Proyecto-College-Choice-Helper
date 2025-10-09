@@ -21,9 +21,18 @@
 
     <body>
         
-        <div class="container-fluid barraSuperior">
+        <div class="container-fluid ">
             <div class="row">
-                <a href="{% url 'mostrarIndex' %}">College Choice Helper</a>
+                <div class="col-md-1 barraSuperior">
+                    <div class="contenedor-logo">
+                        <img src="{% static 'core/img/logo.png' %}" alt="No hay imagen disponible"> 
+                    </div>
+                </div>
+
+                <div class="col-md-11 barraSuperior">
+                    <a href="{% url 'mostrarIndex' %}">College Choice Helper</a>
+                </div>
+                
             </div>
         </div>
         <div class="container-fluid">
