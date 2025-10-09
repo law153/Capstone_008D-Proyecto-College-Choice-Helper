@@ -90,7 +90,7 @@ def cambiarRol(request, idPeticion, correo):
             registroRol = Rol.objects.get(id_rol=1) #1 para institución
             usuario.rol = registroRol
             usuario.save()
-            print("Rol cambio con exito a: ",usuario.rol.nombre_rol)
+            messages.warning(request,'Se cambio exitosamente el rol a: Gestor institucional')
             return redirect('mostrarVerPeticiones')
         else:
             return redirect('mostrarVerPeticion', idPeticion)
@@ -107,7 +107,7 @@ def eliminarUsuarioAdm(request, correoU):
         user = User.objects.get(username = usuario.correo)
         usuario.delete()
         user.delete()
-        print("Se eliminó el usuario")
+        messages.success(request,"Se eliminó el usuario")
         return redirect('mostrarIndex')
 def eliminarInstiAdm(request, id_insti):
     if request.user.is_authenticated == False:
@@ -116,6 +116,6 @@ def eliminarInstiAdm(request, id_insti):
     if request.method == 'POST':
         insti = Institucion.objects.get(idInstitucion = id_insti)
         insti.delete()
-        print('Se eliminó la institución') 
+        messages.success(request,"Se eliminó la institución")
         return redirect('mostrarIndex')
 
