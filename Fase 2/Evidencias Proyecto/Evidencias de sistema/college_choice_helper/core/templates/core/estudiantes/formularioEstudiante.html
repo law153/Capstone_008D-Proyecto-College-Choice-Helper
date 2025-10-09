@@ -124,7 +124,7 @@
                         </div>
 
                         <select id="comuna" name="comuna">
-                        <option value="">-- Selecciona una comuna --</option>
+                        <option value=" ">-- Selecciona una comuna --</option>
                         {% for comuna in comunas %}
                             <option value="{{ comuna }}" {% if parametros.idParametros.comunaUsuario == comuna %}selected{% endif %}>
                             {{ comuna }}

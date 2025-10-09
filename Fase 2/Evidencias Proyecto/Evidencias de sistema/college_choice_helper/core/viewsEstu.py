@@ -319,23 +319,30 @@ def definirParametros(request):
         usuario = Usuario.objects.get(correo=correo)
         parametros = Parametros.objects.get(idParametros=usuario)
 
-        comunaRelevancia = request.POST.get('toggleComuna', False)
-        comuna = request.POST.get('comuna', usuario.comunaUsuario)
-        budget = request.POST.get('presupuesto', parametros.budget)
-        budgetRelevancia = request.POST.get('togglePresupuesto', False)
-        gratuidad = request.POST.get('gratuidad', False)
-        gratuidadRelevancia = request.POST.get('toggleGratuidad', False)
-        acreditacion = request.POST.get('acreditacion', parametros.acreditacionDeseado)
-        acreditacionRelevancia = request.POST.get('toggleAcreditacion', False)
-        esUniversidad = request.POST.get('EsUni', False)
-        esUniversidadRelevancia = request.POST.get('toggleUni', False)
-        puntajeNem = request.POST.get('nem', parametros.puntajeNem)
-        puntajeNemRelevancia = request.POST.get('toggleNem', False)
-        carrera = request.POST.get('carrera', parametros.carrera)
-        carreraRelevancia = request.POST.get('toggleCarrera', False)
+        comuna = request.POST.get('comuna')
+        comunaRelevancia = request.POST.get('toggleComuna')
+
+        budget = request.POST.get('presupuesto', None)
+        budgetRelevancia = request.POST.get('togglePresupuesto')
+
+        gratuidad = request.POST.get('gratuidad')
+        gratuidadRelevancia = request.POST.get('toggleGratuidad')
+
+        acreditacion = request.POST.get('acreditacion')
+        acreditacionRelevancia = request.POST.get('toggleAcreditacion')
+
+        esUniversidad = request.POST.get('EsUni')
+        esUniversidadRelevancia = request.POST.get('toggleUni')
+
+        puntajeNem = request.POST.get('nem')
+        puntajeNemRelevancia = request.POST.get('toggleNem')
+
+        carrera = request.POST.get('carrera')
+        carreraRelevancia = request.POST.get('toggleCarrera')
 
 
-        print(comunaRelevancia)
+
+        
         parametros.comunaRelevancia = bool(comunaRelevancia)
         parametros.budgetRelevancia = bool(budgetRelevancia)
         parametros.gratuidadRelevancia = bool(gratuidadRelevancia)
@@ -344,45 +351,35 @@ def definirParametros(request):
         parametros.puntajeNemRelevancia = bool(puntajeNemRelevancia)
         parametros.carreraRelevancia = bool(carreraRelevancia)
 
-        control = False ##False = todo bien, True = hay error
-        msjControl = ""
-        try:
-            parametros.budget = int(budget)
-        except ValueError:
-            control = True
-            msjControl += "\n El valor de budget no es un número válido \n"
 
-        parametros.gratuidad = (gratuidad == 'si')
-        parametros.esUniversidad = (esUniversidad == 'si')
-
-
-        try:
-            parametros.acreditacionDeseado = int(acreditacion)
-
-        except ValueError:
-            control = True
-            msjControl += "\n El valor de acreditacion no es un número válido \n"
-
-        
-        try:
-            parametros.puntajeNem = int(puntajeNem)
-        except ValueError:
-            control = True
-            msjControl += "\n El valor de puntaje NEM no es un número válido \n"
-        
-        print(comuna)
-        parametros.carrera = carrera
-
-        if control:
-            print("Error en los datos ingresados:", msjControl)
-            return redirect('mostrarFormularioEstudiante')
-        else:
+        if comunaRelevancia and comuna:
             usuario.comunaUsuario = comuna
-            usuario.save()
+        
+        if budgetRelevancia and budget:
+            parametros.budget = int(budget)
+        
+        if gratuidadRelevancia and gratuidad:
+            parametros.gratuidad = (gratuidad == 'si')
+
+        if esUniversidadRelevancia and esUniversidad:
+            parametros.esUniversidad = (esUniversidad == 'si')
+
+        if acreditacionRelevancia and acreditacion:
+            parametros.acreditacionDeseado = int(acreditacion)
+    
+        if puntajeNemRelevancia and puntajeNem:
+            parametros.puntajeNem = int(puntajeNem)
+
+        if carreraRelevancia and carrera:
+            parametros.carrera = carrera
+        
+        print(budget)
+        print(budgetRelevancia)
+        usuario.save()
             
-            parametros.save()
-            print("Parámetros actualizados con éxito")
-            return redirect('mostrarRecomendaciones')
+        parametros.save()
+        print("Parámetros actualizados con éxito")
+        return redirect('mostrarRecomendaciones')
     else:
         print("Error en la solicitud")
         return redirect('mostrarFormularioEstudiante')
@@ -447,6 +444,7 @@ def calcular_score(usuario, idInsti):
             totalParam +=1
             if carrera:
 
+
                 if carrera.puntajeMinimo <= 300 and parametros.puntajeNem == 1:
                     score += 10
                     detalles['El puntaje NEM te alcanza'] = True
@@ -484,6 +482,8 @@ def calcular_score(usuario, idInsti):
                     score += 10
                     detalles['La gratuidad lo cubre'] = True 
                 else:
+
+
                     if carrera.costo <= 3000000 and parametros.budget == 1:
                         score += 10
                         detalles['Tu presupuesto alcanza'] = True 
