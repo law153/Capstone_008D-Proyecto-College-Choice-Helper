@@ -145,17 +145,21 @@
                         </div>
                     </div>
                     <br>
-                    <div style="text-align: center;">
-                        <input class="btn btn-aceptar" type="submit" value="Guardar" id="btn_editarInsti" name="btn_editarInsti">
-                    </div>
+                    <div class="row">
+                        
+                        <div class="col-md-4" style="text-align: center;">
+                            <input class="btn btn-aceptar" type="submit" value="Guardar" id="btn_editarInsti" name="btn_editarInsti">
+                        </div>
 
-                    <div style="text-align: center;">
-                        <input class="btn btn-aceptar" type="reset" name="limpiar" value="Limpiar">
-                    </div>
+                        <div class="col-md-4" style="text-align: center;">
+                            <input class="btn btn-aceptar" type="reset" name="limpiar" value="Limpiar">
+                        </div>
 
-                    <div style="text-align: center;">
-                        <a class="btn btn-eliminar" href="{% url 'eliminarInsti' insti.idInstitucion%}">Eliminar</a>
+                        <div class="col-md-4" style="text-align: center;">
+                            <a class="btn btn-eliminar" href="{% url 'eliminarInsti' insti.idInstitucion%}">Eliminar</a>
+                        </div>
                     </div>
+                    
                 </form>
             </div>
         </div>

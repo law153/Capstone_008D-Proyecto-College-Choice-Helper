@@ -1,60 +1,91 @@
 {% extends 'core/sinCuenta/plantillaSinCuenta.html'%}
 {% load static %}
+{% load humanize %}
 
     {% block titulo %}
         <title> Ver las carreras </title>
     {% endblock titulo %}
 
     {% block disenos %}
-    
+    <style>
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 2px;
+        }
+
+        .btn-aceptar {
+            background: #6595ff;
+            color: #fff;
+        }
+
+        .btn-aceptar:hover {
+            background: #4a7bdb;
+        }
+
+        .btn-eliminar {
+            background: #a00;
+            color: #fff;
+        }
+
+        .btn-eliminar:hover {
+            background: #700;
+        }
+
+    </style>
     {% endblock disenos %}
 
-    {% block cuerpo %}
-        <h2>Pagina para ver carreras</h2>
-
-        <div class="row text-center">
-            <a href="{% url 'mostrarAgregarCarrera' insti.idInstitucion %}">Agregar carrera</a>
-        </div>
-
-        <div class="row">
-            <div class="col-md-2"></div>
-            {% for carre in carreras %}
-            <div class="col-md-2 outline">
-                <div>
-                    <p>Nombre carrera: {{ carre.nombreCarrera }}</p>
+    {% block cuerpo %}  
+        <div class="contenido">
+            <br>
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <a class="btn btn-aceptar" href="{% url 'mostrarAgregarCarrera' insti.idInstitucion %}">Agregar carrera</a>
                 </div>
-                
-                <div>
-                    <p>Puntaje minimo: {{ carre.puntajeMinimo }}</p>
-                </div>
-
-                <div>
-                    <p>Costo carrera: {{ carre.costo }}</p>
-                </div>
-
-                <div>
-                    <p>Institución: {{ carre.institucion.nombreInstitucion }}</p>
-                </div>
-                <div>
-                    <a href="{% url 'mostrarEditarCarrera' carre.idCarrera insti.idInstitucion %}">Editar carrera</a>
-                </div>
-                <div>
-                    <form method="POST" action="{% url 'eliminarCarrera' carre.idCarrera insti.idInstitucion %}">
-                    {% csrf_token %}
-                    <button type="submit">Eliminar carrera</button>
-                </form>
-                </div>
-                
-
             </div>
-            
-                {% if forloop.counter|divisibleby:4 and not forloop.last %}
-                <div class="col-md-2 "></div>
-                <div class="col-md-2 "></div>
-                {% endif %}
-            {% endfor %}
-            <div class="col-md-2"></div>
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <h1>Carreras agregadas a {{ insti.nombreInstitucion }}</h1>
+                </div>
+            </div>
+            <div class="contenedorRecomendaciones">
+                {% for carre in carreras %}
+                <div class="col-md-3 contenedorInsti">
+                    <div>
+                        <p class="texto">{{ carre.nombreCarrera }}</p>
+                    </div>
+                    
+                    <div>
+                        <p class="texto">Puntaje minimo: {{ carre.puntajeMinimo }}</p>
+                    </div>
+
+                    <div>
+                        <p class="texto">Arancel: ${{ carre.costo|intcomma:"." }}</p>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <a class="btn btn-aceptar" href="{% url 'mostrarEditarCarrera' carre.idCarrera insti.idInstitucion %}">Editar carrera</a>
+                    </div>
+                    <div style="text-align: center;">
+                        <form method="POST" action="{% url 'eliminarCarrera' carre.idCarrera insti.idInstitucion %}">
+                        {% csrf_token %}
+                        <button class="btn btn-eliminar" type="submit">Eliminar carrera</button>
+                    </form>
+                    </div>
+                    
+
+                </div>
+                
+                    {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
+        
     {% endblock cuerpo %}
 
     {% block js %}
