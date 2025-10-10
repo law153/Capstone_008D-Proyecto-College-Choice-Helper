@@ -6,37 +6,120 @@
     {% endblock titulo %}
 
     {% block disenos %}
-    
+    <style>
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 2px;
+        }
+
+        .btn-aceptar {
+            background: #6595ff;
+            color: #fff;
+        }
+
+        .btn-aceptar:hover {
+            background: #4a7bdb;
+        }
+
+        .btn-eliminar {
+            background: #a00;
+            color: #fff;
+        }
+
+        .btn-eliminar:hover {
+            background: #700;
+        }
+
+        .contenido {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .contenedorRecomendaciones {
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* 🔹 Hace que el título quede arriba, ocupando todo el ancho */
+        .contenedorRecomendaciones h3 {
+            flex: 1 1 100%;
+            text-align: left; /* o center si prefieres */
+            margin-bottom: 20px;
+        }
+
+        .contenedorInsti {
+            flex: 1 1 calc(25% - 20px);
+            max-width: 220px;
+            border: 1px solid #bfcfff;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 900px) {
+            .contenedorInsti {
+                flex: 1 1 calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .contenedorInsti {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
     {% endblock disenos %}
 
 
     {% block cuerpo %}
-        <h2>Peticiones registradas</h2>
-        <div class="row">
-            <h1>Peticiones de cambio de rol</h1>
-            {% for pr in peticionesRol %}
-            <div class="col-md-6">
-                <p>ID: {{ pr.idPeticiones }}</p>
-                <p>Asunto: {{ pr.asunto }}</p>
-                <p>Mensaje: {{ pr.mensaje }}</p>
-                <p>Fecha: {{ pr.fechaPeticion }}</p>
-                <a href="{% url 'mostrarVerPeticion' pr.idPeticiones%}">Ver</a>
-            </div>
-            {% endfor %}
-            <h1>Peticiones generales</h1>
-            {% for pg in peticionesGeneral %}
-            <div class="col-md-6">
-                
+        <div class="contenido">
+            <h2 style="text-align: center;">Peticiones registradas</h2>
+            <div class="contenedorRecomendaciones">
+                <h3>Peticiones de cambio de rol</h3>
+                {% for pr in peticionesRol %}
+                <div class="contenedorInsti col-md-3" style="text-align: left;">
+                    <p class="texto">ID: {{ pr.idPeticiones }}</p>
+                    <p class="texto">Asunto: <br> {{ pr.asunto }}</p>
+                    <p class="texto">Mensaje: <br> {{ pr.mensaje }}</p>
+                    <p class="texto">Fecha: <br> {{ pr.fechaPeticion|date:"d/m/Y" }}</p>
+                    <div style="text-align: center;">
+                        <a class="btn btn-aceptar" href="{% url 'mostrarVerPeticion' pr.idPeticiones%}">Ver</a>
+                    </div>
+                </div>
+                {% endfor %}
+                <h3>Peticiones generales</h3>
+                {% for pg in peticionesGeneral %}
+                <div class="contenedorInsti col-md-3" style="text-align: left;">
 
-                <p>ID: {{ pg.idPeticiones }}</p>
-                <p>Asunto: {{ pg.asunto }}</p>
-                <p>Tipo de petición: {{ pg.tipoPeticion }}</p>
-                <p>Mensaje: {{ pg.mensaje }}</p>
-                <p>Fecha: {{ pg.fechaPeticion }}</p>
-                <a href="{% url 'mostrarVerPeticion' pg.idPeticiones%}">Ver</a>
+                    <p class="texto">ID: {{ pg.idPeticiones }}</p>
+                    <p class="texto">Asunto: <br> {{ pg.asunto }}</p>
+                    <p class="texto">Tipo de petición: <br> {{ pg.tipoPeticion }}</p>
+                    <p class="texto">Mensaje: <br> {{ pg.mensaje }}</p>
+                    <p class="texto">Fecha: <br> {{ pg.fechaPeticion|date:"d/m/Y" }}</p>
+                    <div style="text-align: center;">
+                        <a class="btn btn-aceptar" href="{% url 'mostrarVerPeticion' pg.idPeticiones%}">Ver</a>
+                    </div>
+                    
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
+        
     {% endblock cuerpo %}
 
     {% block js %}
