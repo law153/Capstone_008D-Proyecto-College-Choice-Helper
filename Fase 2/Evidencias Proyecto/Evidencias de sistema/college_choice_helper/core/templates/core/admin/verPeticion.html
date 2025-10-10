@@ -6,28 +6,71 @@
     {% endblock titulo %}
 
     {% block disenos %}
-    
+    <style>
+        .contenedorPadre{
+            margin: 0; 
+            padding: 0;
+            height: 85vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 2px;
+        }
+
+        .btn-aceptar {
+            background: #6595ff;
+            color: #fff;
+        }
+
+        .btn-aceptar:hover {
+            background: #4a7bdb;
+        }
+        .btn-eliminar {
+            background: #a00;
+            color: #fff;
+        }
+
+        .btn-eliminar:hover {
+            background: #700;
+        }
+    </style>
     {% endblock disenos %}
 
 
     {% block cuerpo %}
-        <h2>Petición ID: {{ peticion.idPeticiones }}</h2>
-        <div>
-            <p>Usuario: {{ peticion.usuario.correo }}</p>
-            <p>Asunto: {{ peticion.asunto }}</p>
-            <p>Fecha: {{ peticion.fechaPeticion }}</p>
-            <p>Tipo de petición: {{ peticion.tipoPeticion }}</p>
-            <p>Mensaje: {{ peticion.mensaje }}</p>
-        </div>
-        {% if peticion.tipoPeticion == 'Cambio de rol' %}
-            <div>
-                <form id="cambiar-rol" action="{% url 'cambiarRol' peticion.idPeticiones peticion.usuario.correo %}" method="post" enctype="application/x-www-form-urlencoded">
-                {% csrf_token %}
-                    <label for="toggleCambio"><input type="checkbox" id="toggleCambio" name="toggleCambio">¿Otorgar cuenta de Gestor de instituciones?</label>
-                    <input type="submit" value="Enviar petición" id="submit">
-                </form>
+        <div class="contenedorPadre">
+            <div class="contenedorForm">
+                <h2>Petición ID: {{ peticion.idPeticiones }}</h2>
+                <div>
+                    <p class="texto">Usuario: {{ peticion.usuario.correo }}</p>
+                    <p class="texto">Asunto: {{ peticion.asunto }}</p>
+                    <p class="texto">Fecha: {{ peticion.fechaPeticion|date:"d/m/Y" }}</p>
+                    <p class="texto">Tipo de petición: {{ peticion.tipoPeticion }}</p>
+                    <p class="texto">Mensaje: {{ peticion.mensaje }}</p>
+                </div>
+                {% if peticion.tipoPeticion == 'Cambio de rol' %}
+                    <div>
+                        <form id="cambiar-rol" action="{% url 'cambiarRol' peticion.idPeticiones peticion.usuario.correo %}" method="post" enctype="application/x-www-form-urlencoded">
+                        {% csrf_token %}
+                            <label for="toggleCambio"><input type="checkbox" id="toggleCambio" name="toggleCambio">¿Otorgar cuenta de Gestor de instituciones?</label>
+                            <input type="submit" value="Enviar petición" id="submit">
+                        </form>
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
+        </div>
+        
+        
     {% endblock cuerpo %}
 
     {% block js %}
