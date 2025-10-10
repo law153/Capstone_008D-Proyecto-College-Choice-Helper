@@ -6,42 +6,61 @@
     {% endblock titulo %}
 
     {% block disenos %}
-    
+    <style>
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 2px;
+        }
+
+        .btn-aceptar {
+            background: #6595ff;
+            color: #fff;
+        }
+
+        .btn-aceptar:hover {
+            background: #4a7bdb;
+        }
+    </style>
     {% endblock disenos %}
 
     {% block cuerpo %}
-        <h2>Pagina para ver instituciones</h2>
-
-        <div class="row text-center">
-
-            <a href="{% url 'mostrarRegistroInstitucion' %}">Agregar instituciones</a>
-
+        <br>
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <a class="btn btn-aceptar" href="{% url 'mostrarRegistroInstitucion' %}">Agregar instituciones</a>
+            </div>
         </div>
         <div class="row">
-            <div class="col-md-2"></div>
+            <div class="col-md-12" style="text-align: center;">
+                <h1>Instituciones que has agregado:</h1>
+            </div>
+        </div>
+        <div class="contenedorRecomendaciones">
             {% for insti in instituciones %}
-            <div class="col-md-2">
+            <div class="col-md-3 contenedorInsti">
                 
-                <div class="card">
+                <div class="card contenedor-img">
                     <img src="{{insti.fotoInstitucion.url}}" alt="Imagen no disponible">
                 </div>
                 <p>Nombre institución: {{ insti.nombreInstitucion }}</p>
                 <div>
-                    <a href="{% url 'mostrarEditarInstitucion' insti.idInstitucion %}">Editar institución</a>
+                    <a class="btn btn-aceptar" href="{% url 'mostrarEditarInstitucion' insti.idInstitucion %}">Editar institución</a>
                 </div>
                 
                 <div>
-                    <a href="{% url 'mostrarListadoCarreras' insti.idInstitucion %}">Gestionar carreras</a>
+                    <a  class="btn btn-aceptar" href="{% url 'mostrarListadoCarreras' insti.idInstitucion %}">Gestionar carreras</a>
                 </div>
 
             </div>
             
                 {% if forloop.counter|divisibleby:4 and not forloop.last %}
-                <div class="col-md-2 "></div>
-                <div class="col-md-2 "></div>
                 {% endif %}
             {% endfor %}
-            <div class="col-md-2"></div>
         </div>
     {% endblock cuerpo %}
 
