@@ -177,11 +177,7 @@ def actualizarInsti(request):
             institucion = Institucion.objects.get(idInstitucion = idI)
             fotoI = request.FILES.get('foto_insti', institucion.fotoInstitucion)
 
-            existeInsti = Institucion.objects.filter(
-                nombreInstitucion = nombreI
-            ).first()
-
-            if existeInsti:
+            if Institucion.objects.filter(nombreInstitucion=nombreI.strip()).exclude(idInstitucion=idI).exists():
                 messages.error(request,"Ya hay una institución con el mismo nombre")
                 return redirect('mostrarEditarInstitucion', idI)
             else:
