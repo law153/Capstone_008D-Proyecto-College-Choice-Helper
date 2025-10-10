@@ -6,11 +6,85 @@
     {% endblock titulo %}
 
     {% block disenos %}
-    
+    <style>
+        .contenedorForm{
+            width: 70%;
+        }
+
+        .contenedorForm input[type="number"], .contenedorForm input[type="url"], .contenedorForm input[type="file"]{
+            width: 100%;
+            padding: 8px 5px;
+            margin-bottom: 15px;
+            border: none;
+            border-bottom: 2px solid #a0b8ff;
+            outline: none;
+            font-size: 14px;
+            background: transparent;
+
+        }
+
+        .contenedorForm input[type="number"]:focus, .contenedorForm input[type="url"]:focus, .contenedorForm input[type="file"]{
+            border-bottom: 2px solid #6595ff;
+        }
+
+        .contenedorForm input[type="file"]::file-selector-button{
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .radio-group {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 8px 5px;
+            margin-bottom: 15px;
+            border: none;
+            border-bottom: 2px solid #6595ff;
+            outline: none;
+            background: transparent;
+            gap: 10px; 
+        }
+
+        .radio-group label {
+            margin: 0;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 2px;
+        }
+
+        .btn-aceptar {
+            background: #6595ff;
+            color: #fff;
+        }
+
+        .btn-aceptar:hover {
+            background: #4a7bdb;
+        }
+
+        .btn-eliminar {
+            background: #a00;
+            color: #fff;
+        }
+
+        .btn-eliminar:hover {
+            background: #700;
+        }
+
+    </style>
     {% endblock disenos %}
 
     {% block cuerpo %}
-        <h2>Pagina para editar Instituciones</h2>
 
         <div class="">
             <div class="contenedorForm">
@@ -29,10 +103,11 @@
                         <input type="text" id="nombre_insti" name="nombre_insti" value="{{insti.nombreInstitucion}}">
                     </div>
 
-                    <div>
-                        <label>¿Es universidad?</label>
+                    <label>¿Es universidad?</label>
+                    <div class="radio-group">
                         <label for="es_uni">Si</label>
                         <input type="radio" id="es_uni" name="es_uni" value="True" {% if insti.esUniversidadInsti %}checked{% endif %}>
+
                         <label for="es_uni_b">No</label>
                         <input type="radio" id="es_uni_b" name="es_uni" value="False" {% if not insti.esUniversidadInsti %}checked{% endif %}>
                     </div>
@@ -42,8 +117,9 @@
                         <input type="text" id="comuna_insti" name="comuna_insti" value="{{insti.comunaInstitucion}}">
                     </div>
 
-                    <div>
-                        <label>¿Está adscrita a gratuidad?</label>
+                    <label>¿Está adscrita a gratuidad?</label>
+                    <div class="radio-group">
+                        
                         <label for="gratuidad">Si</label>
                         <input type="radio" id="gratuidad" name="gratuidad" value="True" {% if insti.adscritoGratuidad %}checked{% endif %}>
 
@@ -64,19 +140,21 @@
                     <div>
                         <label for="foto_insti">Imagen:</label>
                         <input type="file" id="foto_insti" name="foto_insti">
-                        <img alt="No hay imagen disponible" src="{{insti.fotoInstitucion.url}}">
+                        <div class="contenedor-img">
+                            <img alt="No hay imagen disponible" src="{{insti.fotoInstitucion.url}}">
+                        </div>
+                    </div>
+                    <br>
+                    <div style="text-align: center;">
+                        <input class="btn btn-aceptar" type="submit" value="Guardar" id="btn_editarInsti" name="btn_editarInsti">
                     </div>
 
-                    <div>
-                        <input type="submit" value="Guardar" id="btn_editarInsti" name="btn_editarInsti">
+                    <div style="text-align: center;">
+                        <input class="btn btn-aceptar" type="reset" name="limpiar" value="Limpiar">
                     </div>
 
-                    <div>
-                        <input type="reset" name="limpiar" value="Limpiar">
-                    </div>
-
-                    <div>
-                        <a href="{% url 'eliminarInsti' insti.idInstitucion%}">Eliminar</a>
+                    <div style="text-align: center;">
+                        <a class="btn btn-eliminar" href="{% url 'eliminarInsti' insti.idInstitucion%}">Eliminar</a>
                     </div>
                 </form>
             </div>
