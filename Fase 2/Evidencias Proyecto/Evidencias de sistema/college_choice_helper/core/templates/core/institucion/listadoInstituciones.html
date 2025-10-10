@@ -48,7 +48,7 @@
                 <div class="card contenedor-img">
                     <img src="{{insti.fotoInstitucion.url}}" alt="Imagen no disponible">
                 </div>
-                <p>Nombre institución: {{ insti.nombreInstitucion }}</p>
+                <p class="texto">{{ insti.nombreInstitucion }}</p>
                 <div>
                     <a class="btn btn-aceptar" href="{% url 'mostrarEditarInstitucion' insti.idInstitucion %}">Editar institución</a>
                 </div>
