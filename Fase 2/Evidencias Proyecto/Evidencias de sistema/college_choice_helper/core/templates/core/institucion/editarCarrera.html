@@ -27,6 +27,7 @@
 
     {% block cuerpo %}
         <div class="contenedorPadre">
+            <h2>Editar carrera</h2>
             <div class="contenedorForm">
                 <form id="form_agregarCarrera" action="{% url 'editarCarrera' carrera.idCarrera insti.idInstitucion %}" method="POST">
                     {% csrf_token %}
@@ -35,9 +36,22 @@
                         <input type="text" id="nombre_carrera" name="nombre_carrera" value="{{carrera.nombreCarrera}}" placeholder="Nombre de la carrera">
                     </div>
 
-                    <div>  
-                        <label for="costo">Costo de la carrera</label>
-                        <input type="number" id="costo" name="costo" min="0" placeholder="0" value="{{carrera.costo}}">
+                    <div>
+                        <label for="costo_visible">Costo de la carrera</label>
+                        <!-- Input visible (formateado) -->
+                        <input 
+                            type="text" 
+                            id="costo_visible" 
+                            placeholder="$0" 
+                            value="{{ carrera.costo|default:0 }}" 
+                            oninput="formatearCosto(this)">
+                        
+                        <!-- Input oculto (real, numérico) -->
+                        <input 
+                            type="hidden" 
+                            id="costo" 
+                            name="costo" 
+                            value="{{ carrera.costo|default:0 }}">
                     </div>
 
                     <div>  
@@ -56,4 +70,33 @@
     {% endblock cuerpo %}
 
     {% block js %}
+    <script>
+        function formatearCosto(input) {
+            // Eliminar cualquier caracter no numérico
+            let valor = input.value.replace(/\D/g, "");
+
+            // Actualizar el input oculto con el valor numérico real
+            document.getElementById("costo").value = valor;
+
+            // Si no hay número, mostrar vacío
+            if (valor === "") {
+                input.value = "";
+                return;
+            }
+
+            // Formatear con separadores de miles
+            let valorFormateado = new Intl.NumberFormat("es-CL").format(valor);
+
+            // Mostrar con símbolo $
+            input.value = "$" + valorFormateado;
+        }
+
+        // Aplicar el formato automáticamente al cargar la página
+        document.addEventListener("DOMContentLoaded", function() {
+            const inputVisible = document.getElementById("costo_visible");
+            if (inputVisible && inputVisible.value !== "") {
+                formatearCosto(inputVisible);
+            }
+        });
+    </script>
     {% endblock js %}
