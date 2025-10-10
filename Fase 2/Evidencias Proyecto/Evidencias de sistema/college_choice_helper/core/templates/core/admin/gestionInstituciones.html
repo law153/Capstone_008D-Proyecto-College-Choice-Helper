@@ -6,23 +6,54 @@
     {% endblock titulo %}
 
     {% block disenos %}
-    
+    <style>
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 2px;
+        }
+
+        .btn-aceptar {
+            background: #6595ff;
+            color: #fff;
+        }
+
+        .btn-aceptar:hover {
+            background: #4a7bdb;
+        }
+        .btn-eliminar {
+            background: #a00;
+            color: #fff;
+        }
+
+        .btn-eliminar:hover {
+            background: #700;
+        }
+    </style>
     {% endblock disenos %}
 
 
     {% block cuerpo %}
-        <h2>Pagina de gestion de instituciones</h2>
-        <div>
-            <div>
-                <h1>Lista de instituciones</h1>
+        
+        <div class="contenido">
+            <h1 style="text-align: center;">Lista de instituciones</h1>
+            <div class="contenedorRecomendaciones">
+                
                 {% for i in insti %}
-                <p>ID: {{i.idInstitucion}}</p>
-                <p>Nombre: {{i.nombreInstitucion}}</p>
-                <p>Comuna: {{i.comunaInstitucion}}</p>
-                <form action="{% url 'eliminarInstiAdm' i.idInstitucion %}" method="post" enctype="application/x-www-form-urlencoded">
-                {% csrf_token %}
-                <button type="submit">Eliminar</button>
-                </form>  
+                <div class="contenedorInsti col-md-3">
+                    <p class="texto">ID: {{i.idInstitucion}}</p>
+                    <p class="texto">Nombre: {{i.nombreInstitucion}}</p>
+                    <p class="texto">Comuna: {{i.comunaInstitucion}}</p>
+                    <form action="{% url 'eliminarInstiAdm' i.idInstitucion %}" method="post" enctype="application/x-www-form-urlencoded">
+                        {% csrf_token %}
+                        <button class="btn btn-eliminar" type="submit">Eliminar</button>
+                    </form>  
+                </div>
+                
                 {% endfor %}         
             </div>
         </div>
