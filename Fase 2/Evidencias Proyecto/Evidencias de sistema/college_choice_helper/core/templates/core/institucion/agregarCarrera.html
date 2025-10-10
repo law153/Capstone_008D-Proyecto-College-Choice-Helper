@@ -6,36 +6,97 @@
     {% endblock titulo %}
 
     {% block disenos %}
-    
+    <style>
+        .contenedorForm input[type="number"], .contenedorForm input[type="url"], .contenedorForm input[type="file"]{
+            width: 100%;
+            padding: 8px 5px;
+            margin-bottom: 15px;
+            border: none;
+            border-bottom: 2px solid #a0b8ff;
+            outline: none;
+            font-size: 14px;
+            background: transparent;
+
+        }
+
+        .contenedorForm input[type="number"]:focus, .contenedorForm input[type="url"]:focus, .contenedorForm input[type="file"]{
+            border-bottom: 2px solid #6595ff;
+        }
+        </style>
     {% endblock disenos %}
 
     {% block cuerpo %}
-        <h2>Pagina para agregar una carrera</h2>
-        <div class="">
-            <form id="form_agregarCarrera" action="{% url 'agregarCarrera' insti.idInstitucion %}" method="POST">
-                {% csrf_token %}
-                <div>  
-                    <label for="nombre_carrera">Nombre de la carrera:</label>
-                    <input type="text" id="nombre_carrera" name="nombre_carrera" placeholder="Nombre de la carrera">
-                </div>
+        <div class="contenedorPadre">
+            <h2>Complete los campos para agregar la carrera a la institución: {{insti.nombreInstitucion}}</h2>
+            <div class="contenedorForm">
+                <form id="form_agregarCarrera" action="{% url 'agregarCarrera' insti.idInstitucion %}" method="POST">
+                    {% csrf_token %}
+                    <div>  
+                        <label for="nombre_carrera">Nombre de la carrera:</label>
+                        <input type="text" id="nombre_carrera" name="nombre_carrera" placeholder="Nombre de la carrera">
+                    </div>
 
-                <div>  
-                    <label for="costo">Costo de la carrera</label>
-                    <input type="number" id="costo" name="costo" min="0" placeholder="0">
-                </div>
+                    <div>
+                        <label for="costo_visible">Costo de la carrera</label>
+                        <!-- Input visible (formateado) -->
+                        <input 
+                            type="text" 
+                            id="costo_visible" 
+                            placeholder="$0" 
+                            value="{{ carrera.costo|default:0 }}" 
+                            oninput="formatearCosto(this)">
+                        
+                        <!-- Input oculto (real, numérico) -->
+                        <input 
+                            type="hidden" 
+                            id="costo" 
+                            name="costo" 
+                            value="{{ carrera.costo|default:0 }}">
+                    </div>
 
-                <div>  
-                    <label for="puntaje">Puntaje minimo de la carrera</label>
-                    <input type="number" id="puntaje" name="puntaje" placeholder="0" min="0" max="1000">
-                </div>
+                    <div>  
+                        <label for="puntaje">Puntaje minimo de la carrera</label>
+                        <input type="number" id="puntaje" name="puntaje" placeholder="100" min="100" max="1000">
+                    </div>
 
-                <div>
-                    <button type="submit">Agregar carrera</button>
-                </div>
+                    <div style="text-align: center;">
+                        <button class="btn btn-aceptar" type="submit">Agregar carrera</button>
+                    </div>
 
-            </form>
+                </form>
+            </div>
         </div>
+        
     {% endblock cuerpo %}
 
     {% block js %}
+      <script>
+        function formatearCosto(input) {
+            // Eliminar cualquier caracter no numérico
+            let valor = input.value.replace(/\D/g, "");
+
+            // Actualizar el input oculto con el valor numérico real
+            document.getElementById("costo").value = valor;
+
+            // Si no hay número, mostrar vacío
+            if (valor === "") {
+                input.value = "";
+                return;
+            }
+
+            // Formatear con separadores de miles
+            let valorFormateado = new Intl.NumberFormat("es-CL").format(valor);
+
+            // Mostrar con símbolo $
+            input.value = "$" + valorFormateado;
+        }
+
+        // Aplicar el formato automáticamente al cargar la página
+        document.addEventListener("DOMContentLoaded", function() {
+            const inputVisible = document.getElementById("costo_visible");
+            if (inputVisible && inputVisible.value !== "") {
+                formatearCosto(inputVisible);
+            }
+        });
+    </script>
     {% endblock js %}
