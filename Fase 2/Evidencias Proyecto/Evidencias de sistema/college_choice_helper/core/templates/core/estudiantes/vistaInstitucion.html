@@ -50,19 +50,19 @@
                 </div>
             </div>
             <div class="row">
-                <h2>Nombre de la Institución: {{ institucion.nombreInstitucion }}</h2>
+                <h2 style="font-size: medium;">Nombre de la Institución: {{ institucion.nombreInstitucion }}</h2>
             </div>
-            <div class="row">
-                <h2>Detalles de compatibilidad:</h2>
+            <div class="row" >
+                <h2 style="font-size: medium;">Detalles de compatibilidad:</h2>
                 <div class="col-md-6">
                     
                     <ul>
                         {% for criterio, cumple in detalles.items %}
                             <li>
                                 {% if cumple %}
-                                    <span style="color: green;">✔ {{ criterio }}</span>
+                                    <span style="color: green; padding-left: 12px;">✔ {{ criterio }}</span>
                                 {% else %}
-                                    <span style="color: red;">✘ {{ criterio }}</span>
+                                    <span style="color: red; padding-left: 12px;">✘ {{ criterio }}</span>
                                 {% endif %}
                             </li>
                         {% endfor %}
@@ -74,43 +74,43 @@
             </div>
             
             <div class="row">
-                <h2>Sitio web: {{ institucion.webInstitucion }}</h2>
+                <h2 style="font-size: medium;">Sitio web: {{ institucion.webInstitucion }}</h2>
             </div>
             <div class="row">
                 {% if institucion.adscritoGratuidad %}
-                    <h2>Adscrita a gratuidad: Si</h2>
+                    <h2 style="font-size: medium;">Adscrita a gratuidad: Si</h2>
                 {% else %}
-                    <h2>Adscrita a gratuidad: No</h2>
+                    <h2 style="font-size: medium;">Adscrita a gratuidad: No</h2>
                 {% endif %}
             </div>
             <div class="row">
-                <h2>Años de acreditacion: {{ institucion.acreditacion }}</h2>
+                <h2 style="font-size: medium;">Años de acreditacion: {{ institucion.acreditacion }}</h2>
             </div>
             <div class="row">
-                <h2>Comuna: {{ institucion.comunaInstitucion }} </h2>
+                <h2 style="font-size: medium;">Comuna: {{ institucion.comunaInstitucion }} </h2>
             </div>
             <div class="row">
                 {% if institucion.esUniversidadInsti %}
-                    <h2>Es una universidad: Si</h2>
+                    <h2 style="font-size: medium;">Es una universidad: Si</h2>
                 {% else %}
-                    <h2>Es una universidad: No</h2>
+                    <h2 style="font-size: medium;">Es una universidad: No</h2>
                 {% endif %}
             </div>
             <div class="row">
-                <h2>Carreras disponibles: </h2>
+                <h2 style="font-size: medium;">Carreras disponibles: </h2>
             </div>
 
             <div class="row">
                 {% for carre in carreras %}
                 <div class="col-md-2 contenedorInsti">
                     <div>
-                        <p>Nombre carrera: {{ carre.nombreCarrera }}</p>
+                        <p>{{ carre.nombreCarrera }}</p>
                     </div>
                     <div>
-                        <p>Puntaje minimo: {{ carre.puntajeMinimo }}</p>
+                        <p>${{ carre.costo|intcomma:"." }}</p>
                     </div>
                     <div>
-                        <p>Costo: ${{ carre.costo|intcomma:"." }}</p>
+                        <p>{{ carre.puntajeMinimo }} pts</p>
                     </div>
                 </div>
                 {% endfor %}
