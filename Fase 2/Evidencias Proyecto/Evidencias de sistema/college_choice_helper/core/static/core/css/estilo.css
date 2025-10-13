@@ -80,6 +80,13 @@ body, ul, li {
     align-items: center;
     text-align: center;
     background-color: #fff;
+    overflow: hidden;
+    transition: width .75s ease;
+    width: 8%;
+}
+
+.columnaCuenta:hover{
+    width: 10%;
 }
 
 .columnaCuenta ul {
@@ -106,12 +113,14 @@ body, ul, li {
     display: flex; 
     justify-content: center;
     align-items: center;
+    border-bottom: 2px solid #6595ff;
+    border-radius: .2rem;
+    
     
 }
 
     
 .columnaCuenta a{
-    text-decoration: none;
     color: #000;
     font-size: 15px;
     font-weight: bold;
@@ -135,7 +144,14 @@ body, ul, li {
     align-items: center;
     background-color: #a6c3ff;
     text-align: center;
+    overflow: hidden;
+    transition: width .75s ease;
+    width: 15%;
     
+}
+
+.columnaNav:hover{
+    width: 17%;
 }
 
 .columnaNav ul {
@@ -163,6 +179,8 @@ body, ul, li {
     display: flex; 
     justify-content: center;
     align-items: center;
+    border-bottom: 2px solid #666;
+    border-radius: .2rem;
 }
 
 .columnaNav li:hover{
@@ -175,6 +193,10 @@ body, ul, li {
 
 .columnaCuenta li:hover{
     background-color: #ccc;
+}
+
+.columnaCuenta a:hover{
+    color: #6595ff;
 }
 
 .columnaNoCuenta li:hover{
@@ -190,9 +212,8 @@ body, ul, li {
 
 
 .columnaNav a{
-    text-decoration: none;
     color: #fff;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     display: block;
     width: 100%;
@@ -211,6 +232,14 @@ body, ul, li {
     align-items: center;
     text-align: center;
     background-color: #a6c3ff;
+    width: 15%;
+    transition: width .75s ease;
+    overflow: hidden;
+}
+
+.columnaNoCuenta:hover{
+    width: 25% ;
+    
 }
 
 .columnaNoCuenta ul {
@@ -225,6 +254,7 @@ body, ul, li {
     align-items: stretch; 
     height: 100%;
     width: 100%;
+
 }
 
 .columnaNoCuenta li {
@@ -238,10 +268,12 @@ body, ul, li {
     display: flex; 
     justify-content: center;
     align-items: center; 
+    border-bottom: 2px solid #666;
+    border-radius: .2rem;
 }
 
 .columnaNoCuenta a{
-    text-decoration: none;
+    
     color: #fff;
     font-size: 25px;
     font-weight: bold;
@@ -350,6 +382,11 @@ body, ul, li {
     color: #000 !important;
 }
 
+.textoGestion{
+    font-size: 15px !important;
+    color: #000;
+}
+
 
 .container-fluid,
 .row,
@@ -368,12 +405,25 @@ body, ul, li {
 }
 
 .contenedorInsti{
+    width: 25%;
     border: 2px solid #a6c3ff;
     border-radius: 12px;
     justify-content: center;
     margin: 5px;
     padding-bottom: 10px;
-    text-align: center;    
+    text-align: center;
+    margin-right: 3px !important;
+}
+
+.contenedorGestion{
+   width: 25%;
+    border: 2px solid #a6c3ff;
+    border-radius: 12px;
+    justify-content: center;
+    margin: 5px;
+    padding-bottom: 10px;
+    text-align: center;
+    margin-right: 3px !important; 
 }
 
 .campo-password {
