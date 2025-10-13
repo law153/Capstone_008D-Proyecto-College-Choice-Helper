@@ -91,12 +91,11 @@
         <h1 style="text-align: center;">Gestion de usuarios</h1>
         <div class="contenido">
             <div class="contenedorRecomendaciones">
-                <h1>Lista de usuarios estudiantiles</h1>
+                <h1>Usuarios estudiantiles</h1>
                 {% for e in estu %}
                 <div class="contenedorInsti col-md-2">
-                    <p class="texto">Correo: {{e.correo}}</p>
-                    <p class="texto">Rol: {{e.rol}}</p>
-                    <!--<a href="{% url 'eliminarUsuarioAdm' e.idUsuario%}">Eliminar</a>-->
+                    <p class="textoGestion">{{e.correo}}</p>
+                    <p class="textoGestion">{{e.rol}}</p>
                     <form action="{% url 'eliminarUsuarioAdm' e.idUsuario %}" method="post" enctype="application/x-www-form-urlencoded">
                     {% csrf_token %}
                     <button class="btn btn-eliminar" type="submit">Eliminar</button>
@@ -106,7 +105,7 @@
             </div>
 
             <div class="contenedorRecomendaciones">
-                <h1>Lista de usuarios institucionales</h1>
+                <h1>Usuarios institucionales</h1>
                 {% for i in insti %}
                 <div class="contenedorInsti col-md-3">
                     <p class="texto">Correo: {{i.correo}}</p>
