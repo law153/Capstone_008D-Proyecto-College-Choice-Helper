@@ -108,8 +108,8 @@
                 <h1>Usuarios institucionales</h1>
                 {% for i in insti %}
                 <div class="contenedorInsti col-md-3">
-                    <p class="texto">Correo: {{i.correo}}</p>
-                    <p class="texto">Rol: {{i.rol}}</p>
+                    <p class="textoGestion">{{i.correo}}</p>
+                    <p class="textoGestion">{{i.rol}}</p>
                     <form action="{% url 'eliminarUsuarioAdm' i.idUsuario %}" method="post" enctype="application/x-www-form-urlencoded">
                     {% csrf_token %}
                     <button class="btn btn-eliminar" type="submit">Eliminar</button>
