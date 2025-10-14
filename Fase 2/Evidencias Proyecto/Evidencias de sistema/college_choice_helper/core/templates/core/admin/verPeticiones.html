@@ -98,7 +98,6 @@
                 <div class="contenedorInsti col-md-3" style="text-align: left;">
                     <p class="texto">ID: {{ pr.idPeticiones }}</p>
                     <p class="texto">Asunto: <br> {{ pr.asunto }}</p>
-                    <p class="texto">Mensaje: <br> {{ pr.mensaje }}</p>
                     <p class="texto">Fecha: <br> {{ pr.fechaPeticion|date:"d/m/Y" }}</p>
                     <div style="text-align: center;">
                         <a class="btn btn-aceptar" href="{% url 'mostrarVerPeticion' pr.idPeticiones%}">Ver</a>
@@ -112,7 +111,6 @@
                     <p class="texto">ID: {{ pg.idPeticiones }}</p>
                     <p class="texto">Asunto: <br> {{ pg.asunto }}</p>
                     <p class="texto">Tipo de petición: <br> {{ pg.tipoPeticion }}</p>
-                    <p class="texto">Mensaje: <br> {{ pg.mensaje }}</p>
                     <p class="texto">Fecha: <br> {{ pg.fechaPeticion|date:"d/m/Y" }}</p>
                     <div style="text-align: center;">
                         <a class="btn btn-aceptar" href="{% url 'mostrarVerPeticion' pg.idPeticiones%}">Ver</a>
