@@ -519,7 +519,7 @@ def calcular_score(usuario, idInsti):
         porcentaje = 100
     else:
         porcentaje = round((score / totalParam) * 100, 2)
-
+    
     return score, porcentaje, detalles
 
 
@@ -536,8 +536,7 @@ def generar_recomendaciones(usuario):
             "porcentaje": porcentaje,
             "detalles" : detalles
         })
-    
-    recomendaciones.sort(key=lambda x: x["score"], reverse=True)
+    recomendaciones.sort(key=lambda x: (x["porcentaje"]), reverse=True)
     return recomendaciones
 
 
