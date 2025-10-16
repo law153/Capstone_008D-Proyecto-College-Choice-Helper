@@ -119,6 +119,8 @@ def insertarInsti(request):
             aniosAcreditacionI = request.POST['anios_acreditacion']
             webInstiI = request.POST['web_insti']
             fotoI = request.FILES['foto_insti']
+            tipoInsti = request.POST['tipoInsti']
+
 
             username = request.session.get('correo')
             tomarIdUser = Usuario.objects.get(correo=username)
@@ -144,6 +146,7 @@ def insertarInsti(request):
                     adscritoGratuidad = confirmarGratuidad,
                     acreditacion = aniosAcreditacionI,
                     fotoInstitucion = fotoI,
+                    tipoInstitucion = tipoInsti,
                     usuario = tomarIdUser
                 )
                 messages.success(request,"La institución fue agregada correctamente")
@@ -166,8 +169,8 @@ def actualizarInsti(request):
             gratuidadI = request.POST['gratuidad']
             aniosAcreditacionI = request.POST['anios_acreditacion']
             webInstiI = request.POST['web_insti']
-            
-
+            tipoInsti = request.POST['tipoInsti']
+            print(tipoInsti)
             #username = request.session.get('correo')
             #tomarIdUser = Usuario.objects.get(correo=username)
 
@@ -189,6 +192,7 @@ def actualizarInsti(request):
                 institucion.acreditacion = aniosAcreditacionI
                 institucion.webInstitucion = webInstiI
                 institucion.fotoInstitucion = fotoI
+                institucion.tipoInstitucion = tipoInsti
                 #institucion.usuario = tomarIdUser
                 institucion.save()
                 messages.success(request,"La institución se editó correctamente")

@@ -53,6 +53,23 @@
             margin: 0;
         }
 
+        .contenedorForm select{
+            width: 100%;
+            padding: 8px 5px;
+            margin-bottom: 15px;
+            border: none;
+            border-bottom: 2px solid #a0b8ff;
+            outline: none;
+            font-size: 14px;
+            background: transparent;
+
+        }
+
+        .contenedorForm select :focus{
+            border-bottom: 2px solid #6595ff;
+        }
+
+
     </style>
     
     {% endblock disenos %}
@@ -78,6 +95,15 @@
                         <label for="es_uni">No</label>
                         <input type="radio" id="es_uni" name="es_uni" value="False">
 
+                    </div>
+
+                    <div>
+                        <label for="tipoInsti">Seleccione el tipo de institución</label>
+                        <select name="tipoInsti" id="tipoInsti">
+                            <option value="Universidad">Universidad</option>
+                            <option value="IP">Instituto Profesional</option>
+                            <option value="CFT">Centro de formación técnica</option>
+                        </select>
                     </div>
 
                     <div>
@@ -114,6 +140,8 @@
                         <label for="foto_insti">Imagen:</label>
                         <input type="file" id="foto_insti" name="foto_insti">
                     </div>
+
+                    
 
                     <div>
                         <button class="btn btn-aceptar" type="submit" value="Enviar" id="btn_agregarInsti" name="btn_agregarInsti">Enviar</button>

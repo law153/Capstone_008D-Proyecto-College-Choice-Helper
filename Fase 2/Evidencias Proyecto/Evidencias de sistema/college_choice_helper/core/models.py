@@ -42,6 +42,7 @@ class Institucion(models.Model):
     webInstitucion = models.CharField(max_length=100, default="") 
     adscritoGratuidad = models.BooleanField(default=False)
     acreditacion = models.IntegerField()
+    tipoInstitucion = models.CharField(max_length=50, default="")
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     def __str__(self) -> str:
         return self.nombreInstitucion
