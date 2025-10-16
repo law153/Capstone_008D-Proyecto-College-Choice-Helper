@@ -6,30 +6,46 @@
     {% endblock titulo %}
 
     {% block disenos %}
+    <style>
+        .contenedorRecomendaciones h1 {
+            flex: 1 1 100%;
+            text-align: left; /* o center si prefieres */
+            margin-bottom: 20px;
+        }
+
+        .contenedorRecomendaciones h2 {
+            flex: 1 1 100%;
+            text-align: left; /* o center si prefieres */
+            margin-bottom: 20px;
+        }
+
+    </style>
     
     {% endblock disenos %}
 
 
     {% block cuerpo %}
-        <div class="contenedorRecomendaciones">
-            <h1>Recomendaciones</h1>
-            <h2 style="font-size: medium;">Estas son las recomendaciones que tenemos para ti:</h2>
-            {% for recom in recomendaciones %}
-            <div class="col-md-3 contenedorInsti">
-                <div class="card contenedor-img">
-                    <img src="{{recom.institucion.fotoInstitucion.url}}" alt="No hay imagen disponible">
+        <div class="contenido">
+            <div class="contenedorRecomendaciones">
+                <h1>Recomendaciones</h1>
+                <h2 style="font-size: larger;">Estas son las recomendaciones que tenemos para ti:</h2> 
+                {% for recom in recomendaciones %}
+                <div class="col-md-3 contenedorInsti">
+                    <div class="card contenedor-img">
+                        <img src="{{recom.institucion.fotoInstitucion.url}}" alt="No hay imagen disponible">
+                    </div>
+                    <div>
+                        <p class="texto">{{ recom.institucion.nombreInstitucion }}</p>
+                    </div>
+                    <div>
+                        <p class="texto">Compatibilidad: {{ recom.porcentaje }}%</p>
+                    </div>
+                    <div class="contenedor-link">
+                        <a href="{% url 'mostrarVistaInstituciones' recom.institucion.idInstitucion %}">Ver mas</a>
+                    </div>
                 </div>
-                <div>
-                    <p class="texto">{{ recom.institucion.nombreInstitucion }}</p>
-                </div>
-                <div>
-                    <p class="texto">Compatibilidad: {{ recom.porcentaje }}%</p>
-                </div>
-                <div class="contenedor-link">
-                    <a href="{% url 'mostrarVistaInstituciones' recom.institucion.idInstitucion %}">Ver mas</a>
-                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     {% endblock cuerpo %}
 
