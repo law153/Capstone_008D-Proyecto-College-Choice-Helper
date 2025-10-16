@@ -12,7 +12,10 @@ def mostrarRegistroInstitucion(request):
         if rol != 1:
             messages.warning(request,'No tiene rol de gestor institucional!')
             return redirect('mostrarIndex')
-        contexto = {'rol': rol}
+        
+        acreditaciones = [0,1,2,3,4,5,6,7]
+
+        contexto = {'rol': rol, 'acreditaciones': acreditaciones}
 
 
         return render(request, 'core/institucion/agregarInstitucion.html', contexto)
@@ -99,9 +102,11 @@ def mostrarEditarInstitucion(request, id_insti):
             messages.warning(request,'No tiene rol de gestor institucional!')
             return redirect('mostrarIndex')
         institucion = Institucion.objects.get(idInstitucion = id_insti)
+        acreditaciones = [0,1,2,3,4,5,6,7]
         contexto = {
             "insti" : institucion,
-            'rol': rol
+            'rol': rol,
+            'acreditaciones': acreditaciones
         }
         return render(request, 'core/institucion/editarInstitucion.html', contexto)
     else:

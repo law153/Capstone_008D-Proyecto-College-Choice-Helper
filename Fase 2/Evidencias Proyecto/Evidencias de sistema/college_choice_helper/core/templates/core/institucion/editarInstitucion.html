@@ -153,8 +153,14 @@
                     </div>
 
                     <div>
-                        <label for="anios_acreditacion">¿Cuantos años de acreditación?</label>
-                        <input type="number" id="anios_acreditacion" name="anios_acreditacion" value="{{insti.acreditacion}}">
+                        <label for="tipoInsti">Seleccione cantidad de años de acreditación</label>
+                        <select id="anios_acreditacion" name="anios_acreditacion">
+                        {% for acredi in acreditaciones %}
+                            <option value="{{ acredi }}" {% if insti.acreditacion == acredi %}selected{% endif %}>
+                            {{ acredi }}
+                            </option>
+                        {% endfor %}
+                        </select>
                     </div>
                     
                     <div>
