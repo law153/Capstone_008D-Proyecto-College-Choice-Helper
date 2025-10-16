@@ -94,7 +94,7 @@ def registrarUsuario(request):
             validate_password(contrasena, user=None)
         except ValidationError as e:
             for error in e:
-                messages.error(request,'La contraseña debe cumplir con las siguientes reglas: ',e)
+                messages.error(request,'La contraseña debe cumplir con las siguientes reglas: Minimo 8 caracteres, Incluir números, No ser unicamente números',error)
             return redirect('mostrarRegistro')
         
         if contrasena != contrasena_rep:
