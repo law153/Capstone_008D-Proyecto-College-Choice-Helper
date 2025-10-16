@@ -34,11 +34,11 @@
                     <div class="card contenedor-img">
                         <img src="{{recom.institucion.fotoInstitucion.url}}" alt="No hay imagen disponible">
                     </div>
-                    <div>
+                    <div class="contenedor-nombre">
                         <p class="texto">{{ recom.institucion.nombreInstitucion }}</p>
                     </div>
-                    <div>
-                        <p class="texto">Compatibilidad: {{ recom.porcentaje }}%</p>
+                    <div class="contenedor-compatibilidad">
+                        <p class="texto" style="padding-bottom: 10px;">Compatibilidad: {{ recom.porcentaje }}%</p>
                     </div>
                     <div class="contenedor-link">
                         <a href="{% url 'mostrarVistaInstituciones' recom.institucion.idInstitucion %}">Ver mas</a>
