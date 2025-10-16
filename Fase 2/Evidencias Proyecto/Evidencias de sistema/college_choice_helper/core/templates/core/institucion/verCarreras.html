@@ -8,6 +8,7 @@
 
     {% block disenos %}
     <style>
+
         .btn {
             padding: 10px 20px;
             border: none;
@@ -40,7 +41,7 @@
     {% endblock disenos %}
 
     {% block cuerpo %}  
-        <div class="contenido">
+        <div class="conteido">
             <br>
             <div class="row text-center">
                 <div class="col-md-12">
@@ -60,11 +61,11 @@
                     </div>
                     
                     <div>
-                        <p class="texto">Arancel: ${{ carre.costo|intcomma:"." }}</p>
+                        <p class="texto">${{ carre.costo|intcomma:"." }}</p>
                     </div>
 
                     <div>
-                        <p class="texto">Puntaje minimo: {{ carre.puntajeMinimo }} pts</p>
+                        <p class="texto">{{ carre.puntajeMinimo }} pts</p>
                     </div>
 
                     <div style="text-align: center;">

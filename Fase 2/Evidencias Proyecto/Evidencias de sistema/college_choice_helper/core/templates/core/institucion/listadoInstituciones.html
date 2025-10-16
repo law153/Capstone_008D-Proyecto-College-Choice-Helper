@@ -25,6 +25,8 @@
         .btn-aceptar:hover {
             background: #4a7bdb;
         }
+
+
     </style>
     {% endblock disenos %}
 
@@ -49,11 +51,11 @@
                     <img src="{{insti.fotoInstitucion.url}}" alt="Imagen no disponible">
                 </div>
                 <p class="texto">{{ insti.nombreInstitucion }}</p>
-                <div>
+                <div style="text-align: center;">
                     <a class="btn btn-aceptar" href="{% url 'mostrarEditarInstitucion' insti.idInstitucion %}">Editar institución</a>
                 </div>
                 
-                <div>
+                <div style="text-align: center;">
                     <a  class="btn btn-aceptar" href="{% url 'mostrarListadoCarreras' insti.idInstitucion %}">Gestionar carreras</a>
                 </div>
 

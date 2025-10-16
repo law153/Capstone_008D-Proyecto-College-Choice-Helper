@@ -94,8 +94,8 @@
                 <h1>Usuarios estudiantiles</h1>
                 {% for e in estu %}
                 <div class="contenedorInsti col-md-2">
-                    <p class="textoGestion">{{e.correo}}</p>
                     <p class="textoGestion">{{e.rol}}</p>
+                    <p class="textoGestion">{{e.correo}}</p>
                     <form action="{% url 'eliminarUsuarioAdm' e.idUsuario %}" method="post" enctype="application/x-www-form-urlencoded">
                     {% csrf_token %}
                     <button class="btn btn-eliminar" type="submit">Eliminar</button>
@@ -108,8 +108,8 @@
                 <h1>Usuarios institucionales</h1>
                 {% for i in insti %}
                 <div class="contenedorInsti col-md-3">
-                    <p class="textoGestion">{{i.correo}}</p>
                     <p class="textoGestion">{{i.rol}}</p>
+                    <p class="textoGestion">{{i.correo}}</p>
                     <form action="{% url 'eliminarUsuarioAdm' i.idUsuario %}" method="post" enctype="application/x-www-form-urlencoded">
                     {% csrf_token %}
                     <button class="btn btn-eliminar" type="submit">Eliminar</button>
