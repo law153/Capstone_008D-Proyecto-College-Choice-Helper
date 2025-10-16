@@ -118,16 +118,7 @@
                         <label for="nombre_insti">Nombre de la Institución:</label>
                         <input type="text" id="nombre_insti" name="nombre_insti" value="{{insti.nombreInstitucion}}">
                     </div>
-
-                    <label>¿Es universidad?</label>
-                    <div class="radio-group">
-                        <label for="es_uni">Si</label>
-                        <input type="radio" id="es_uni" name="es_uni" value="True" {% if insti.esUniversidadInsti %}checked{% endif %}>
-
-                        <label for="es_uni_b">No</label>
-                        <input type="radio" id="es_uni_b" name="es_uni" value="False" {% if not insti.esUniversidadInsti %}checked{% endif %}>
-                    </div>
-
+                    
                     <div>
                         <label for="tipoInsti">Seleccione el tipo de institución</label>
                         <select name="tipoInsti" id="tipoInsti">

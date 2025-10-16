@@ -119,7 +119,6 @@ def insertarInsti(request):
 
             nombreI = request.POST['nombre_insti']
             comunaI = request.POST['comuna_insti']
-            esUniversidadI = request.POST['es_uni']
             gratuidadI = request.POST['gratuidad']
             aniosAcreditacionI = request.POST['anios_acreditacion']
             webInstiI = request.POST['web_insti']
@@ -135,7 +134,7 @@ def insertarInsti(request):
                 comunaInstitucion = comunaI
             ).first()
 
-            confirmarUni = True if esUniversidadI == "True" else False
+            confirmarUni = True if tipoInsti == "Universidad" else False
             
             confirmarGratuidad = True if gratuidadI == "True" else False
 
@@ -170,7 +169,6 @@ def actualizarInsti(request):
             idI = request.POST['id_insti']
             nombreI = request.POST['nombre_insti']
             comunaI = request.POST['comuna_insti']
-            esUniversidadI = request.POST['es_uni']
             gratuidadI = request.POST['gratuidad']
             aniosAcreditacionI = request.POST['anios_acreditacion']
             webInstiI = request.POST['web_insti']
@@ -179,7 +177,7 @@ def actualizarInsti(request):
             #username = request.session.get('correo')
             #tomarIdUser = Usuario.objects.get(correo=username)
 
-            confirmarUni = True if esUniversidadI == "True" else False
+            confirmarUni = True if tipoInsti == "Universidad" else False
             confirmarGratuidad = True if gratuidadI == "True" else False
 
             institucion = Institucion.objects.get(idInstitucion = idI)
