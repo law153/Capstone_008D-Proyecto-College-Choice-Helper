@@ -17,14 +17,6 @@
             margin: 2px;
         }
 
-        .btn-aceptar {
-            background: #6595ff;
-            color: #fff;
-        }
-
-        .btn-aceptar:hover {
-            background: #4a7bdb;
-        }
 
         .btn-eliminar {
             background: #a00;
@@ -53,26 +45,68 @@
             gap: 15px;
         }
 
-        /* 🔹 Hace que el título quede arriba, ocupando todo el ancho */
+        
         .contenedorRecomendaciones h3 {
             flex: 1 1 100%;
-            text-align: left; /* o center si prefieres */
+            text-align: left; 
             margin-bottom: 20px;
         }
 
+
+
         .contenedorInsti {
-            flex: 1 1 calc(25% - 20px);
-            max-width: 220px;
-            border: 2px solid #a0b8ff;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            background: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: linear-gradient(180deg, #f8faff 0%, #e8f0ff 100%);
+            border: 2px solid #aac4ff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            padding: 15px 20px;
+            display: block;
+            width: 230px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            font-family: 'Segoe UI', sans-serif;
+            color: #1a1a1a;
         }
+
+        .contenedorInsti:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(180deg, #f0f6ff 0%, #d8e4ff 100%);
+        }
+
         .contenedorInsti p {
-            border-bottom: 2px solid #a0b8ff;
+            margin: 6px 0;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #c7d6ff;
+            font-size: 14px;
         }
+
+        .contenedorInsti p:last-of-type {
+            border-bottom: none;
+        }
+
+        .btn-aceptar {
+            background: #6595ff;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            padding: 8px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-aceptar:hover {
+            background: #4a7bdb;
+            transform: scale(1.05);
+        }
+
+        .contenedorInsti div {
+            text-align: center;
+            margin-top: 12px;
+        }
+
 
         @media (max-width: 900px) {
             .contenedorInsti {
@@ -95,7 +129,7 @@
             <div class="contenedorRecomendaciones">
                 <h3>Peticiones de cambio de rol</h3>
                 {% for pr in peticionesRol %}
-                <div class="contenedorInsti col-md-3" style="text-align: left;">
+                <div class="contenedorInsti col-md-3" style="text-align: center;">
                     <p class="texto">ID: {{ pr.idPeticiones }}</p>
                     <p class="texto">Asunto: <br> {{ pr.asunto }}</p>
                     <p class="texto">Fecha: <br> {{ pr.fechaPeticion|date:"d/m/Y" }}</p>
@@ -106,11 +140,11 @@
                 {% endfor %}
                 <h3>Peticiones generales</h3>
                 {% for pg in peticionesGeneral %}
-                <div class="contenedorInsti col-md-3" style="text-align: left;">
+                <div class="contenedorInsti col-md-3" style="text-align: center;">
 
                     <p class="texto">ID: {{ pg.idPeticiones }}</p>
                     <p class="texto">Asunto: <br> {{ pg.asunto }}</p>
-                    <p class="texto">Tipo de petición: <br> {{ pg.tipoPeticion }}</p>
+                    <p class="texto">Tipo: <br> {{ pg.tipoPeticion }}</p>
                     <p class="texto">Fecha: <br> {{ pg.fechaPeticion|date:"d/m/Y" }}</p>
                     <div style="text-align: center;">
                         <a class="btn btn-aceptar" href="{% url 'mostrarVerPeticion' pg.idPeticiones%}">Ver</a>
@@ -120,11 +154,11 @@
                 {% endfor %}
                 <h3>Peticiones revisadas</h3>
                 {% for prv in peticionesRevisadas %}
-                <div class="contenedorInsti col-md-3" style="text-align: left;">
+                <div class="contenedorInsti col-md-3" style="text-align: center;">
 
                     <p class="texto">ID: {{ prv.idPeticiones }}</p>
                     <p class="texto">Asunto: <br> {{ prv.asunto }}</p>
-                    <p class="texto">Tipo de petición: <br> {{ prv.tipoPeticion }}</p>
+                    <p class="texto">Tipo: <br> {{ prv.tipoPeticion }}</p>
                     <p class="texto">Fecha: <br> {{ prv.fechaPeticion|date:"d/m/Y" }}</p>
                     <div style="text-align: center;">
                         <a class="btn btn-aceptar" href="{% url 'mostrarVerPeticion' prv.idPeticiones%}">Ver</a>
