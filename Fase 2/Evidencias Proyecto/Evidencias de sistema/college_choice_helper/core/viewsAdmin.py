@@ -61,7 +61,7 @@ def mostrarVerPeticiones(request):
     
     correo = request.session.get('correo', None)
 
-    peticionesRol = Peticiones.objects.filter(tipoPeticion="Cambio de rol", estadoPeticion = 'Pendiente')
+    peticionesRol = Peticiones.objects.filter( ~Q(estadoPeticion="Revisada"), tipoPeticion="Cambio de rol" )
     peticionesGeneral = Peticiones.objects.filter(
         ~Q(tipoPeticion="Cambio de rol"),
         ~Q(estadoPeticion="Revisada")  
