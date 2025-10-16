@@ -3,6 +3,7 @@ from .models import Usuario, Rol, Peticiones, Institucion
 from django.db import transaction
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.db.models import Q
 #Admin
 def mostrarGestionUsuarios(request):
     if request.user.is_authenticated:
@@ -60,10 +61,15 @@ def mostrarVerPeticiones(request):
     
     correo = request.session.get('correo', None)
 
-    peticionesRol = Peticiones.objects.filter(tipoPeticion="Cambio de rol")
-    peticionesGeneral = Peticiones.objects.exclude(tipoPeticion="Cambio de rol")
+    peticionesRol = Peticiones.objects.filter(tipoPeticion="Cambio de rol", estadoPeticion = 'Pendiente')
+    peticionesGeneral = Peticiones.objects.filter(
+        ~Q(tipoPeticion="Cambio de rol"),
+        ~Q(estadoPeticion="Revisada")  
+    )
+    peticionesRevisadas = Peticiones.objects.filter(estadoPeticion = "Revisada")
 
-    contexto = {'rol': rol, 'correo': correo, 'peticionesRol': peticionesRol, 'peticionesGeneral': peticionesGeneral}
+
+    contexto = {'rol': rol, 'correo': correo, 'peticionesRol': peticionesRol, 'peticionesGeneral': peticionesGeneral, 'peticionesRevisadas' : peticionesRevisadas}
     return render (request,'core/admin/verPeticiones.html', contexto)
 
 def mostrarVerPeticion(request, idPeticiones):
@@ -118,4 +124,22 @@ def eliminarInstiAdm(request, id_insti):
         insti.delete()
         messages.success(request,"Se eliminó la institución")
         return redirect('mostrarIndex')
+    
+
+def revisarPeticion(request, idPeticion):
+    rol = request.session.get('rol', None)
+
+    if rol != 2:
+            messages.warning(request,'No tiene rol de administrador!')
+            return redirect('mostrarIndex')
+    if request.method == 'POST':
+         peticion = Peticiones.objects.get(idPeticiones=idPeticion)
+
+         peticion.estadoPeticion = "Revisada"
+         peticion.save()
+         messages.success(request,"La petición se marcó como revisada!")
+
+         return redirect('mostrarIndex')
+
+     
 

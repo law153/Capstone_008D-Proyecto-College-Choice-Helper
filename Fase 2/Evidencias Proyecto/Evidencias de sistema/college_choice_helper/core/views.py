@@ -115,7 +115,7 @@ def registrarUsuario(request):
                     
                 Parametros.objects.create(idParametros = usuario)
                 if toggleRol == 'on':
-                    Peticiones.objects.create(asunto="Solicitud de cuenta de Gestor de instituciones", tipoPeticion="Cambio de rol", mensaje="El usuario con correo " + correo + " solicita una cuenta de Gestor de instituciones.", usuario=usuario)
+                    Peticiones.objects.create(asunto="Solicitud de cuenta de Gestor de instituciones", tipoPeticion="Cambio de rol", mensaje="El usuario con correo " + correo + " solicita una cuenta de Gestor de instituciones.",estadoPeticion= "Pendiente",usuario=usuario)
 
             messages.success(request,'Su cuenta se creó exitosamente!')
             return redirect('mostrarLogin')

@@ -118,6 +118,20 @@
                     
                 </div>
                 {% endfor %}
+                <h3>Peticiones revisadas</h3>
+                {% for prv in peticionesRevisadas %}
+                <div class="contenedorInsti col-md-3" style="text-align: left;">
+
+                    <p class="texto">ID: {{ prv.idPeticiones }}</p>
+                    <p class="texto">Asunto: <br> {{ prv.asunto }}</p>
+                    <p class="texto">Tipo de petición: <br> {{ prv.tipoPeticion }}</p>
+                    <p class="texto">Fecha: <br> {{ prv.fechaPeticion|date:"d/m/Y" }}</p>
+                    <div style="text-align: center;">
+                        <a class="btn btn-aceptar" href="{% url 'mostrarVerPeticion' prv.idPeticiones%}">Ver</a>
+                    </div>
+                    
+                </div>
+                {% endfor %}
             </div>
         </div>
         

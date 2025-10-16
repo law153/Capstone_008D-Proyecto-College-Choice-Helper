@@ -62,4 +62,5 @@ class Peticiones(models.Model):
     tipoPeticion = models.CharField(max_length=50)
     mensaje = models.TextField()
     fechaPeticion = models.DateTimeField(auto_now_add=True)
+    estadoPeticion = models.TextField(max_length=50, default="")
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)

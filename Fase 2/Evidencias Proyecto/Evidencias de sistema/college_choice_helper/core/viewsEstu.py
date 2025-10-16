@@ -149,7 +149,7 @@ def generarPeticion(request):
             mensaje = request.POST.get('mensaje')
 
             if asunto and tipoPeticion and mensaje:
-                Peticiones.objects.create(asunto = asunto, tipoPeticion = tipoPeticion, mensaje = mensaje, usuario = usuario)
+                Peticiones.objects.create(asunto = asunto, tipoPeticion = tipoPeticion, mensaje = mensaje, estadoPeticion= 'Pendiente',usuario = usuario)
                 
                 messages.success(request,'Petición creada con éxito!')
                 return redirect('mostrarHacerpeticion')
