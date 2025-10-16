@@ -32,13 +32,40 @@
             border-radius: 8px;
         }
 
-        .contenedorInsti{
-            height: 10%;
-            max-height: 20%;
+        .contenedorCarrera{
+            height: 150px;
+
+            border: 2px solid #a6c3ff;
+            border-radius: 12px;
+            align-items: center;
+            margin: 5px;
+            padding: 10px;
+            text-align: center;
+            box-sizing: border-box;
+            display: flex;                
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         li{
             list-style: none;
+        }
+
+        .contenedor-nombre-carrera{
+            width: 100%;
+            height: 50%;
+            font-weight: bold;
+            
+        }
+
+        .contenedor-puntaje-carrera{
+            width: 100%;
+            height: 25%;
+        }
+
+        .contenedor-costo-carrera{
+            width: 100%;
+            height: 25%;
         }
     </style>
     {% endblock disenos %}
@@ -107,14 +134,14 @@
 
             <div class="row">
                 {% for carre in carreras %}
-                <div class="col-md-2 contenedorInsti">
-                    <div>
+                <div class="col-md-3 contenedorCarrera">
+                    <div class="contenedor-nombre-carrera">
                         <p>{{ carre.nombreCarrera }}</p>
                     </div>
-                    <div>
+                    <div class="contenedor-costo-carrera">
                         <p>${{ carre.costo|intcomma:"." }}</p>
                     </div>
-                    <div>
+                    <div class="contenedor-puntaje-carrera">
                         <p>{{ carre.puntajeMinimo }} pts</p>
                     </div>
                 </div>
