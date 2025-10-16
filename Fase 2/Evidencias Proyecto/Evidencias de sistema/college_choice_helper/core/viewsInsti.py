@@ -137,7 +137,9 @@ def insertarInsti(request):
             confirmarUni = True if tipoInsti == "Universidad" else False
             
             confirmarGratuidad = True if gratuidadI == "True" else False
-
+            if fotoI == None:
+                fotoI = ''
+            
             if existeInsti:
                 messages.error(request,"Ya existe una institucion con el mismo nombre y comuna")
                 return redirect('mostrarRegistroInstitucion')

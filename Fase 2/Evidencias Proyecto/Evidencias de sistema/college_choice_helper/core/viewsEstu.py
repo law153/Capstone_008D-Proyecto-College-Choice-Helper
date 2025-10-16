@@ -46,8 +46,9 @@ def mostrarRecomendaciones(request):
             return redirect('mostrarIndex')
         correo = request.session.get('correo', None)
         usuario = Usuario.objects.get(correo=correo)
+        parametros = Parametros.objects.get(idParametros=usuario)
 
-        recomendaciones = generar_recomendaciones(usuario)
+        recomendaciones = generar_recomendaciones(usuario, parametros.esUniversidad)
 
         contexto = {'rol': rol, 'recomendaciones' : recomendaciones}
         return render(request, 'core/estudiantes/recomendaciones.html', contexto)
@@ -524,8 +525,12 @@ def calcular_score(usuario, idInsti):
 
 
     
-def generar_recomendaciones(usuario):
-    instituciones = Institucion.objects.all()
+def generar_recomendaciones(usuario, uni):
+    
+    if uni:
+        instituciones = Institucion.objects.filter(tipoInstitucion = 'Universidad')
+    else:
+        instituciones = Institucion.objects.all()
     
     recomendaciones = []
     for insti in instituciones:
