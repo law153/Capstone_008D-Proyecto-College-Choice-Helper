@@ -52,7 +52,7 @@
             <div class="contenedorForm">
                 <h2>Petición ID: {{ peticion.idPeticiones }}</h2>
                 <div>
-                    <p class="texto">Usuario: {{ peticion.usuario.correo }}</p>
+                    <p class="texto">De: {{ peticion.usuario.correo }}</p>
                     <p class="texto">Asunto: {{ peticion.asunto }}</p>
                     <p class="texto">Fecha: {{ peticion.fechaPeticion|date:"d/m/Y" }}</p>
                     <p class="texto">Tipo de petición: {{ peticion.tipoPeticion }}</p>
@@ -63,7 +63,7 @@
                         <form id="cambiar-rol" action="{% url 'cambiarRol' peticion.idPeticiones peticion.usuario.correo %}" method="post" enctype="application/x-www-form-urlencoded">
                         {% csrf_token %}
                             <label for="toggleCambio"><input type="checkbox" id="toggleCambio" name="toggleCambio">¿Otorgar cuenta de Gestor de instituciones?</label>
-                            <input type="submit" value="Enviar petición" id="submit">
+                            <input class="btn btn-aceptar" type="submit" value="Enviar petición" id="submit">
                         </form>
                     </div>
                 {% endif %}
