@@ -27,14 +27,20 @@
             background-size: cover;
             z-index: -1;
         }
-        }
+        
 
         html, body{
             overflow: hidden;
             overflow-y: auto;
         }
 
-        
+        .alerta{
+            color: red !important;
+            font-size: 14px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
     </style>
     {% endblock disenos %}
 
@@ -56,8 +62,9 @@
                     <div class="campo-password">
                         <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña">
                         <span class="toggle-password">👁️</span>
+                        
                     </div>
-
+                    <p id="alerta" class="alerta"></p>
                     <label for="contrasena_rep">Confirmar contraseña:</label>
                     <div class="campo-password">
                         <input type="password" id="contrasena_rep" name="contrasena_rep" placeholder="Repetir contraseña">
@@ -78,4 +85,5 @@
     {% endblock cuerpo %}
 
     {% block js %}
+    <script src="{% static 'core/js/registro.js' %}"></script>
     {% endblock js %}
