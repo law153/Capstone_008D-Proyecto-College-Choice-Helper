@@ -171,7 +171,8 @@
                             <img alt="No hay imagen disponible" src="{{insti.fotoInstitucion.url}}">
                         </div>
                     </div>
-                    
+                    <p class="alerta" id="alerta"></p>
+
                     <br>
                     <div class="row">
                         
@@ -187,6 +188,7 @@
                             <a class="btn btn-eliminar" href="{% url 'eliminarInsti' insti.idInstitucion%}">Eliminar</a>
                         </div>
                     </div>
+
                     
                 </form>
             </div>
@@ -194,4 +196,5 @@
     {% endblock cuerpo %}
 
     {% block js %}
+    <script src="{% static 'core/js/editarInsti.js' %}"></script>
     {% endblock js %}
