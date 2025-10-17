@@ -58,7 +58,7 @@
                         <label for="puntaje">Puntaje minimo de la carrera</label>
                         <input type="number" id="puntaje" name="puntaje" placeholder="100" min="100" max="1000">
                     </div>
-
+                    <p class="alerta" id="alerta"></p>
                     <div style="text-align: center;">
                         <button class="btn btn-aceptar" type="submit">Agregar carrera</button>
                     </div>
@@ -99,5 +99,5 @@
             }
         });
     </script>
-    
+    <script src="{% static 'core/js/agregarCarrera.js' %}"></script>
     {% endblock js %}
