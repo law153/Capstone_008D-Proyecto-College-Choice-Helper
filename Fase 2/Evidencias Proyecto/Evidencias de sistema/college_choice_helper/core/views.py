@@ -90,12 +90,6 @@ def registrarUsuario(request):
             messages.error(request,'El correo ingresado ya esta registrado!')
             return redirect('mostrarRegistro')
         
-        try:
-            validate_password(contrasena, user=None)
-        except ValidationError as e:
-            for error in e:
-                messages.error(request,'La contraseña debe cumplir con las siguientes reglas: Minimo 8 caracteres, Incluir números, No ser unicamente números',error)
-            return redirect('mostrarRegistro')
         
         if contrasena != contrasena_rep:
             messages.error(request,'Las contraseñas no coinciden!')
