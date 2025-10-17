@@ -37,6 +37,41 @@
             background: #700;
         }
 
+        .contenedorNombre{
+            width: 100%;
+            height: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        .contenedor-boton{
+            width: 100%;
+            height: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contenedorPuntaje{
+            width: 100%;
+            height: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contenedorCosto{
+            width: 100%;
+            height: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        
+
     </style>
     {% endblock disenos %}
 
@@ -56,22 +91,22 @@
             <div class="contenedorRecomendaciones">
                 {% for carre in carreras %}
                 <div class="col-md-3 contenedorInsti">
-                    <div>
+                    <div class="contenedorNombre">
                         <p class="texto">{{ carre.nombreCarrera }}</p>
                     </div>
                     
-                    <div>
+                    <div class="contenedorCosto">
                         <p class="texto">${{ carre.costo|intcomma:"." }}</p>
                     </div>
 
-                    <div>
+                    <div class="contenedorPuntaje">
                         <p class="texto">{{ carre.puntajeMinimo }} pts</p>
                     </div>
 
-                    <div style="text-align: center;">
+                    <div style="text-align: center;" class="contenedor-boton">
                         <a class="btn btn-aceptar" href="{% url 'mostrarEditarCarrera' carre.idCarrera insti.idInstitucion %}">Editar carrera</a>
                     </div>
-                    <div style="text-align: center;">
+                    <div style="text-align: center;" class="contenedor-boton">
                         <form method="POST" action="{% url 'eliminarCarrera' carre.idCarrera insti.idInstitucion %}">
                         {% csrf_token %}
                         <button class="btn btn-eliminar" type="submit">Eliminar carrera</button>
