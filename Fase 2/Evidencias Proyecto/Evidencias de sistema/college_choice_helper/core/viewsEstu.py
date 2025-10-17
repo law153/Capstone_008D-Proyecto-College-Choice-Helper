@@ -238,12 +238,7 @@ def cambiarClave(request):
                 messages.error(request,'Las contraseñas no coinciden')
                 return redirect('mostrarCambioClave')
 
-            try:
-                validate_password(nuevaClave, user=request.user)
-            except ValidationError as e:
-                for error in e:
-                    messages.error(request,'La contraseña debe cumplir con las siguientes reglas:' + error)
-                return redirect('mostrarCambioClave')
+            
 
             
             

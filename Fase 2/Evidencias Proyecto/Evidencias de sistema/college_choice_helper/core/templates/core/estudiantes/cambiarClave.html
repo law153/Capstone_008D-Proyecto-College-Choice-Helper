@@ -15,7 +15,7 @@
 
             <div class="contenedorForm">
                 <h2>Cambiar mi clave</h2>
-                <form action="{% url 'cambiarClave' %}" method="post" enctype="application/x-www-form-urlencoded">
+                <form action="{% url 'cambiarClave' %}" id="cambiarClave" method="post" enctype="application/x-www-form-urlencoded">
                 {% csrf_token %}
                     <label for="clave">Ingrese su clave actual:</label>
                     <div class="campo-password">
@@ -23,14 +23,14 @@
                         <input type="password" id="clave" name="clave" placeholder="Contraseña actual">
                         <span class="toggle-password">👁️</span>
                     </div>
-
+                    
                     <label for="clave_new">Ingrese su clave nueva:</label>
                     <div class="campo-password">
                         
-                        <input type="password" id="clave_new" name="clave_new" placeholder="Contraseña nueva">
+                        <input type="password" id="contrasena" name="clave_new" placeholder="Contraseña nueva">
                         <span class="toggle-password">👁️</span>
                     </div>
-                    
+                    <p id="alerta" class="alerta"></p>
                     <label for="clave_rep">Repita su clave nueva: </label>
                     <div class="campo-password">
                         
@@ -49,4 +49,5 @@
     {% endblock cuerpo %}
 
     {% block js %}
+    <script src="{% static 'core/js/cambiarClave.js' %}"></script>
     {% endblock js %}
