@@ -33,6 +33,56 @@
         .btn-eliminar:hover {
             background: #700;
         }
+
+        .contenedorId{
+            width: 100%;
+            height: 10%;
+        }
+
+        .contenedorNombre{
+            width: 100%;
+            height: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        .contenedorComuna{
+            width: 100%;
+            height: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        .contenedorIMG{
+            width: 100%;
+            height: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contenedor-img{
+            width: 70px;
+            height: 70px;
+            margin-top: 0px !important;
+        }
+
+        .contenedorBoton{
+            width: 100%;
+            height: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .contenedorInsti{
+            height: 40vh;
+        }
+
     </style>
     {% endblock disenos %}
 
@@ -45,13 +95,28 @@
                 
                 {% for i in insti %}
                 <div class="contenedorInsti col-md-3">
-                    <p class="texto">ID: {{i.idInstitucion}}</p>
-                    <p class="texto">Nombre: {{i.nombreInstitucion}}</p>
-                    <p class="texto">Comuna: {{i.comunaInstitucion}}</p>
-                    <form action="{% url 'eliminarInstiAdm' i.idInstitucion %}" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="contenedorId">
+                        <p class="texto">ID: {{i.idInstitucion}}</p>
+                    </div>
+                    <div class="contenedorIMG">
+                        <div class="contenedor-img">
+                            <img src="{{i.fotoInstitucion.url}}" alt="Imagen no disponible">
+                        </div>
+                    </div>
+                    
+                    <div class="contenedorNombre">
+                        <p class="texto">Nombre: {{i.nombreInstitucion}}</p>
+                    </div>
+                    <div class="contenedorComuna">
+                        <p class="texto">Comuna: {{i.comunaInstitucion}}</p>
+                    </div>
+                    <div class="contenedorBoton">
+                        <form action="{% url 'eliminarInstiAdm' i.idInstitucion %}" method="post" enctype="application/x-www-form-urlencoded">
                         {% csrf_token %}
-                        <button class="btn btn-eliminar" type="submit">Eliminar</button>
-                    </form>  
+                            <button class="btn btn-eliminar" type="submit">Eliminar</button>
+                        </form>  
+                    </div>
+                    
                 </div>
                 
                 {% endfor %}         
