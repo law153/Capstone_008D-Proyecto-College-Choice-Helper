@@ -122,7 +122,7 @@ def insertarInsti(request):
             gratuidadI = request.POST['gratuidad']
             aniosAcreditacionI = request.POST['anios_acreditacion']
             webInstiI = request.POST['web_insti']
-            fotoI = request.FILES['foto_insti']
+            fotoI = request.FILES.get('foto_insti')
             tipoInsti = request.POST['tipoInsti']
 
 
@@ -137,8 +137,9 @@ def insertarInsti(request):
             confirmarUni = True if tipoInsti == "Universidad" else False
             
             confirmarGratuidad = True if gratuidadI == "True" else False
+
             if fotoI == None:
-                fotoI = ''
+                fotoI = 'default_insti.png'
             
             if existeInsti:
                 messages.error(request,"Ya existe una institucion con el mismo nombre y comuna")

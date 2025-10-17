@@ -101,12 +101,7 @@
                         <input type="text" id="comuna_insti" name="comuna_insti" placeholder="Comuna">
                     </div>
 
-                    <!--
-                    <div>
-                        <label for="costo_insti">Costo de la institución:</label>
-                        <input type="number" id="costo_insti" name="" placeholder="Costo">
-                    </div>
-                    !-->
+                   
                     <label>¿Está adscrita a gratuidad?:</label>
                     <div class="radio-group">
                         <label for="gratuidad">Si</label>
@@ -137,7 +132,7 @@
                         <input type="file" id="foto_insti" name="foto_insti">
                     </div>
 
-                    
+                    <p class="alerta" id="alerta"></p>
 
                     <div>
                         <button class="btn btn-aceptar" type="submit" value="Enviar" id="btn_agregarInsti" name="btn_agregarInsti">Enviar</button>
@@ -149,4 +144,5 @@
     {% endblock cuerpo %}
 
     {% block js %}
+    <script src="{% static 'core/js/agregarInsti.js' %}"></script>
     {% endblock js %}
