@@ -328,7 +328,7 @@ body, ul, li {
     text-align: center;
     background-color: #a6c3ff;
     width: 15%;
-    transition: width .75s ease;
+    transition: width .75s ease !important;
     overflow: hidden;
 }
 

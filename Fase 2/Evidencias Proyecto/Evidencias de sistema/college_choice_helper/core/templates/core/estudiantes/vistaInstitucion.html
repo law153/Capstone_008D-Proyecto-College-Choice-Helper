@@ -1,4 +1,4 @@
-{% extends 'core/sinCuenta/plantillaSinCuenta.html'%}
+{% extends 'core/sinCuenta/plantillaSinCuenta.html' %}
 {% load static %}
 {% load humanize %}
 
@@ -18,7 +18,7 @@
             height: 90%;
             object-fit: cover;
             border: 2px solid #000;
-            background: #fff;
+            background: var(--color-fondo);
             display: flex;
             justify-content: center;
             margin: 0 auto;
@@ -45,6 +45,10 @@
             flex-direction: column;
             justify-content: flex-start;
 
+        }
+
+        .dark-mode .contenedorCarrera{
+            border: 2px solid #5a8ef7;
         }
 
         li{

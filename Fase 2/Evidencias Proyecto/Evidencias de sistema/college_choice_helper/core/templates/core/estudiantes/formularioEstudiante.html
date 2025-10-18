@@ -1,4 +1,4 @@
-{% extends 'core/sinCuenta/plantillaSinCuenta.html'%}
+{% extends 'core/sinCuenta/plantillaSinCuenta.html' %}
 {% load static %}
 
     {% block titulo %}
@@ -86,11 +86,11 @@
         transform: translateX(22px);
         }
 
-        .contenedorForm select, .contenedorForm textarea{
+        .contenedorForm select{
             width: 100%;
             padding: 8px 5px;
             margin-bottom: 15px;
-            border: none;
+            border: none !important;
             border-bottom: 2px solid #a0b8ff;
             outline: none;
             font-size: 14px;
@@ -98,8 +98,20 @@
 
         }
 
-        .contenedorForm select, .contenedorForm textarea :focus{
+        .dark-mode .contenedorForm select{
+            background: #302d2d !important;
+            color: #e0e0e0;
+            border-bottom: #5a8ef7;
+            transition: background 0.5s ,color 0.5s, border-bottom 0.5s !important;
+        }
+
+        .contenedorForm select:focus{
             border-bottom: 2px solid #6595ff;
+        }
+
+        .dark-mode .contenedorForm select:focus{
+            border-bottom: 2px solid #3661bc;
+            transition: border-bottom 0.5s;
         }
 
         .contenedorPadre {
