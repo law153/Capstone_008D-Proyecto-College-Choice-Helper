@@ -28,10 +28,15 @@
                     <div class="contenedor-logo">
                         <img src="{% static 'core/img/logo.png' %}" alt="No hay imagen disponible"> 
                     </div>
+
                 </div>
 
-                <div class="col-md-11 barraSuperior">
+                <div class="col-md-10 barraSuperior">
                     <a href="{% url 'mostrarIndex' %}">College Choice Helper</a>
+                </div>
+
+                <div class="col-md-1 barraSuperior">
+                    <button id="modoOscuroBtn">🌙 Modo oscuro</button>
                 </div>
                 
             </div>
@@ -91,6 +96,7 @@
 
             </div>
         </div>
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 // Selecciona todos los toggles
@@ -108,6 +114,31 @@
                         }
                     });
                 });
+            });
+        </script>
+
+        <script>
+            //Para el modo oscuro
+            const boton = document.getElementById('modoOscuroBtn');
+            const body = document.body;
+
+            
+            if (localStorage.getItem('tema') === 'oscuro') {
+                body.classList.add('dark-mode');
+                boton.textContent = '☀️ Modo claro';
+            }
+
+            // Al hacer clic en el botón, cambiar el tema
+            boton.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('tema', 'oscuro');
+                    boton.textContent = '☀️ Modo claro';
+                } else {
+                    localStorage.setItem('tema', 'claro');
+                    boton.textContent = '🌙 Modo oscuro';
+                }
             });
         </script>
 
