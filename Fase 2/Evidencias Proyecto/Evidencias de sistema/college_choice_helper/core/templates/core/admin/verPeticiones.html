@@ -67,10 +67,22 @@
             color: #1a1a1a;
         }
 
+        .dark-mode .contenedorInsti{
+            background: linear-gradient(180deg, #302d2d 0%, #272224 100%);
+            transition: background 0.5s;
+        }
+
         .contenedorInsti:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
             background: linear-gradient(180deg, #f0f6ff 0%, #d8e4ff 100%);
+        }
+
+        .dark-mode .contenedorInsti:hover{
+            transform: translateY(-5px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.85);
+            background: linear-gradient(180deg, #302d2d 0%, #272224 100%);
+            transition: transform 0.5s, box-shadow 0.5s, background 0.5s;
         }
 
         .contenedorInsti p {

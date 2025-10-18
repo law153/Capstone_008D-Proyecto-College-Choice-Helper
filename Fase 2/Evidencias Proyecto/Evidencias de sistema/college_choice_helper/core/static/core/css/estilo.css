@@ -26,7 +26,7 @@ body{
     background-color: var(--color-fondo);
     background: var(--color-bg-color);
     color: var(--color-text);
-    transition: background-color 0.5s, color 0.5s, background 0.5s;
+    transition: background-color 0.5s, color 0.5s, background 0.5s !important;
 }
 
 
@@ -130,12 +130,13 @@ body, ul, li {
     text-align: center;
     background-color: #fff;
     overflow: hidden;
-    transition: width .75s ease;
+    transition: width .75s ease !important;
     width: 8%;
 }
 
 .dark-mode .columnaCuenta{
     background-color: #302d2d;
+    transition: background-color 0.5s;
 }
 
 
