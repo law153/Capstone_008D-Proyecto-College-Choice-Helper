@@ -488,7 +488,7 @@ body, ul, li {
     background: transparent;
 }
 
-.dark-mode .contenedorForm input[type="email"], .contenedorForm input[type="password"], .contenedorForm input[type="text"]{
+.dark-mode .contenedorForm input[type="email"], .dark-mode .contenedorForm input[type="password"], .dark-mode .contenedorForm input[type="text"] , .dark-mode .contenedorForm input[type="url"]{
     border-bottom: 2px solid #5a8ef7;
     color: #e0e0e0;
     transition: border-bottom 0.5s, color 0.5s;
@@ -498,7 +498,7 @@ body, ul, li {
     border-bottom: 2px solid #6595ff;
 }
 
-.dark-mode .contenedorForm input[type="email"]:focus, .contenedorForm input[type="password"]:focus, .contenedorForm input[type="text"]{
+.dark-mode .contenedorForm input[type="email"]:focus, .dark-mode .contenedorForm input[type="password"]:focus, .dark-mode .contenedorForm input[type="text"], .dark-mode .contenedorForm input[type="url"]{
     border-bottom: 2px solid #3661bc;
     transition: border-bottom 0.5s;
 }
@@ -603,6 +603,11 @@ body, ul, li {
 }
 
 .dark-mode .textoGestion{
+    color: #e0e0e0;
+    transition: color 0.5s;
+}
+
+.dark-mode select{
     color: #e0e0e0;
     transition: color 0.5s;
 }
