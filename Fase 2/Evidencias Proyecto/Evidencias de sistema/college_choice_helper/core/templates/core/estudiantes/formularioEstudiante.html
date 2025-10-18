@@ -53,6 +53,7 @@
         height: 0;
         }
 
+
         .slider {
         position: absolute;
         cursor: pointer;
@@ -63,6 +64,10 @@
         background-color: #ccc;
         transition: 0.4s;
         border-radius: 34px;
+        }
+
+        .dark-mode .slider {
+            background-color: #333;
         }
 
         .slider:before {
@@ -76,6 +81,13 @@
         transition: 0.4s;
         border-radius: 50%;
         }
+
+        body.dark-mode input:disabled, body.dark-mode select:disabled, body.dark-mode textarea:disabled {
+            background-color: #333 !important;
+            color: #888;
+            border-color: #444;
+        }
+
 
         /* Estado ON */
         .switch input:checked + .slider {
