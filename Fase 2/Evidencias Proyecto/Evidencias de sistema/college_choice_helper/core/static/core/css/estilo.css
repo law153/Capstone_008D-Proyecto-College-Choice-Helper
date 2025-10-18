@@ -26,13 +26,13 @@ body{
     background-color: var(--color-fondo);
     background: var(--color-bg-color);
     color: var(--color-text);
+    transition: background-color 0.5s, color 0.5s, background 0.5s;
 }
 
 
 body, ul, li {
     margin: 0 !important;
     padding: 0 !important;
-    transition: background-color 0.5s, color 0.5s, background 0.5s;
 }
 
 
@@ -128,10 +128,14 @@ body, ul, li {
     justify-content: space-evenly;
     align-items: center;
     text-align: center;
-    background-color: (var(--color-fondo));
+    background-color: #fff;
     overflow: hidden;
     transition: width .75s ease;
     width: 8%;
+}
+
+.dark-mode .columnaCuenta{
+    background-color: #302d2d;
 }
 
 
@@ -224,7 +228,7 @@ body, ul, li {
     background-color: #a6c3ff;
     text-align: center;
     overflow: hidden;
-    transition: width .75s ease;
+    transition: width .75s ease !important;
     width: 15%;
     
 }
