@@ -16,7 +16,6 @@ def mostrarRegistroInstitucion(request):
         
         acreditaciones = [0,1,2,3,4,5,6,7]
         comunas = obtener_comunas_metropolitana()
-        print(comunas)
         contexto = {'rol': rol, 'acreditaciones': acreditaciones, 'comunas': comunas}
 
 
@@ -92,7 +91,7 @@ def mostrarEditarCarrera(request, id_carrera, id_insti):
     institucion = Institucion.objects.get(idInstitucion=id_insti)
 
     carrera = Carrera.objects.get(idCarrera=id_carrera)
-
+    comunas = obtener_comunas_metropolitana()
     contexto = {'rol': rol, 'insti': institucion, 'carrera': carrera}
 
     return render(request, 'core/institucion/editarCarrera.html', contexto)
@@ -105,10 +104,12 @@ def mostrarEditarInstitucion(request, id_insti):
             return redirect('mostrarIndex')
         institucion = Institucion.objects.get(idInstitucion = id_insti)
         acreditaciones = [0,1,2,3,4,5,6,7]
+        comunas = obtener_comunas_metropolitana()
         contexto = {
             "insti" : institucion,
             'rol': rol,
-            'acreditaciones': acreditaciones
+            'acreditaciones': acreditaciones,
+            'comunas': comunas
         }
         return render(request, 'core/institucion/editarInstitucion.html', contexto)
     else:
