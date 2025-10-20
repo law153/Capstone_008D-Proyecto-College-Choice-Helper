@@ -177,21 +177,46 @@
                 const body = document.body;
                 const logo = document.getElementById('logo');
 
-                // Verifica el tema almacenado
+
+                const logoClaro = "{% static 'core/img/logo.png' %}";      
+                const logoOscuro = "{% static 'core/img/logo-dark.png' %}"; 
+                const defaultInstitucion = "/media/default_insti.png";      
+                const defaultInstitucionBlanca = "{% static 'core/img/logo.png' %}"; 
+
+                const imagenes = document.querySelectorAll('img');
+                imagenes.forEach(img => {
+                    if (img.src.includes("default_insti.png")) {
+                        img.dataset.default = "true";
+                    }
+                });
+
+                function actualizarImagenesModo() {
+                    const imgs = document.querySelectorAll('img[data-default="true"]');
+                    imgs.forEach(img => {
+                        if (body.classList.contains('dark-mode')) {
+                            img.src = defaultInstitucionBlanca; 
+                        } else {
+                            img.src = defaultInstitucion;
+                        }
+                    });
+                }
+                
                 const temaGuardado = localStorage.getItem('tema');
 
-                // Aplica el tema según el valor guardado
+                
                 if (temaGuardado === 'oscuro') {
                     body.classList.add('dark-mode');
-                    boton.checked = true; // Marca el switch
+                    boton.checked = true;
                     logo.src = "{% static 'core/img/logo-dark.png' %}";
                 } else {
                     body.classList.remove('dark-mode');
-                    boton.checked = false; // Desmarca el switch
+                    boton.checked = false; 
                     logo.src = "{% static 'core/img/logo.png' %}";
                 }
 
-                // Al hacer clic, alterna el modo
+                actualizarImagenesModo();
+
+                
                 boton.addEventListener('change', () => {
                     if (boton.checked) {
                         body.classList.add('dark-mode');
@@ -202,6 +227,7 @@
                         localStorage.setItem('tema', 'claro');
                         logo.src = "{% static 'core/img/logo.png' %}";
                     }
+                    actualizarImagenesModo();
                 });
             });
         </script>
