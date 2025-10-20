@@ -172,30 +172,37 @@
         </script>
 
         <script>
-            //Para el modo oscuro
-            const boton = document.getElementById('modoOscuroBtn');
-            const body = document.body;
-            const logo = document.getElementById('logo');
-            
-            if (localStorage.getItem('tema') === 'oscuro') {
-                body.classList.add('dark-mode');
-                boton.textContent = '☀️ Modo claro';
-                logo.src = "{% static 'core/img/logo-dark.png' %}";
-            }
+            document.addEventListener('DOMContentLoaded', function() {
+                const boton = document.getElementById('modoOscuroBtn');
+                const body = document.body;
+                const logo = document.getElementById('logo');
 
-            // Al hacer clic en el botón, cambiar el tema
-            boton.addEventListener('click', () => {
-                body.classList.toggle('dark-mode');
+                // Verifica el tema almacenado
+                const temaGuardado = localStorage.getItem('tema');
 
-                if (body.classList.contains('dark-mode')) {
-                    localStorage.setItem('tema', 'oscuro');
-                    boton.textContent = '☀️ Modo claro';
+                // Aplica el tema según el valor guardado
+                if (temaGuardado === 'oscuro') {
+                    body.classList.add('dark-mode');
+                    boton.checked = true; // Marca el switch
                     logo.src = "{% static 'core/img/logo-dark.png' %}";
                 } else {
-                    localStorage.setItem('tema', 'claro');
-                    boton.textContent = '🌙 Modo oscuro';
+                    body.classList.remove('dark-mode');
+                    boton.checked = false; // Desmarca el switch
                     logo.src = "{% static 'core/img/logo.png' %}";
                 }
+
+                // Al hacer clic, alterna el modo
+                boton.addEventListener('change', () => {
+                    if (boton.checked) {
+                        body.classList.add('dark-mode');
+                        localStorage.setItem('tema', 'oscuro');
+                        logo.src = "{% static 'core/img/logo-dark.png' %}";
+                    } else {
+                        body.classList.remove('dark-mode');
+                        localStorage.setItem('tema', 'claro');
+                        logo.src = "{% static 'core/img/logo.png' %}";
+                    }
+                });
             });
         </script>
 
