@@ -69,14 +69,17 @@ def mostrarEstadisticas(request):
     parametros = Parametros.objects.all()
     carrera = Carrera.objects.all()
 
+    #Estadisticas
     cantidadEstudiante = estudiantes.count()
     cantidadInstitucional = institucionales.count()
     cantidadInstituciones = instituciones.count()
+    cantidadCarreras = carrera.count()
 
     stats = [
         {"nombre": "Usuarios estudiantiles registrados", "valor": cantidadEstudiante},
         {"nombre": "Usuarios institucionales registrados", "valor": cantidadInstitucional},
         {"nombre": "Instituciones registradas", "valor": cantidadInstituciones},
+        {"nombre": "Carreras registradas", "valor": cantidadCarreras},
     ]
     contexto = {'rol': rol, 'estadisticas': stats}
 
