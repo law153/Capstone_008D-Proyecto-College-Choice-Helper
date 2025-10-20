@@ -3,7 +3,7 @@ from django.conf.urls import handler404
 from .views import mostrarIndex, mostrarLogin, mostrarRegistro, mostrarOlvidoClave, inicioSesion, registrarUsuario
 from .viewsEstu import mostrarFormularioEstudiante, mostrarRecomendaciones, mostrarVistaInstituciones, mostrarCambioClave, mostrarCambioCorreo, mostrarGestionCuenta, mostrarHacerPeticion, mostrarEliminarCuenta, cierreSesion, generarPeticion, cambiarCorreo, cambiarClave, eliminarCuenta, definirParametros
 from .viewsInsti import mostrarRegistroInstitucion, mostrarEditarInstitucion, insertarInsti, actualizarInsti, mostrarListadoInstitucion, eliminarInsti, mostrarListadoCarreras, mostrarAgregarCarrera, agregarCarrera, mostrarEditarCarrera, editarCarrera, eliminarCarrera
-from .viewsAdmin import mostrarGestionUsuarios, mostrarGestionInsti, mostrarVerPeticiones, mostrarVerPeticion, cambiarRol, eliminarUsuarioAdm, eliminarInstiAdm, revisarPeticion
+from .viewsAdmin import mostrarGestionUsuarios, mostrarGestionInsti, mostrarVerPeticiones, mostrarVerPeticion, cambiarRol, eliminarUsuarioAdm, eliminarInstiAdm, revisarPeticion, mostrarEstadisticas
 
 urlpatterns = [
     #SinCuenta
@@ -46,6 +46,7 @@ urlpatterns = [
     path('gestionar_insti/', mostrarGestionInsti, name="mostrarGestionInsti"),
     path('ver_peticiones/', mostrarVerPeticiones, name="mostrarVerPeticiones"),
     path('ver_peticion/<idPeticiones>/', mostrarVerPeticion, name="mostrarVerPeticion"),
+    path('estadisticas/', mostrarEstadisticas, name="mostrarEstadisticas"),
     path('cambiar_rol/<idPeticion>/<correo>/', cambiarRol, name="cambiarRol"),
     path('eliminar_usuario_adm/<correoU>/', eliminarUsuarioAdm, name="eliminarUsuarioAdm"),
     path('eliminar_insti_adm/<id_insti>/',eliminarInstiAdm, name="eliminarInstiAdm"),

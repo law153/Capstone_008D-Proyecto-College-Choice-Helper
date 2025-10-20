@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Usuario, Rol, Peticiones, Institucion
+from .models import Usuario, Rol, Peticiones, Institucion, Parametros, Carrera
 from django.db import transaction
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -51,6 +51,36 @@ def mostrarGestionInsti(request):
                 'insti': instituciones
     }
     return render (request,'core/admin/gestionInstituciones.html', contexto)
+
+def mostrarEstadisticas(request):
+    if request.user.is_authenticated == False:
+        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
+        return redirect('mostrarLogin')
+
+    rol = request.session.get('rol', None)
+
+    if rol != 2:
+            messages.warning(request,'No tiene rol de administrador!')
+            return redirect('mostrarIndex')
+    
+    estudiantes = Usuario.objects.filter(rol = 0)
+    institucionales = Usuario.objects.filter(rol = 1)
+    instituciones = Institucion.objects.all()
+    parametros = Parametros.objects.all()
+    carrera = Carrera.objects.all()
+
+    cantidadEstudiante = estudiantes.count()
+    cantidadInstitucional = institucionales.count()
+    cantidadInstituciones = instituciones.count()
+
+    stats = [
+        {"nombre": "Usuarios estudiantiles registrados", "valor": cantidadEstudiante},
+        {"nombre": "Usuarios institucionales registrados", "valor": cantidadInstitucional},
+        {"nombre": "Instituciones registradas", "valor": cantidadInstituciones},
+    ]
+    contexto = {'rol': rol, 'estadisticas': stats}
+
+    return render (request,'core/admin/estadisticasAdmin.html', contexto)
 
 def mostrarVerPeticiones(request):
     rol = request.session.get('rol', None)

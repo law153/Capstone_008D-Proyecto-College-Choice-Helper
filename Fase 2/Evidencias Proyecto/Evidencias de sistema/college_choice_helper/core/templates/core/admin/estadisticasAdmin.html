@@ -1,0 +1,56 @@
+{% extends 'core/sinCuenta/plantillaSinCuenta.html'%}
+{% load static %}
+
+    {% block titulo %}
+        <title>Administrador</title>
+    {% endblock titulo %}
+
+    {% block disenos %}
+    <style>
+        .contenedorInsti{
+            height: 20vh;
+        }
+
+        .contenedorNombre{
+            width: 100%;
+            height: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .contenedorEstadistica{
+            width: 100%;
+            height: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    </style>
+    {% endblock disenos %}
+
+
+    {% block cuerpo %}
+        
+        <div class="contenido">
+            <h1 style="text-align: center;">Estadisticas registradas</h1>
+            <div class="contenedorRecomendaciones">
+                {% for s in estadisticas %}
+                <div class="contenedorInsti">
+                    <div class="contenedorNombre">
+                        <p> {{ s.nombre }} </p>
+                    </div>
+                    <div class="contenedorEstadistica">
+                        <p> {{ s.valor }} </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock cuerpo %}
+
+    {% block js %}
+    {% endblock js %}
