@@ -57,12 +57,13 @@ body, ul, li {
     height: 15vh;
     display: flex;
     align-items: center;
+    transition: background-color 0.5s;
 }
 
 
 .dark-mode .barraSuperior{
     background: #3661bc !important;
-    transition: background-color 0.5s;
+    
 }
 
 
@@ -76,12 +77,13 @@ body, ul, li {
     color: #fff;
     font-size: 64px;
     margin-left: 2%;
+    transition: color 0.5s;
 }
 
 
 .dark-mode .barraSuperior a{
     color: #302d2d;
-    transition: color 0.5s;
+    
 }
 
 
@@ -95,6 +97,7 @@ body, ul, li {
     justify-content: center;
     margin: 0 auto;
     margin-top: 10px;
+    transition: background 0.5s;
 }
 
 
@@ -132,11 +135,12 @@ body, ul, li {
     overflow: hidden;
     transition: width .75s ease !important;
     width: 8%;
+    transition: background-color 0.5s;
 }
 
 .dark-mode .columnaCuenta{
     background-color: #302d2d;
-    transition: background-color 0.5s;
+    
 }
 
 
@@ -172,6 +176,7 @@ body, ul, li {
     align-items: center;
     border-bottom: 2px solid #6595ff;
     border-radius: .2rem;
+    transition: border-bottom 0.5s;
     
     
 }
@@ -179,7 +184,7 @@ body, ul, li {
 
 .dark-mode .columnaCuenta li{
     border-bottom: 2px solid #3661bc;
-    transition: border-bottom 0.5s;
+    
 }
 
     
@@ -196,28 +201,32 @@ body, ul, li {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    transition: color 0.5s;
 }
 
 
 .columnaCuenta li:hover{
     background-color: #ccc;
+    transition: background-color 0.5s;
 }
 
 
 .dark-mode .columnaCuenta li:hover{
     background-color: #272224;
-    transition: background-color 0.5s;
+    
 }
 
 
 .columnaCuenta a:hover{
     color: #6595ff;
+    transition: color 0.5s;
 }
 
 
 .dark-mode .columnaCuenta a:hover{
     color: #3661bc;
-    transition: color 0.5s;
+    
 }
 
 
@@ -231,12 +240,13 @@ body, ul, li {
     overflow: hidden;
     transition: width .75s ease !important;
     width: 15%;
+    transition: background-color 0.5s;
     
 }
 
 .dark-mode .columnaNav {
     background-color: #5a8ef7;
-    transition: background-color 0.5s;
+    
 }
 
 
@@ -273,22 +283,24 @@ body, ul, li {
     align-items: center;
     border-bottom: 2px solid #666;
     border-radius: .2rem;
+    transition: border-bottom 0.5s;
 }
 
 .dark-mode .columnaNav li{
     border-bottom: 2px solid #272224;
-    transition: border-bottom 0.5s;
+    
 }
 
 
 .columnaNav li:hover{
     background-color: #6595ff;
+    transition: background-color 0.5s;
 }
 
 
 .dark-mode .columnaNav li:hover{
     background-color: #3661bc;
-    transition: background-color 0.5s;
+    
 }
 
 .columnaNav a{
@@ -303,21 +315,23 @@ body, ul, li {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: color 0.5s;
 }
 
 .dark-mode .columnaNav a{
     color: #302d2d;
-    transition: color 0.5s;
+    
 }
 
 
 .columnaNav a:hover{
     color: #666 !important;
+    transition: color 0.5s;
 }
 
 .dark-mode .columnaNav a:hover{
     color: #272224 !important;
-    transition: color 0.5s;
+    
 }
 
 
@@ -331,11 +345,12 @@ body, ul, li {
     width: 15%;
     transition: width .75s ease !important;
     overflow: hidden;
+    transition: background-color 0.5s;
 }
 
 .dark-mode .columnaNoCuenta{
     background-color: #5a8ef7;
-    transition: background-color 0.5s;
+    
 }
 
 .columnaNoCuenta:hover{
@@ -371,11 +386,12 @@ body, ul, li {
     align-items: center; 
     border-bottom: 2px solid #666;
     border-radius: .2rem;
+    transition: border-bottom 0.5;
 }
 
 .dark-mode .columnaNoCuenta li{
     border-bottom: 2px solid #272224;
-    transition: border-bottom 0.5;
+    
 }
 
 .columnaNoCuenta a{
@@ -391,34 +407,38 @@ body, ul, li {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    transition: color 0.5s;
 }
 
 .dark-mode .columnaNoCuenta a{
     color: #302d2d;
-    transition: color 0.5s;
+    
 }
 
 
 .columnaNoCuenta li:hover{
     background-color: #6595ff;
+    transition: background-color 0.5s;
 }
 
 
 .dark-mode .columnaNoCuenta li:hover{
     background-color: #3661bc;
-    transition: background-color 0.5s;
+    
     
 }
 
 
 .columnaNoCuenta a:hover{
     color: #666 !important;
+    transition: color 0.5s;
 }
 
 
 .dark-mode .columnaNoCuenta a:hover{
     color: #272224 !important;
-    transition: color 0.5s;
+    
 }
 
 
@@ -430,6 +450,7 @@ body, ul, li {
     border: 2px solid #a6c3ff;
     border-radius: 12px;
     box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+    transition: background 0.5s, border 0.5s, box-shadow 0.5s;
 }
 
 
@@ -437,7 +458,6 @@ body, ul, li {
     background: var(--color-bg-color);
     border: 2px solid #5a8ef7;
     box-shadow: 0px 2px 10px rgba(0,0,0,0.9);
-    transition: background 0.5s, border 0.5s, box-shadow 0.5s ;
 }
 
 .contenedorForm h1{
@@ -445,22 +465,22 @@ body, ul, li {
     margin-bottom: 20px;
     color: #333;
     text-align: center;
+    transition: color 0.5s; 
 }
 
 .dark-mode .contenedorForm h1{
     color: var(--color-text);
-    transition: color 0.5s; 
 }
 
 .contenedorForm h2{
     font-size: 18px;
     margin-bottom: 20px;
-    color: #333
+    color: #333;
+    transition: color 0.5s;
 }
 
 .dark-mode .contenedorForm h2{
     color: var(--color-text);
-    transition: color 0.5s;
 }
 
 
@@ -470,11 +490,11 @@ body, ul, li {
     margin-bottom: 6px;
     font-weight: bold;
     color: #333;
+    transition: color 0.5s;
 }
 
 .dark-mode .contenedorForm label{
     color: var(--color-text);
-    transition: color 0.5s;
 }
 
 .contenedorForm input[type="email"], .contenedorForm input[type="password"], .contenedorForm input[type="text"]{
@@ -486,21 +506,21 @@ body, ul, li {
     outline: none;
     font-size: 14px;
     background: transparent;
+    transition: color 0.5s, border-bottom 0.5s!important;
 }
 
 .dark-mode .contenedorForm input[type="email"], .dark-mode .contenedorForm input[type="password"], .dark-mode .contenedorForm input[type="text"] , .dark-mode .contenedorForm input[type="url"]{
     border-bottom: 2px solid #5a8ef7;
     color: #e0e0e0;
-    transition: border-bottom 0.5s, color 0.5s;
 }
 
 .contenedorForm input[type="email"]:focus, .contenedorForm input[type="password"]:focus, .contenedorForm input[type="text"]{
     border-bottom: 2px solid #6595ff;
+    transition: border-bottom 0.5s;
 }
 
 .dark-mode .contenedorForm input[type="email"]:focus, .dark-mode .contenedorForm input[type="password"]:focus, .dark-mode .contenedorForm input[type="text"], .dark-mode .contenedorForm input[type="url"]{
     border-bottom: 2px solid #3661bc;
-    transition: border-bottom 0.5s;
 }
 
 .contenedorForm input[type="checkbox"] {
@@ -511,11 +531,11 @@ body, ul, li {
     font-size: 12px;
     color: #666;
     margin: 5px 0 15px;
+    transition: color 0.5s;
 }
 
 .dark-mode .contenedorForm p{
     color: #fff;
-    transition: color 0.5s;
 }
 
 .contenedorForm .botones{
@@ -537,41 +557,44 @@ body, ul, li {
 .contenedorForm .btn-aceptar {
     background: #6595ff;
     color: #fff;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 .dark-mode .contenedorForm .btn-aceptar{
     background: #3661bc;;
     color: #302d2d;
-    transition: background-color 0.5s, color 0.5s;
 }
 
 .contenedorForm .btn-aceptar:hover {
     background: #4a7bdb;
+    transition: background 0.5s;
 }
 
 .dark-mode .contenedorForm .btn-aceptar:hover{
-    background: #2859c1;
-    transition: background 0.5s;
+    background: #154cc2;
+    
 }
 
 .contenedorForm .btn-eliminar {
     background: #a00;
     color: #fff;
+    transition: background 0.5s, color 0.5s;
 }
 
 .dark-mode .contenedorForm .btn-eliminar{
     background: #a05;
     color: #302d2d;
-    transition: background 0.5s, color 0.5s;
+    
 }
 
 .contenedorForm .btn-eliminar:hover {
     background: #700;
+    transition: background 0.5s;
 }
 
 .dark-mode .contenedorForm .btn-eliminar:hover{
     background: #705;
-    transition: background 0.5s;
+    
 }
 
 .titulo{
@@ -590,21 +613,23 @@ body, ul, li {
 .texto{
     font-size: 18px !important; 
     color: #000 !important;
+    transition: color 0.5s;
 }
 
 .dark-mode .texto{
     color: #e0e0e0 !important;
-    transition: color 0.5s;
+    
 }
 
 .textoGestion{
     font-size: 15px !important;
     color: #000;
+    transition: color 0.5s;
 }
 
 .dark-mode .textoGestion{
     color: #e0e0e0;
-    transition: color 0.5s;
+    
 }
 
 .dark-mode select{
@@ -634,12 +659,13 @@ body, ul, li {
     justify-content: flex-start;
     align-items: flex-start;
     box-sizing: border-box;
+    transition: background 0.5s, box-shadow 0.5s;
 }
 
 .dark-mode .contenedorRecomendaciones{
     background: var(--color-fondo);
     box-shadow: 0px 2px 10px rgba(0,0,0,0.9);
-    transition: background 0.5s, box-shadow 0.5s;
+    
 }
 
 
@@ -656,11 +682,12 @@ body, ul, li {
     padding: 10px;
     text-align: center;
     box-sizing: border-box;
+    transition: border 0.5s;
 }
 
 .dark-mode .contenedorInsti{
     border: 2px solid #5a8ef7;
-    transition: border 0.5s;
+    
 }
 
 .contenedor-nombre{

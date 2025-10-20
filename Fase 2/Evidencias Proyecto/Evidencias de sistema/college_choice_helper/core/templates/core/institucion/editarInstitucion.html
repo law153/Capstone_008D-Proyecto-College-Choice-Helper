@@ -20,11 +20,12 @@
             outline: none;
             font-size: 14px;
             background: transparent;
-
+            transition: color 0.5s;
         }
 
         .contenedorForm input[type="number"]:focus, .contenedorForm input[type="url"]:focus, .contenedorForm input[type="file"]{
             border-bottom: 2px solid #6595ff;
+            transition: border-bottom 0.5s;
         }
 
         .contenedorForm input[type="file"]::file-selector-button{
@@ -33,7 +34,7 @@
             border-radius: 20px;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.5s;
         }
 
         .radio-group {
@@ -89,28 +90,27 @@
             border-bottom: 2px solid #a0b8ff;
             outline: none;
             font-size: 14px;
-            background: transparent;
+            background: #fff;
+            transition: background 0.5s , color 0.5s, border-bottom 0.5s !important;
 
         }
 
         .dark-mode .contenedorForm select{
             background: #302d2d !important;
             color: #e0e0e0;
-            border-bottom: #5a8ef7;
-            transition: background 0.5s ,color 0.5s, border-bottom 0.5s !important;
+            border-bottom: 2px solid #5a8ef7;
         }
 
 
-        .contenedorForm select :focus{
+        .contenedorForm select:focus{
             border-bottom: 2px solid #6595ff;
         }
 
         .dark-mode .contenedorForm select:focus{
             border-bottom: 2px solid #3661bc;
-            transition: border-bottom 0.5s;
         }
 
-        
+
 
         .contenedor-img{
             height: 150px;
