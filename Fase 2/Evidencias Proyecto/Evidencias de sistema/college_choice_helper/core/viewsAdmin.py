@@ -70,7 +70,6 @@ def mostrarEstadisticas(request):
     parametros = Parametros.objects.all()
     carrera = Carrera.objects.all()
     
-    print(comunas)
     #Estadisticas
     cantidadEstudiante = estudiantes.count()
     cantidadInstitucional = institucionales.count()
