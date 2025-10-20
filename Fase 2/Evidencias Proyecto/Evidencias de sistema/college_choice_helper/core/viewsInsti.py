@@ -4,6 +4,7 @@ from .models import Institucion, Usuario, Carrera
 import re
 import unicodedata
 from django.contrib import messages
+import requests
 
 # Instituciones
 def mostrarRegistroInstitucion(request):
@@ -14,8 +15,9 @@ def mostrarRegistroInstitucion(request):
             return redirect('mostrarIndex')
         
         acreditaciones = [0,1,2,3,4,5,6,7]
-
-        contexto = {'rol': rol, 'acreditaciones': acreditaciones}
+        comunas = obtener_comunas_metropolitana()
+        print(comunas)
+        contexto = {'rol': rol, 'acreditaciones': acreditaciones, 'comunas': comunas}
 
 
         return render(request, 'core/institucion/agregarInstitucion.html', contexto)
@@ -380,3 +382,21 @@ def normalizar_nombre(nombre: str) -> str:
     nombre = nombre.capitalize()
 
     return nombre
+
+def obtener_comunas_metropolitana():
+    url = "https://gist.githubusercontent.com/juanbrujo/0fd2f4d126b3ce5a95a7dd1f28b3d8dd/raw/b8575eb82dce974fd2647f46819a7568278396bd/comunas-regiones.json"
+    try:
+        resp = requests.get(url, timeout=10)
+        resp.raise_for_status()
+        data = resp.json()
+
+        # Filtrar solo la Región Metropolitana
+        for region_data in data.get("regiones", []):
+            if region_data["region"].lower().strip() == "región metropolitana de santiago":
+                return region_data["comunas"]
+        
+        # Si no se encuentra, devolver lista vacía
+        return []
+    except requests.RequestException as e:
+        print("Error al obtener comunas:", e)
+        return []

@@ -95,10 +95,15 @@
                             <option value="CFT">Centro de formación técnica</option>
                         </select>
                     </div>
-                        
+
+
                     <div>
-                        <label for="comuna_insti">Comuna en donde se ubica:</label>
-                        <input type="text" id="comuna_insti" name="comuna_insti" placeholder="Comuna">
+                        <label for="tipoInsti">Seleccione la comuna donde se ubica</label>
+                        <select name="comuna_insti" id="comuna_insti">
+                            {% for comu in comunas %}
+                            <option value="{{ comu }}">{{ comu }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
 
                    
