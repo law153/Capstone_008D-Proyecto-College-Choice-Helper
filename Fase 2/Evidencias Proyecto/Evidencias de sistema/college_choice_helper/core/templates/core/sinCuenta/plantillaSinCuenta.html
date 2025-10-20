@@ -153,18 +153,22 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                // Selecciona todos los toggles
+                // Selecciona todos los toggles de contraseña
                 const toggles = document.querySelectorAll('.toggle-password');
 
                 toggles.forEach(toggle => {
                     toggle.addEventListener('click', function() {
                         const input = this.previousElementSibling;
+                        const icon = this.querySelector('i'); // el ícono dentro del botón
+
                         if (input && input.type === 'password') {
                             input.type = 'text';
-                            this.textContent = '🙈'; 
+                            icon.classList.remove('fa-eye');
+                            icon.classList.add('fa-eye-slash');
                         } else if (input) {
                             input.type = 'password';
-                            this.textContent = '👁️';
+                            icon.classList.remove('fa-eye-slash');
+                            icon.classList.add('fa-eye');
                         }
                     });
                 });
