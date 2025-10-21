@@ -3,7 +3,7 @@ from .models import Usuario, Rol, Peticiones, Institucion, Parametros, Carrera
 from django.db import transaction
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.db.models import Q,  Count
+from django.db.models import Q,  Count, Sum, Case, When, IntegerField
 from collections import Counter
 from django.db.models.functions import TruncMonth
 
@@ -69,7 +69,7 @@ def mostrarEstadisticas(request):
     estudiantes = Usuario.objects.filter(rol = 0)
     institucionales = Usuario.objects.filter(rol = 1)
     instituciones = Institucion.objects.all()
-    parametros = Parametros.objects.all()
+    parametros = Parametros.objects.filter(idParametros__rol=0)
     carrera = Carrera.objects.all()
     
     #Estadisticas
@@ -77,6 +77,7 @@ def mostrarEstadisticas(request):
     cantidadInstitucional = institucionales.count()
     cantidadInstituciones = instituciones.count()
     cantidadCarreras = carrera.count()
+    totalUsuarios = cantidadEstudiante + cantidadInstitucional
 
     comunas = [estu.comunaUsuario for estu in estudiantes]
     top_comunas_raw = Counter(comunas).most_common(3)
@@ -92,20 +93,44 @@ def mostrarEstadisticas(request):
 
     usuarios_por_mes = (User.objects.annotate(mes=TruncMonth('date_joined')).values('mes').annotate(total=Count('id')).order_by('mes'))
 
+    FLAGS = [
+        'comunaRelevancia',
+        'budgetRelevancia',
+        'gratuidadRelevancia',
+        'acreditacionRelevancia',
+        'esUniversidadRelevancia',
+        'puntajeNemRelevancia',
+        'carreraRelevancia',
+    ]
+
+    aggs = {'total_estudiantes': Count('pk')}
+    for f in FLAGS:
+        aggs[f] = Sum(
+            Case(When(**{f: True}, then=1), default=0, output_field=IntegerField())
+        )
+
+    res = parametros.aggregate(**aggs)
+
+    total_estudiantes = res['total_estudiantes'] or 0
+    total_trues = sum((res[f] or 0) for f in FLAGS)
+
+    
+    promedio_param_activados = round(total_trues / total_estudiantes, 2) if total_estudiantes else 0.0
+    
+    print(promedio_param_activados)
+
     stats = [
         {"nombre": "Usuarios estudiantiles registrados", "valor": cantidadEstudiante},
         {"nombre": "Usuarios institucionales registrados", "valor": cantidadInstitucional},
-        {"nombre": "Instituciones registradas", "valor": cantidadInstituciones},
-        {"nombre": "Carreras registradas", "valor": cantidadCarreras},
     ]
-    contexto = {'rol': rol, 'estadisticas': stats, 'top_comunas': top_comunas, 'top_carreras': top_carreras, 'top_tipoInsti': top_tipoInsti, 'usuarios_por_mes': usuarios_por_mes }
+    contexto = {'rol': rol, 'estadisticas': stats, 'top_comunas': top_comunas, 'top_carreras': top_carreras, 'top_tipoInsti': top_tipoInsti, 'usuarios_por_mes': usuarios_por_mes, 'cantidadInstituciones': cantidadInstituciones, 'totalUsuarios': totalUsuarios, 'cantidadCarreras': cantidadCarreras, 'promedio_param_activados': promedio_param_activados}
 
     return render (request,'core/admin/estadisticasAdmin.html', contexto)
 
 def mostrarVerPeticiones(request):
     rol = request.session.get('rol', None)
 
-    if rol != 2:
+    if rol != 2: 
             messages.warning(request,'No tiene rol de administrador!')
             return redirect('mostrarIndex')
     

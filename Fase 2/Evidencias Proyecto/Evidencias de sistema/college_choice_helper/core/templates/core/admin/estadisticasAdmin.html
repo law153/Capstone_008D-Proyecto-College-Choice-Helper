@@ -7,26 +7,82 @@
 
     {% block disenos %}
     <style>
-        .contenedorInsti{
-            height: 20vh;
-        }
+        /* --- KPI Section --- */
+.kpi-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin: 40px auto 60px;
+    width: 80%;
+}
 
-        .contenedorNombre{
-            width: 100%;
-            height: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 15px;
-            font-weight: bold;
-        }
+.kpi-card {
+    flex: 1 1 280px;
+    background: linear-gradient(135deg, #84a9ff, #547eff);
+    color: white;
+    border-radius: 15px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
 
-        .contenedorEstadistica {
-            display: flex;
-            flex-direction: column; 
-            align-items: flex-start;
-            gap: 2px; 
-        }
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.kpi-card h2 {
+    font-size: 2.8rem;
+    margin: 0;
+    font-weight: 700;
+}
+
+.kpi-card p {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+/* --- KPI dark mode --- */
+body.dark-mode .kpi-card {
+    background: linear-gradient(135deg, #252525, #3a3a3a);
+    color: #f2f2f2;
+    box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+/* --- Dashboard cards below --- */
+.contenedorRecomendaciones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.contenedorInsti {
+    flex: 1 1 300px;
+    min-width: 260px;
+    height: auto;
+    background: #f8faff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    padding: 20px;
+}
+
+.contenedorInsti:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+body.dark-mode .contenedorInsti {
+    background: #1e1e1e;
+    color: #dcdcdc;
+    box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
 
     </style>
     {% endblock disenos %}
@@ -36,7 +92,24 @@
         
         <div class="contenido">
             <h1 style="text-align: center;">Estadisticas registradas</h1>
+            <div class="kpi-container">
+                    <div class="kpi-card">
+                        <h2>{{ totalUsuarios }}</h2>
+                        <p>Total de usuarios</p>
+                    </div>
+                    <div class="kpi-card">
+                        <h2>{{ cantidadInstituciones }}</h2>
+                        <p>Instituciones registradas</p>
+                    </div>
+
+                    <div class="kpi-card">
+                        <h2>{{ cantidadCarreras }}</h2>
+                        <p>Carreras registradas</p>
+                    </div>
+            </div>
             <div class="contenedorRecomendaciones">
+                
+                
                 {% for s in estadisticas %}
                 <div class="contenedorInsti">
                     <div class="contenedorNombre">
@@ -47,11 +120,12 @@
                     </div>
                 </div>
                 {% endfor %}
+
                 <div class="contenedorInsti">
                     <div class="contenedorNombre">
                         <p> Comunas preferidas para estudiar:</p>
                     </div>
-                    <div class="contenedorEstadistica">
+                    <div class="contenedorEstadistica" style="text-align: left;">
                         {% for comu in top_comunas %}
                         {% if comu.nombre == '' %}
                             <p>{{ forloop.counter }}. Sin especificar: {{ comu.cantidad }}</p>
@@ -67,7 +141,7 @@
                     <div class="contenedorNombre">
                         <p> Carreras preferidas para estudiar:</p>
                     </div>
-                    <div class="contenedorEstadistica">
+                    <div class="contenedorEstadistica" style="text-align: left;">
                         {% for carre in top_carreras %}
                         {% if carre.nombre == '' %}
                             <p>{{ forloop.counter }}. Sin especificar: {{ carre.cantidad }}</p>
@@ -80,28 +154,73 @@
                 </div>
 
                 <div class="contenedorInsti">
-                    <div class="contenedorNombre">
+                    <div class="contenedorNombre" >
+                        <p>Promedio de parametros activados: </p>
+                    </div>
+                    <div class="contenedorEstadistica" style="text-align: left;">
+                        
+                        <p>{{ promedio_param_activados }}</p>
+                        
+                    </div>
+                </div>
+
+                <div class="contenedorInsti">
+                    <div class="contenedorNombre" >
                         <p> Cantidad de instituciones por tipo:</p>
                     </div>
-                    <div class="contenedorEstadistica">
+                    <div class="contenedorEstadistica" style="text-align: left;">
                         {% for tipo in top_tipoInsti %}
                             <p>{{ forloop.counter }}. {{ tipo.nombre }}: {{ tipo.cantidad }}</p>
                         {% endfor %}
                     </div>
                 </div>
+                
+
                 <div class="contenedorInsti">
-                    <div class="contenedorNombre">
-                        <p> Cantidad de cuentas creadas por mes:</p>
-                    </div>
-                    <div class="contenedorEstadistica">
-                        {% for fecha in usuarios_por_mes %}
-                            <p>{{ fecha.mes|date:"m" }}: {{ fecha.total }}</p>
-                        {% endfor %}
-                    </div>
+                <div class="contenedorNombre">
+                    <p>Evolución de registros mensuales</p>
                 </div>
+                <canvas id="graficoUsuarios"></canvas>
             </div>
+            </div>
+
+            
+
         </div>
     {% endblock cuerpo %}
 
     {% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('graficoUsuarios');
+
+        const labels = [
+            {% for mes in usuarios_por_mes %}
+            "{{ mes.mes|date:'M' }}",
+            {% endfor %}
+        ];
+
+        const data = [
+            {% for mes in usuarios_por_mes %}
+            {{ mes.total }},
+            {% endfor %}
+        ];
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+            labels: labels,
+            datasets: [{
+                label: 'Usuarios creados',
+                data: data,
+                backgroundColor: '#6595ff'
+            }]
+            },
+            options: {
+            scales: {
+                y: { beginAtZero: true }
+            }
+            }
+        });
+        </script>
     {% endblock js %}
