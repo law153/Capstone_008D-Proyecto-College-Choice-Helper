@@ -3,8 +3,9 @@ from .models import Usuario, Rol, Peticiones, Institucion, Parametros, Carrera
 from django.db import transaction
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.db.models import Q
+from django.db.models import Q,  Count
 from collections import Counter
+from django.db.models.functions import TruncMonth
 
 #Admin
 def mostrarGestionUsuarios(request):
@@ -89,13 +90,15 @@ def mostrarEstadisticas(request):
     top_tipoInsti_raw = Counter(tipoInsti).most_common(3)
     top_tipoInsti = [{"nombre": c[0], "cantidad": c[1]} for c in top_tipoInsti_raw]
 
+    usuarios_por_mes = (User.objects.annotate(mes=TruncMonth('date_joined')).values('mes').annotate(total=Count('id')).order_by('mes'))
+
     stats = [
         {"nombre": "Usuarios estudiantiles registrados", "valor": cantidadEstudiante},
         {"nombre": "Usuarios institucionales registrados", "valor": cantidadInstitucional},
         {"nombre": "Instituciones registradas", "valor": cantidadInstituciones},
         {"nombre": "Carreras registradas", "valor": cantidadCarreras},
     ]
-    contexto = {'rol': rol, 'estadisticas': stats, 'top_comunas': top_comunas, 'top_carreras': top_carreras, 'top_tipoInsti': top_tipoInsti}
+    contexto = {'rol': rol, 'estadisticas': stats, 'top_comunas': top_comunas, 'top_carreras': top_carreras, 'top_tipoInsti': top_tipoInsti, 'usuarios_por_mes': usuarios_por_mes }
 
     return render (request,'core/admin/estadisticasAdmin.html', contexto)
 

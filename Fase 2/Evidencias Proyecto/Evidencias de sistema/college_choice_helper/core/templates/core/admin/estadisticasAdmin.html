@@ -89,6 +89,16 @@
                         {% endfor %}
                     </div>
                 </div>
+                <div class="contenedorInsti">
+                    <div class="contenedorNombre">
+                        <p> Cantidad de cuentas creadas por mes:</p>
+                    </div>
+                    <div class="contenedorEstadistica">
+                        {% for fecha in usuarios_por_mes %}
+                            <p>{{ fecha.mes|date:"m" }}: {{ fecha.total }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
     {% endblock cuerpo %}
