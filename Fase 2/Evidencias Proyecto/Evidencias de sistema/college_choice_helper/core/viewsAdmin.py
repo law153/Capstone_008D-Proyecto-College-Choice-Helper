@@ -4,6 +4,7 @@ from django.db import transaction
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Q
+from collections import Counter
 
 #Admin
 def mostrarGestionUsuarios(request):
@@ -76,13 +77,25 @@ def mostrarEstadisticas(request):
     cantidadInstituciones = instituciones.count()
     cantidadCarreras = carrera.count()
 
+    comunas = [estu.comunaUsuario for estu in estudiantes]
+    top_comunas_raw = Counter(comunas).most_common(3)
+    top_comunas = [{"nombre": c[0], "cantidad": c[1]} for c in top_comunas_raw]
+    
+    carreras = [param.carrera for param in parametros]
+    top_carreras_raw = Counter(carreras).most_common(3)
+    top_carreras = [{"nombre": c[0], "cantidad": c[1]} for c in top_carreras_raw]
+
+    tipoInsti = [insti.tipoInstitucion for insti in instituciones]
+    top_tipoInsti_raw = Counter(tipoInsti).most_common(3)
+    top_tipoInsti = [{"nombre": c[0], "cantidad": c[1]} for c in top_tipoInsti_raw]
+
     stats = [
         {"nombre": "Usuarios estudiantiles registrados", "valor": cantidadEstudiante},
         {"nombre": "Usuarios institucionales registrados", "valor": cantidadInstitucional},
         {"nombre": "Instituciones registradas", "valor": cantidadInstituciones},
         {"nombre": "Carreras registradas", "valor": cantidadCarreras},
     ]
-    contexto = {'rol': rol, 'estadisticas': stats}
+    contexto = {'rol': rol, 'estadisticas': stats, 'top_comunas': top_comunas, 'top_carreras': top_carreras, 'top_tipoInsti': top_tipoInsti}
 
     return render (request,'core/admin/estadisticasAdmin.html', contexto)
 

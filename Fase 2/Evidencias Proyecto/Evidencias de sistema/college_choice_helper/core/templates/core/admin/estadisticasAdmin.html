@@ -21,12 +21,11 @@
             font-weight: bold;
         }
 
-        .contenedorEstadistica{
-            width: 100%;
-            height: 50%;
+        .contenedorEstadistica {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column; 
+            align-items: flex-start;
+            gap: 2px; 
         }
 
     </style>
@@ -48,6 +47,48 @@
                     </div>
                 </div>
                 {% endfor %}
+                <div class="contenedorInsti">
+                    <div class="contenedorNombre">
+                        <p> Comunas preferidas para estudiar:</p>
+                    </div>
+                    <div class="contenedorEstadistica">
+                        {% for comu in top_comunas %}
+                        {% if comu.nombre == '' %}
+                            <p>{{ forloop.counter }}. Sin especificar: {{ comu.cantidad }}</p>
+                        {% else %}
+                            <p>{{ forloop.counter }}. {{ comu.nombre }}: {{ comu.cantidad }}</p>
+                        {% endif %}
+                        
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="contenedorInsti">
+                    <div class="contenedorNombre">
+                        <p> Carreras preferidas para estudiar:</p>
+                    </div>
+                    <div class="contenedorEstadistica">
+                        {% for carre in top_carreras %}
+                        {% if carre.nombre == '' %}
+                            <p>{{ forloop.counter }}. Sin especificar: {{ carre.cantidad }}</p>
+                        {% else %}
+                            <p>{{ forloop.counter }}. {{ carre.nombre }}: {{ carre.cantidad }}</p>
+                        {% endif %}
+                        
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="contenedorInsti">
+                    <div class="contenedorNombre">
+                        <p> Cantidad de instituciones por tipo:</p>
+                    </div>
+                    <div class="contenedorEstadistica">
+                        {% for tipo in top_tipoInsti %}
+                            <p>{{ forloop.counter }}. {{ tipo.nombre }}: {{ tipo.cantidad }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
     {% endblock cuerpo %}
