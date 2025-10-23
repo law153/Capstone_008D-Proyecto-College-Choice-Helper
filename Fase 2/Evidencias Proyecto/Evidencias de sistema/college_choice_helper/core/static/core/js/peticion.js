@@ -1,0 +1,85 @@
+$(document).ready(function(){
+
+    $("#crear-peticion").submit(function(e){
+
+        /* Variables */
+
+        var asunto = $("#asunto").val();
+        var asunto_msj = $("#mensaje").val();
+        let msj = "";
+        let enviar = false;
+
+        msj = "";
+
+
+        /* Validaciones del asunto*/
+        if(asunto.trim().length === 0){
+            msj += "Debe llenar este campo";
+            enviar = true;
+        }else{
+
+            if(asunto.trim().length > 4 || asunto.trim().length < 12){
+                msj += "El asunto debe contener entre 4 y 12 caracteres<br>"
+                enviar = true;
+            }
+
+            if(!tieneMayus(asunto)){
+                msj += "El asunto debe contener al menos una mayúscula<br>";
+                enviar = true;
+            }
+
+            if(!tieneMinus(asunto)){
+                msj += "El asunto debe contener al menos una minúscula<br>"
+                enviar = true;
+            }
+
+            
+        }
+
+        /* Validaciones del asunto_msj*/
+        if(asunto_msj.trim().length === 0){
+            msj += "Debe llenar este campo<br>"
+            
+        }else{
+
+            if(asunto_msj.trim().length > 4 || asunto_msj.trim().length < 30){
+                msj += "El mensaje debe contener entre 4 y 30 caracteres<br>"
+                enviar = true;
+            }
+
+            if(!tieneMayus(asunto_msj)){
+                msj += "El mensaje debe contener al menos una mayúscula<br>";
+                enviar = true;
+            }
+
+            if(!tieneMinus(asunto_msj)){
+                msj += "El asunto debe contener al menos una minúscula<br>"
+                enviar = true;
+            }
+        }
+
+        if(enviar){
+            $("#alerta").html(msj);
+            e.preventDefault();
+
+        }else{
+            $("#alerta").html("");
+        }
+    });
+
+    function tieneMayus(palabra){
+        if(palabra.match(/[A-Z]/)) {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    function tieneMinus(palabra){
+        if(palabra.match(/[a-z]/)) {
+            return true;
+        } else{
+            return false;
+        }
+    }
+});
