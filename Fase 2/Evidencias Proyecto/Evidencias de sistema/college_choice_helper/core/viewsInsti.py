@@ -5,6 +5,9 @@ import re
 import unicodedata
 from django.contrib import messages
 import requests
+import json
+import os
+from django.conf import settings
 
 # Instituciones
 def mostrarRegistroInstitucion(request):
@@ -385,19 +388,26 @@ def normalizar_nombre(nombre: str) -> str:
     return nombre
 
 def obtener_comunas_metropolitana():
-    url = "https://gist.githubusercontent.com/juanbrujo/0fd2f4d126b3ce5a95a7dd1f28b3d8dd/raw/b8575eb82dce974fd2647f46819a7568278396bd/comunas-regiones.json"
     try:
-        resp = requests.get(url, timeout=10)
-        resp.raise_for_status()
-        data = resp.json()
+        # Ruta absoluta al archivo JSON
+        ruta_json = os.path.join(settings.BASE_DIR, 'core', 'static', 'core', 'data', 'comunas-regiones.json')
 
-        # Filtrar solo la Región Metropolitana
+        # Leer el archivo
+        with open(ruta_json, 'r', encoding='utf-8') as archivo:
+            data = json.load(archivo)
+
+        # Buscar la región metropolitana
         for region_data in data.get("regiones", []):
             if region_data["region"].lower().strip() == "región metropolitana de santiago":
                 return region_data["comunas"]
-        
-        # Si no se encuentra, devolver lista vacía
+
+        return []  # Si no se encuentra la región
+    except FileNotFoundError:
+        print("❌ Error: No se encontró el archivo comunas-regiones.json")
         return []
-    except requests.RequestException as e:
-        print("Error al obtener comunas:", e)
+    except json.JSONDecodeError:
+        print("❌ Error: El archivo comunas-regiones.json no tiene un formato JSON válido")
+        return []
+    except Exception as e:
+        print(f"❌ Error al leer comunas: {e}")
         return []
