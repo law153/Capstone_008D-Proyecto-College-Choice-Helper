@@ -37,11 +37,11 @@ $(document).ready(function(){
         }
 
         if(enviar){
-            $("#alerta2").html(msj);
+            $("#alerta").html(msj);
             e.preventDefault();
 
         }else{
-            $("#alerta2").html("");
+            $("#alerta").html("");
         }
 
         msj="";
@@ -74,11 +74,11 @@ $(document).ready(function(){
         /* Fin validaciones del asunto_msj */
 
         if(enviar){
-            $("#alerta").html(msj);
+            $("#alerta2").html(msj);
             e.preventDefault();
 
         }else{
-            $("#alerta").html("");
+            $("#alerta2").html("");
         }
 
         msj=""
