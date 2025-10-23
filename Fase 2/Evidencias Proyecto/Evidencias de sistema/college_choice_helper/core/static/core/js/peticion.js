@@ -14,12 +14,12 @@ $(document).ready(function(){
 
         /* Validaciones del asunto*/
         if(asunto.trim().length === 0){
-            msj += "Debe llenar este campo";
+            msj += "Debe llenar este campo<br>";
             enviar = true;
         }else{
 
-            if(asunto.trim().length > 4 || asunto.trim().length < 12){
-                msj += "El asunto debe contener entre 4 y 12 caracteres<br>"
+            if(asunto.trim().length < 4 || asunto.trim().length > 12){
+                msj += "El asunto debe contener entre 4 y 12 caracteres<br>";
                 enviar = true;
             }
 
@@ -29,21 +29,34 @@ $(document).ready(function(){
             }
 
             if(!tieneMinus(asunto)){
-                msj += "El asunto debe contener al menos una minúscula<br>"
+                msj += "El asunto debe contener al menos una minúscula<br>";
                 enviar = true;
             }
 
             
         }
 
+        if(enviar){
+            $("#alerta2").html(msj);
+            e.preventDefault();
+
+        }else{
+            $("#alerta2").html("");
+        }
+
+        msj="";
+
+        /* Fin validaciones del asunto */
+
         /* Validaciones del asunto_msj*/
         if(asunto_msj.trim().length === 0){
-            msj += "Debe llenar este campo<br>"
+            msj += "Debe llenar este campo<br>";
+            enviar = true;
             
         }else{
 
-            if(asunto_msj.trim().length > 4 || asunto_msj.trim().length < 30){
-                msj += "El mensaje debe contener entre 4 y 30 caracteres<br>"
+            if(asunto_msj.trim().length < 4 || asunto_msj.trim().length > 30){
+                msj += "El mensaje debe contener entre 4 y 30 caracteres<br>";
                 enviar = true;
             }
 
@@ -53,10 +66,12 @@ $(document).ready(function(){
             }
 
             if(!tieneMinus(asunto_msj)){
-                msj += "El asunto debe contener al menos una minúscula<br>"
+                msj += "El asunto debe contener al menos una minúscula<br>";
                 enviar = true;
             }
         }
+
+        /* Fin validaciones del asunto_msj */
 
         if(enviar){
             $("#alerta").html(msj);
@@ -65,6 +80,8 @@ $(document).ready(function(){
         }else{
             $("#alerta").html("");
         }
+
+        msj=""
     });
 
     function tieneMayus(palabra){
