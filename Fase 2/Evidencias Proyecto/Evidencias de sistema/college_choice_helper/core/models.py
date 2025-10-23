@@ -1,5 +1,29 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
+
+##Probando SoftDelete 
+class SoftDeleteModel(models.Model):
+    activo = models.BooleanField(default=True)
+    fecha_eliminado = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        abstract = True
+
+    def delete(self, *args, **kwargs):
+        self.activo = False
+        self.fecha_eliminado = timezone.now()
+        self.save()
+
+    def restore(self):
+        self.activo = True
+        self.fecha_eliminado = None
+        self.save()
+
+class ActivoManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(activo=True)
+
 
 # Create your models here.
 class Rol(models.Model):
@@ -8,12 +32,21 @@ class Rol(models.Model):
     def __str__(self) -> str:
         return self.nombre_rol
     
-class Usuario(models.Model):
+class Usuario(SoftDeleteModel):
     idUsuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
     correo = models.CharField(max_length=50)
     comunaUsuario = models.CharField(max_length=50, default="")
     rol = models.ForeignKey(Rol, on_delete=models.CASCADE)
-    def __str__(self) -> str:
+    objects = ActivoManager()
+    all_objects = models.Manager() 
+
+    def delete(self, *args, **kwargs):
+        super(Usuario, self).delete(*args, **kwargs)
+        if self.idUsuario:
+            self.idUsuario.is_active = False
+            self.idUsuario.save()
+
+    def __str__(self):
         return self.correo
 
 class Parametros(models.Model):
@@ -33,7 +66,8 @@ class Parametros(models.Model):
     carreraRelevancia = models.BooleanField(default=True)
 
 
-class Institucion(models.Model):
+
+class Institucion(SoftDeleteModel):
     idInstitucion = models.AutoField(primary_key=True)
     nombreInstitucion = models.CharField(max_length=100)
     comunaInstitucion = models.CharField(max_length=50)
@@ -44,15 +78,19 @@ class Institucion(models.Model):
     acreditacion = models.IntegerField()
     tipoInstitucion = models.CharField(max_length=50, default="")
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    objects = ActivoManager()
+    all_objects = models.Manager() 
     def __str__(self) -> str:
         return self.nombreInstitucion
     
-class Carrera(models.Model):
+class Carrera(SoftDeleteModel):
     idCarrera = models.AutoField(primary_key=True)
     nombreCarrera = models.CharField(max_length=100)
     puntajeMinimo = models.IntegerField()
     costo = models.IntegerField(default=0)
     institucion = models.ForeignKey(Institucion, on_delete=models.CASCADE)
+    objects = ActivoManager()
+    all_objects = models.Manager() 
     def __str__(self) -> str:
         return self.nombreCarrera
 

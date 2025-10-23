@@ -59,7 +59,7 @@ def inicioSesion(request):
             
             
             request.session['rol'] = usuario.rol.id_rol
-            request.session['correo'] = userAuth.username
+            request.session['correo'] = usuario.correo
 
             return redirect('mostrarIndex')
         else:
@@ -86,7 +86,7 @@ def registrarUsuario(request):
             messages.error(request,'El correo no es valido!')
             return redirect('mostrarRegistro')
 
-        if User.objects.filter(username=correo).exists():
+        if Usuario.objects.filter(correo=correo).exists():
             messages.error(request,'El correo ingresado ya esta registrado!')
             return redirect('mostrarRegistro')
         

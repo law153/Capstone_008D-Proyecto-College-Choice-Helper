@@ -281,16 +281,16 @@ def eliminarCuenta(request):
                     usuario = get_object_or_404(Usuario, correo=correo)
                     user = request.user
 
-                    Peticiones.objects.filter(usuario=usuario).delete()
-                    user.delete()
                     usuario.delete()
+                    user.is_active = False
+                    user.save()
                     
                     logout(request)
-                    messages.error(request,"Cuenta eliminada con éxito")
+                    messages.success(request,"Cuenta eliminada con éxito")
                     return redirect('mostrarIndex')
                 
             except Exception as e:
-                messages.error(request,"Error al eliminar la cuenta:", str(e))
+                messages.error(request,f"Error al eliminar la cuenta: {str(e)}")
                 return redirect('mostrarEliminarCuenta')
         else:
             messages.warning(request,'Algo salío mal')
