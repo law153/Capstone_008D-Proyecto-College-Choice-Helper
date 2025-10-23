@@ -55,8 +55,8 @@ $(document).ready(function(){
             
         }else{
 
-            if(asunto_msj.trim().length < 4 || asunto_msj.trim().length > 30){
-                msj += "El mensaje debe contener entre 4 y 30 caracteres<br>";
+            if(asunto_msj.trim().length < 4 || asunto_msj.trim().length > 300){
+                msj += "El mensaje debe contener entre 4 y 300 caracteres<br>";
                 enviar = true;
             }
 
