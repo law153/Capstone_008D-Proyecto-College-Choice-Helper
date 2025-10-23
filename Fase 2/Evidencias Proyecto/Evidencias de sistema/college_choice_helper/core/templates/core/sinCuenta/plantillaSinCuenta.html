@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <script>
+            (function() {
+                try {
+                const tema = localStorage.getItem('tema');
+                if (tema === 'oscuro') {
+                    document.documentElement.classList.add('dark-mode');
+                }
+                } catch (e) {
+                console.warn("Error al leer tema almacenado:", e);
+                }
+            })();
+        </script>
+
         {% load static %}
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -178,7 +191,7 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const boton = document.getElementById('modoOscuroBtn');
-                const body = document.body;
+                const root = document.documentElement;
                 const logo = document.getElementById('logo');
 
 
@@ -197,7 +210,7 @@
                 function actualizarImagenesModo() {
                     const imgs = document.querySelectorAll('img[data-default="true"]');
                     imgs.forEach(img => {
-                        if (body.classList.contains('dark-mode')) {
+                        if (root.classList.contains('dark-mode')) {
                             img.src = defaultInstitucionBlanca; 
                         } else {
                             img.src = defaultInstitucion;
@@ -209,11 +222,11 @@
 
                 
                 if (temaGuardado === 'oscuro') {
-                    body.classList.add('dark-mode');
+                    root.classList.add('dark-mode');
                     boton.checked = true;
                     logo.src = "{% static 'core/img/logo-dark.png' %}";
                 } else {
-                    body.classList.remove('dark-mode');
+                    root.classList.remove('dark-mode');
                     boton.checked = false; 
                     logo.src = "{% static 'core/img/logo.png' %}";
                 }
@@ -223,11 +236,11 @@
                 
                 boton.addEventListener('change', () => {
                     if (boton.checked) {
-                        body.classList.add('dark-mode');
+                        root.classList.add('dark-mode');
                         localStorage.setItem('tema', 'oscuro');
                         logo.src = "{% static 'core/img/logo-dark.png' %}";
                     } else {
-                        body.classList.remove('dark-mode');
+                        root.classList.remove('dark-mode');
                         localStorage.setItem('tema', 'claro');
                         logo.src = "{% static 'core/img/logo.png' %}";
                     }
