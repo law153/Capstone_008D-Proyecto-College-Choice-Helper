@@ -224,7 +224,7 @@ def eliminarInsti(request, id_insti):
             messages.warning(request,'Algo salío mal')
             return("mostrarEditarInstitucion")
     else:
-        messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
+        messages.warning(request,'Debes iniciar sesión para acceder a este contenido!')
         return redirect('mostrarLogin')
     
 def agregarCarrera(request, id_insti):

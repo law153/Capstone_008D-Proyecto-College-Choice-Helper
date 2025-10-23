@@ -70,54 +70,69 @@ def inicioSesion(request):
     
 def registrarUsuario(request):
     if request.user.is_authenticated:
-        messages.warning(request,'Ya has iniciado sesión!')
+        messages.warning(request, 'Ya has iniciado sesión!')
         return redirect('mostrarIndex')
     
     if request.method == 'POST':
-
         correo = request.POST.get('correo')
         contrasena = request.POST.get('contrasena')
         contrasena_rep = request.POST.get('contrasena_rep')
         toggleRol = request.POST.get('toggleRol', None)
 
+        
         try:
             validate_email(correo)
         except ValidationError:
-            messages.error(request,'El correo no es valido!')
+            messages.error(request, 'El correo no es válido!')
             return redirect('mostrarRegistro')
 
-        if Usuario.objects.filter(correo=correo).exists():
-            messages.error(request,'El correo ingresado ya esta registrado!')
-            return redirect('mostrarRegistro')
-        
         
         if contrasena != contrasena_rep:
-            messages.error(request,'Las contraseñas no coinciden!')
+            messages.error(request, 'Las contraseñas no coinciden!')
             return redirect('mostrarRegistro')
+
+        
+        usuario_existente = Usuario.all_objects.filter(correo=correo).first()
+
+        
+        if usuario_existente and usuario_existente.activo:
+            messages.error(request, 'El correo ingresado ya está registrado!')
+            return redirect('mostrarRegistro')
+
+        
+        if usuario_existente and not usuario_existente.activo:
+            usuario_existente.restore()
+            usuario_existente.idUsuario.is_active = True
+            usuario_existente.idUsuario.save()
+            messages.success(request, 'Tu cuenta ha sido restaurada correctamente.')
+            return redirect('mostrarLogin')
+
         
         try:
-
             with transaction.atomic():
-
                 user = User.objects.create_user(username=correo, password=contrasena, email=correo)
                 user.is_staff = False
                 user.is_active = True
                 user.save()
 
-                registroRol = Rol.objects.get(id_rol = 0)
-                usuario = Usuario.objects.create(idUsuario = user, correo = correo, rol = registroRol)
-                    
-                Parametros.objects.create(idParametros = usuario)
-                if toggleRol == 'on':
-                    Peticiones.objects.create(asunto="Solicitud de cuenta de Gestor de instituciones", tipoPeticion="Cambio de rol", mensaje="El usuario con correo " + correo + " solicita una cuenta de Gestor de instituciones.",estadoPeticion= "Pendiente",usuario=usuario)
+                rol_estudiante = Rol.objects.get(id_rol=0)
+                usuario = Usuario.objects.create(idUsuario=user, correo=correo, rol=rol_estudiante)
+                Parametros.objects.create(idParametros=usuario)
 
-            messages.success(request,'Su cuenta se creó exitosamente!')
+                if toggleRol == 'on':
+                    Peticiones.objects.create(
+                        asunto="Solicitud de cuenta de Gestor de instituciones",
+                        tipoPeticion="Cambio de rol",
+                        mensaje=f"El usuario con correo {correo} solicita una cuenta de Gestor de instituciones.",
+                        estadoPeticion="Pendiente",
+                        usuario=usuario
+                    )
+
+            messages.success(request, 'Su cuenta se creó exitosamente!')
             return redirect('mostrarLogin')
-        
+
         except Exception as e:
-            messages.error(request,'Error al registrar el usuario: ', e)
+            messages.error(request, f"Error al registrar el usuario: {e}")
             return redirect('mostrarRegistro')
-            
-        
-    else:
-        return redirect('mostrarRegistro')
+
+    return redirect('mostrarRegistro')

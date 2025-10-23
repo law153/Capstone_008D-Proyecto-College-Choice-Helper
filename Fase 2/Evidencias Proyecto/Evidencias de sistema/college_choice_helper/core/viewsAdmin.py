@@ -185,11 +185,18 @@ def eliminarUsuarioAdm(request, correoU):
     
     if request.method == 'POST':
         usuario = Usuario.objects.get(correo = correoU)
+        
+        if usuario.rol.id_rol == 2:
+            messages.warning(request, "No puedes eliminar otro administrador.")
+            return redirect('mostrarGestionUsuarios')
+
         user = User.objects.get(username = usuario.correo)
         usuario.delete()
-        user.delete()
+        user.is_active = False
+        user.save()
         messages.success(request,"Se eliminó el usuario")
         return redirect('mostrarIndex')
+    
 def eliminarInstiAdm(request, id_insti):
     if request.user.is_authenticated == False:
         messages.warning(request,'Debes iniciar sesión  para acceder a este contenido!')
