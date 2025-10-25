@@ -72,11 +72,14 @@ def mostrarEstadisticas(request):
     parametros = Parametros.objects.filter(idParametros__rol=0)
     carrera = Carrera.objects.all()
     
+    usuariosEliminados = Usuario.all_objects.filter(activo=False)
+
     #Estadisticas
     cantidadEstudiante = estudiantes.count()
     cantidadInstitucional = institucionales.count()
     cantidadInstituciones = instituciones.count()
     cantidadCarreras = carrera.count()
+    cantidadUsuariosEliminados = usuariosEliminados.count()
     totalUsuarios = cantidadEstudiante + cantidadInstitucional
 
     comunas = [estu.comunaUsuario for estu in estudiantes]
@@ -92,6 +95,8 @@ def mostrarEstadisticas(request):
     top_tipoInsti = [{"nombre": c[0], "cantidad": c[1]} for c in top_tipoInsti_raw]
 
     usuarios_por_mes = (User.objects.annotate(mes=TruncMonth('date_joined')).values('mes').annotate(total=Count('id')).order_by('mes'))
+
+
 
     FLAGS = [
         'comunaRelevancia',
@@ -122,8 +127,21 @@ def mostrarEstadisticas(request):
     stats = [
         {"nombre": "Usuarios estudiantiles registrados", "valor": cantidadEstudiante},
         {"nombre": "Usuarios institucionales registrados", "valor": cantidadInstitucional},
+        
     ]
-    contexto = {'rol': rol, 'estadisticas': stats, 'top_comunas': top_comunas, 'top_carreras': top_carreras, 'top_tipoInsti': top_tipoInsti, 'usuarios_por_mes': usuarios_por_mes, 'cantidadInstituciones': cantidadInstituciones, 'totalUsuarios': totalUsuarios, 'cantidadCarreras': cantidadCarreras, 'promedio_param_activados': promedio_param_activados}
+
+
+    contexto = {'rol': rol,
+                'estadisticas': stats,
+                'top_comunas': top_comunas,
+                'top_carreras': top_carreras,
+                'top_tipoInsti': top_tipoInsti,
+                'usuarios_por_mes': usuarios_por_mes,
+                'cantidadInstituciones': cantidadInstituciones,
+                'totalUsuarios': totalUsuarios,
+                'cantidadCarreras': cantidadCarreras,
+                'promedio_param_activados': promedio_param_activados,
+                'cantidadUsuariosEliminados': cantidadUsuariosEliminados,}
 
     return render (request,'core/admin/estadisticasAdmin.html', contexto)
 

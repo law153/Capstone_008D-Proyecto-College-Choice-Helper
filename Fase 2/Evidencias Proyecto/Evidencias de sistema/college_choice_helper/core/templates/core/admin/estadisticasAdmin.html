@@ -81,6 +81,22 @@ body.dark-mode .contenedorInsti {
     box-shadow: 0 0 10px rgba(255,255,255,0.1);
 }
 
+.eliminados{
+    flex: 1 1 280px;
+    background: linear-gradient(135deg, #ff848aff, #d62020ff);
+    color: white;
+    border-radius: 15px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.eliminados:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+
 
     </style>
     {% endblock disenos %}
@@ -119,19 +135,12 @@ body.dark-mode .contenedorInsti {
                 </div>
                 {% endfor %}
 
-                <div class="contenedorInsti">
+                <div class="contenedorInsti eliminados">
                     <div class="contenedorNombre">
-                        <p> Comunas preferidas para estudiar:</p>
+                        <p> Cantidad de usuarios eliminados: </p>
                     </div>
                     <div class="contenedorEstadistica" style="text-align: left;">
-                        {% for comu in top_comunas %}
-                        {% if comu.nombre == '' %}
-                            <p>{{ forloop.counter }}. Sin especificar: {{ comu.cantidad }}</p>
-                        {% else %}
-                            <p>{{ forloop.counter }}. {{ comu.nombre }}: {{ comu.cantidad }}</p>
-                        {% endif %}
-                        
-                        {% endfor %}
+                        <p>{{ cantidadUsuariosEliminados }}</p>
                     </div>
                 </div>
 
