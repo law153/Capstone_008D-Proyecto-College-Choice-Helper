@@ -88,7 +88,8 @@
         
         <div class="container-fluid ">
             <div class="row"> 
-                <div class="col-md-1 barraSuperior">
+                
+                <div class="col-md-1 barraSuperior d-flex justify-content-end align-items-center">
                     <div class="contenedor-logo">
                         <img id="logo" src="{% static 'core/img/logo.png' %}" alt="No hay imagen disponible"> 
                     </div>
@@ -100,22 +101,28 @@
                     
                 </div>
 
-                <div class="col-md-1 barraSuperior">
-                    <label class="dark-mode-switch">
-                    <input type="checkbox" id="modoOscuroBtn">
-                    <span class="slider"></span>
+                
+
+                <div class="col-md-1 barraSuperior d-none d-md-flex justify-content-center align-items-center">
+                    <label class="dark-mode-switch mb-0">
+                        <input type="checkbox" id="modoOscuroBtn">
+                        <span class="slider"></span>
+                    </label>
                 </div>
+
+                <button class="btn btn-menu d-md-none barraSuperior"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#mobileMenu"
+                        aria-controls="mobileMenu"
+                        aria-label="Abrir menú">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                
                 
             </div>
-            <!-- Botón hamburguesa: solo visible < md -->
-            <button class="btn btn-menu d-md-none"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#mobileMenu"
-                    aria-controls="mobileMenu"
-                    aria-label="Abrir menú">
-            <i class="fa-solid fa-bars"></i>
-            </button>
+            
+            
 
         </div>
         <div class="container-fluid">

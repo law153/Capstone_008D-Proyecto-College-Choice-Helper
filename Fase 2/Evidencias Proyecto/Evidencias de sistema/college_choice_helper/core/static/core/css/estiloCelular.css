@@ -1,4 +1,7 @@
 @media (max-width: 768px) {
+    * {
+      transition: none !important;
+    }
     /* Estructura general */
     .contenidoTotal {
         flex-direction: column;
@@ -96,28 +99,49 @@
     border: none;
     font-size: 24px;
     color: #fff;
-    margin-right: 8px;
+    z-index: 10;
+  }
+
+  .btn-menu:focus {
+    outline: none;
+    box-shadow: none;
   }
 
   .dark-mode .btn-menu {
     color: #302d2d;
   }
 
-  /* Offcanvas integración con modo oscuro */
-  .dark-mode .offcanvas {
-    background-color: #1f1f1f;
-    color: #e0e0e0;
+  
+  .barraSuperior {
+    position: relative;
+    background: #6595ff !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 15px 0;
   }
 
-  .dark-mode .offcanvas .list-group-item {
-    background-color: transparent;
-    color: #e0e0e0;
-    border-color: rgba(255,255,255,0.15);
+  .barraSuperior a.titulo-barra {
+    color: #fff;
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: bold;
   }
 
-  .offcanvas .list-group-item {
-    border-color: rgba(0,0,0,0.1);
+  .contenedor-logo img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 5px;
   }
+
+  /* Ocultar switch de escritorio */
+  .dark-mode-switch.d-none.d-md-block {
+    display: none !important;
+  }
+
+  
 
 
 
