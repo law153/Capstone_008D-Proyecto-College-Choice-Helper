@@ -90,82 +90,35 @@
         height: 80px;
     }
 
-    /* Botón del menú hamburguesa */
-.menu-toggle {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  font-size: 30px;
-  cursor: pointer;
-  z-index: 1001;
-  background: #6595ff;
-  color: white;
-  border-radius: 8px;
-  padding: 5px 10px;
-  transition: background 0.3s;
-}
+    /* Botón hamburguesa en barra superior (solo móvil por d-md-none) */
+  .btn-menu {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #fff;
+    margin-right: 8px;
+  }
 
-.menu-toggle:hover {
-  background: #4a7bdb;
-}
+  .dark-mode .btn-menu {
+    color: #302d2d;
+  }
 
-/* Menú lateral */
-.sidebar {
-  position: fixed;
-  left: -260px; /* oculto */
-  top: 0;
-  width: 250px;
-  height: 100%;
-  background-color: #f8faff;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-  overflow-y: auto;
-  transition: left 0.3s ease;
-  z-index: 1000;
-  padding: 20px;
-}
+  /* Offcanvas integración con modo oscuro */
+  .dark-mode .offcanvas {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+  }
 
-.dark-mode .sidebar {
-  background-color: #1f1f1f;
-  color: #e0e0e0;
-}
+  .dark-mode .offcanvas .list-group-item {
+    background-color: transparent;
+    color: #e0e0e0;
+    border-color: rgba(255,255,255,0.15);
+  }
 
-.sidebar.open {
-  left: 0; /* visible */
-}
+  .offcanvas .list-group-item {
+    border-color: rgba(0,0,0,0.1);
+  }
 
-/* Cabecera del menú */
-.sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #6595ff;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
-}
 
-.sidebar-section {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 20px;
-}
-
-.sidebar-section li {
-  margin: 10px 0;
-}
-
-.sidebar-section a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  transition: color 0.3s;
-}
-
-.dark-mode .sidebar-section a {
-  color: #e0e0e0;
-}
-
-.sidebar-section a:hover {
-  color: #6595ff;
-}
 
 }

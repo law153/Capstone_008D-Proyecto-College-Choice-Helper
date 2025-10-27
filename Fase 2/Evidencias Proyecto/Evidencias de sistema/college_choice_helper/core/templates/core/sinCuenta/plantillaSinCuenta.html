@@ -107,11 +107,21 @@
                 </div>
                 
             </div>
+            <!-- Botón hamburguesa: solo visible < md -->
+            <button class="btn btn-menu d-md-none"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#mobileMenu"
+                    aria-controls="mobileMenu"
+                    aria-label="Abrir menú">
+            <i class="fa-solid fa-bars"></i>
+            </button>
+
         </div>
         <div class="container-fluid">
             <div class="row contenidoTotal">
                 {% if rol == None %}
-                <div class="col-md-3 columnaNoCuenta" >
+                <div class="col-md-3 columnaNoCuenta d-none d-md-block" >
                     <ul>
                         <li><a href="{% url 'mostrarLogin' %}">Iniciar sesión</a></li>
                         <li><a href="{% url 'mostrarRegistro'%}">Registrarme</a></li>
@@ -119,7 +129,7 @@
                 </div>
                 {% endif %}
                 {% if rol != None %}
-                <div class="col-md-1 columnaCuenta">
+                <div class="col-md-1 columnaCuenta d-none d-md-block">
                         <ul>
                             {% if rol == 2 %}
                                 <li><a href="{% url 'mostrarVerPeticiones'%}">Ver peticiones</a></li>
@@ -131,7 +141,7 @@
                             <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>
                         </ul>
                 </div>
-                <div class="col-md-2 columnaNav">
+                <div class="col-md-2 columnaNav d-none d-md-block">
                     <ul>
                         <!--Estudiante-->
                         {% if rol == 0 %}
@@ -152,6 +162,7 @@
                     </ul>
                 </div>
                 {% endif %}
+                
                 <div class="col-md-9">
                     {% block cuerpo %}
 
@@ -163,6 +174,59 @@
                 </div>
 
             </div>
+        </div>
+        <!-- Menú móvil -->
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="mobileMenuLabel">Menú</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="offcanvas-body">
+
+            <!-- Toggle de modo oscuro dentro del menú -->
+            <div class="d-flex align-items-center justify-content-between mb-3">
+            <span class="me-3">Modo oscuro</span>
+            <label class="dark-mode-switch mb-0">
+                <input type="checkbox" id="modoOscuroBtnMobile">
+                <span class="slider"></span>
+            </label>
+            </div>
+
+            <!-- Sección CUENTA -->
+            <div class="mb-3">
+            <h6 class="text-uppercase small text-muted mb-2">Cuenta</h6>
+            <div class="list-group">
+                {% if rol == None %}
+                <a class="list-group-item list-group-item-action mobile-link" href="{% url 'mostrarLogin' %}" data-bs-dismiss="offcanvas">Iniciar sesión</a>
+                <a class="list-group-item list-group-item-action mobile-link" href="{% url 'mostrarRegistro' %}" data-bs-dismiss="offcanvas">Registrarme</a>
+                {% else %}
+                <a class="list-group-item list-group-item-action mobile-link" href="{% url 'mostrarGestionCuenta' %}" data-bs-dismiss="offcanvas">Gestionar cuenta</a>
+                <a class="list-group-item list-group-item-action mobile-link" href="{% url 'cierreSesion' %}" data-bs-dismiss="offcanvas">Cerrar sesión</a>
+                {% endif %}
+            </div>
+            </div>
+
+            {% if rol != None %}
+            <!-- Sección FUNCIONES (por rol) -->
+            <div>
+            <h6 class="text-uppercase small text-muted mb-2">Funciones</h6>
+            <div class="list-group">
+                {% if rol == 0 %}
+                <a class="list-group-item list-group-item-action mobile-link" href="{% url 'mostrarFormularioEstudiante' %}" data-bs-dismiss="offcanvas">Formulario</a>
+                <a class="list-group-item list-group-item-action mobile-link" href="{% url 'mostrarRecomendaciones' %}" data-bs-dismiss="offcanvas">Recomendaciones</a>
+                {% elif rol == 1 %}
+                <a class="list-group-item list-group-item-action mobile-link" href="{% url 'mostrarListadoInstitucion' %}" data-bs-dismiss="offcanvas">Gestionar instituciones</a>
+                {% elif rol == 2 %}
+                <a class="list-group-item list-group-item-action mobile-link" href="{% url 'mostrarVerPeticiones' %}" data-bs-dismiss="offcanvas">Ver peticiones</a>
+                <a class="list-group-item list-group-item-action mobile-link" href="{% url 'mostrarGestionUsuarios' %}" data-bs-dismiss="offcanvas">Gestionar usuarios</a>
+                <a class="list-group-item list-group-item-action mobile-link" href="{% url 'mostrarGestionInsti' %}" data-bs-dismiss="offcanvas">Gestionar instituciones</a>
+                <a class="list-group-item list-group-item-action mobile-link" href="{% url 'mostrarEstadisticas' %}" data-bs-dismiss="offcanvas">Estadísticas</a>
+                {% endif %}
+            </div>
+            </div>
+            {% endif %}
+        </div>
         </div>
 
         <script>
@@ -249,6 +313,42 @@
                 });
             });
         </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+            const root  = document.documentElement;
+            const headerToggle  = document.getElementById('modoOscuroBtn');        // existente
+            const mobileToggle  = document.getElementById('modoOscuroBtnMobile');  // nuevo
+
+            // Estado inicial según localStorage
+            const temaGuardado = localStorage.getItem('tema');
+            const isDark = temaGuardado === 'oscuro';
+            if (headerToggle) headerToggle.checked = isDark;
+            if (mobileToggle) mobileToggle.checked = isDark;
+
+            function aplicarTema(dark) {
+                if (dark) {
+                root.classList.add('dark-mode');
+                localStorage.setItem('tema', 'oscuro');
+                } else {
+                root.classList.remove('dark-mode');
+                localStorage.setItem('tema', 'claro');
+                }
+                // sincronizar switches
+                if (headerToggle) headerToggle.checked = dark;
+                if (mobileToggle) mobileToggle.checked = dark;
+                // si cambias logos/imagenes, llama aquí a tu actualizarImagenesModo()
+            }
+
+            // Listeners de ambos toggles
+            if (headerToggle) {
+                headerToggle.addEventListener('change', () => aplicarTema(headerToggle.checked));
+            }
+            if (mobileToggle) {
+                mobileToggle.addEventListener('change', () => aplicarTema(mobileToggle.checked));
+            }
+            });
+        </script>
+
 
         {% if messages %}
         {% for message in messages %}
