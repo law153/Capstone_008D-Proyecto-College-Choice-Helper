@@ -1,0 +1,162 @@
+@media (max-width: 768px) {
+    * {
+      transition: none !important;
+    }
+    /* Estructura general */
+    .contenidoTotal {
+        flex-direction: column;
+        height: auto;
+    }
+
+    /* Barra superior */
+    .barraSuperior {
+        height: auto;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .barraSuperior a {
+        font-size: 32px;
+        margin: 5px 0;
+    }
+
+    .contenedor-logo img {
+        width: 60%;
+        margin: 10px 0;
+    }
+
+    /* Menús laterales → se apilan arriba o desaparecen */
+    .columnaCuenta,
+    .columnaNav,
+    .columnaNoCuenta {
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        overflow: visible;
+    }
+
+    .columnaCuenta ul,
+    .columnaNav ul,
+    .columnaNoCuenta ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .columnaCuenta li,
+    .columnaNav li,
+    .columnaNoCuenta li {
+        flex: none;
+        width: auto;
+        margin: 5px;
+        border-bottom: none;
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+
+    .columnaCuenta a,
+    .columnaNav a,
+    .columnaNoCuenta a {
+        font-size: 14px;
+    }
+
+    /* Formularios */
+    .contenedorForm {
+        width: 90%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .contenedorForm h1 {
+        font-size: 20px;
+    }
+
+    /* Estadísticas / tarjetas */
+    .contenedorRecomendaciones {
+        width: 95%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contenedorInsti {
+        width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+
+    /* Imagenes */
+    .contenedor-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    /* Botón hamburguesa en barra superior (solo móvil por d-md-none) */
+  .btn-menu {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #fff;
+    z-index: 10;
+  }
+
+  .btn-menu:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .dark-mode .btn-menu {
+    color: #302d2d;
+  }
+
+  
+  .barraSuperior {
+    position: relative;
+    background: #6595ff !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 15px 0;
+  }
+
+  .barraSuperior a.titulo-barra {
+    color: #fff;
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .contenedor-logo img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 5px;
+  }
+
+  /* Ocultar switch de escritorio */
+  .dark-mode-switch.d-none.d-md-block {
+    display: none !important;
+  }
+
+  
+  .contenedorPadre {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+  }
+
+  .contenedorForm {
+    width: 90% !important;
+    margin: 0 auto !important;
+    padding: 15px;
+    box-sizing: border-box;
+    margin-top: 10px !important;
+  }
+
+
+}
