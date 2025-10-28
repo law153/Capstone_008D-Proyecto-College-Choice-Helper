@@ -7,7 +7,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.contrib import messages
-
+from django.contrib.auth import views as auth_views
 # Sin cuenta
 def mostrarIndex(request):
     rol = request.session.get('rol', None)
@@ -136,3 +136,8 @@ def registrarUsuario(request):
             return redirect('mostrarRegistro')
 
     return redirect('mostrarRegistro')
+
+class CustomPasswordResetView(auth_views.PasswordResetView):
+    email_template_name = 'registration/password_reset_email.html'
+    subject_template_name = 'registration/password_reset_subject.txt'
+    success_url = '/password_reset/done/'
