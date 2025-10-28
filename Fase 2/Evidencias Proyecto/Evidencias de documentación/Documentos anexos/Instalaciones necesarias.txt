@@ -1,0 +1,5 @@
+pip install psycopg2-binary
+pip install Django
+pip install Pillow
+pip install requests
+pip install python-dotenv
