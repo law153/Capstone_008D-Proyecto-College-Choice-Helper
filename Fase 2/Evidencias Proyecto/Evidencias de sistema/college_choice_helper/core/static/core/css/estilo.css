@@ -533,6 +533,11 @@ body, ul, li {
 
 .dark-mode .contenedorForm input[type="number"]{
     color: #e0e0e0;
+    border-bottom: 2px solid #5a8ef7;
+}
+
+.dark-mode .contenedorForm input[type="number"]:focus{
+    border-bottom: 2px solid #3661bc;
 }
 
 .contenedorForm p {
