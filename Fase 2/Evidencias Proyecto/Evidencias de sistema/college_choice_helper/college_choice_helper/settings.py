@@ -24,7 +24,7 @@ load_dotenv(BASE_DIR / "correo.env")
 SECRET_KEY = 'django-insecure-s6fzn$m=&_h%ggh^d2w_=u6c5lp*oeebe#!8kx3c4vw-5=_(g-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =  True
+DEBUG =  False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 

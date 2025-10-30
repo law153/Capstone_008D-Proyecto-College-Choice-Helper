@@ -1,0 +1,11 @@
+{% extends "core/sinCuenta/plantillaSinCuenta.html" %}
+{% block titulo %}<title>Página no encontrada</title>{% endblock %}
+{% block cuerpo %}
+<div class="contenedorPadre">
+  <div class="contenedorForm">
+    <h2 class="titulo">404 - Página no encontrada</h2>
+    <p class="texto">Ups... parece que la página que buscas no existe o fue movida.</p>
+    <a class="btn btn-aceptar" href="{% url 'mostrarIndex' %}">Volver al inicio</a>
+  </div>
+</div>
+{% endblock %}
