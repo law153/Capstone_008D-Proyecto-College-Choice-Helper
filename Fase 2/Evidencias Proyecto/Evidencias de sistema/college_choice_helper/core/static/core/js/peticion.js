@@ -19,7 +19,7 @@ $(document).ready(function(){
         }else{
 
             if(asunto.trim().length < 4 || asunto.trim().length > 12){
-                msj += "El asunto debe contener entre 4 y 12 caracteres<br>";
+                msj += "El asunto debe contener entre 4 y 50 caracteres<br>";
                 enviar = true;
             }
 
