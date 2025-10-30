@@ -86,7 +86,7 @@
             }
         </style>
         
-        <div class="container-fluid ">
+        <div class="container-fluid " style= "background-color: #6595ff; ">
             <div class="row"> 
                 
                 <div class="col-md-1 barraSuperior d-flex justify-content-end align-items-center">
@@ -104,14 +104,14 @@
 
                 
 
-                <div class="col-md-1 barraSuperior d-none d-md-flex justify-content-center align-items-center">
+                <div class="col-md-1 barraSuperior d-none d-md-flex dark-mode-switch-wrapper justify-content-center align-items-center">
                     <label class="dark-mode-switch mb-0">
                         <input type="checkbox" id="modoOscuroBtn">
                         <span class="slider"></span>
                     </label>
                 </div>
 
-                <button class="btn btn-menu d-md-none barraSuperior"
+                <button class="btn btn-menu d-lg-none barraSuperior"
                         type="button"
                         data-bs-toggle="offcanvas"
                         data-bs-target="#mobileMenu"
@@ -129,7 +129,7 @@
         <div class="container-fluid">
             <div class="row contenidoTotal">
                 {% if rol == None %}
-                <div class="col-md-3 columnaNoCuenta d-none d-md-block" >
+                <div class="col-md-3 columnaNoCuenta d-none d-lg-block" >
                     <ul>
                         <li><a href="{% url 'mostrarLogin' %}">Iniciar sesión</a></li>
                         <li><a href="{% url 'mostrarRegistro'%}">Registrarme</a></li>
@@ -137,7 +137,7 @@
                 </div>
                 {% endif %}
                 {% if rol != None %}
-                <div class="col-md-1 columnaCuenta d-none d-md-block">
+                <div class="col-md-1 columnaCuenta d-none d-lg-block">
                         <ul>
                             {% if rol == 2 %}
                                 <li><a href="{% url 'mostrarVerPeticiones'%}">Ver peticiones</a></li>
@@ -149,7 +149,7 @@
                             <li><a href="{% url 'cierreSesion'%}">Cerrar sesión</a></li>
                         </ul>
                 </div>
-                <div class="col-md-2 columnaNav d-none d-md-block">
+                <div class="col-md-2 columnaNav d-none d-lg-block">
                     <ul>
                         <!--Estudiante-->
                         {% if rol == 0 %}
