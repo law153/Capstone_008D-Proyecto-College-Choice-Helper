@@ -8,70 +8,126 @@
 
     {% block disenos %}
     <style>
-      
-        .contenedorForm{
-            width: 80% !important;
+        .contenedorForm {
+            width: 85%;
+            background-color: var(--color-fondo);
+            border-radius: 15px;
+            padding: 25px 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 30px auto;
         }
 
-        .contenedor-img{
-            width: 20%;
-            height: 90%;
-            object-fit: cover;
-            border: 2px solid #000;
-            background: var(--color-fondo);
+        /* Header */
+        .header-institucion {
             display: flex;
-            justify-content: center;
-            margin: 0 auto;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 2px solid #a6c3ff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header-institucion img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 8px;
+            background-color: white;
+            border: 2px solid #ddd;
+        }
+
+        .header-institucion h2 {
+            font-size: 1.6rem;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        /* Bloque de compatibilidad */
+        .bloque-compatibilidad {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background: rgba(166,195,255,0.15);
+            padding: 15px;
+        }
+
+        .lista-compat {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+        }
+
+        .lista-compat li {
+            font-size: 0.95rem;
+            margin: 5px 0;
+        }
+
+        .grafico {
+            width: 200px;
+            height: 200px;
+            margin: auto;
+        }
+
+        /* Info general */
+        .info-detalle h3 {
+            font-size: 1.1rem;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--color-texto-principal);
+        }
+
+        .info-detalle p {
+            margin: 0;
+            color: var(--color-texto-secundario);
+        }
+
+        /* Carreras */
+        .carreras-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
             margin-top: 10px;
         }
 
-        .contenedor-img > img{
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
-        .contenedorCarrera{
-            height: 150px;
-
+        .contenedorCarrera {
             border: 2px solid #a6c3ff;
-            border-radius: 12px;
-            align-items: center;
-            margin: 5px !important;
+            border-radius: 10px;
+            background-color: rgba(166,195,255,0.1);
+            padding: 10px;
             text-align: center;
-            box-sizing: border-box;
-            display: flex;                
-            flex-direction: column;
-            justify-content: flex-start;
-
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .dark-mode .contenedorCarrera{
-            border: 2px solid #5a8ef7;
+        .contenedorCarrera:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        li{
-            list-style: none;
+        .dark-mode .contenedorCarrera {
+            border-color: #5a8ef7;
+            background-color: rgba(90,142,247,0.15);
         }
 
-        .contenedor-nombre-carrera{
-            width: 100%;
-            height: 50%;
-            font-weight: bold;
-            
+        .contenedorCarrera p {
+            margin: 3px 0;
+            font-size: 0.9rem;
         }
 
-        .contenedor-puntaje-carrera{
-            width: 100%;
-            height: 25%;
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .header-institucion {
+                flex-direction: column;
+                text-align: center;
+            }
+            .bloque-compatibilidad {
+                flex-direction: column;
+            }
         }
-
-        .contenedor-costo-carrera{
-            width: 100%;
-            height: 25%;
-        }
-
     </style>
     {% endblock disenos %}
 
@@ -79,83 +135,56 @@
     {% block cuerpo %}
         <div class="contenedorForm">
             
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="contenedor-img">
-                        <img src="{{institucion.fotoInstitucion.url}}" alt="No hay imagen disponible" style=" object-fit: fill;" >
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <h2 style="font-size: medium;">Nombre de la Institución: {{ institucion.nombreInstitucion }}</h2>
-            </div>
-            <div class="row contenedorChecking">
-                <h2 style="font-size: medium;">Detalles de compatibilidad:</h2>
-                <div class="col-md-6" style=" display: flex; align-items: center;">
-                    
-                    <ul>
-                        {% for criterio, cumple in detalles.items %}
-                            <li>
-                                {% if cumple %}
-                                    <span style="color: green; padding-left: 12px;">✔ {{ criterio }}</span>
-                                {% else %}
-                                    <span style="color: red; padding-left: 12px;">✘ {{ criterio }}</span>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="col-md-6" style=" display: flex; justify-content: center; align-items: center;">
-                    <div style="width: 200px; height: 200px;">
-                        <canvas id="compatChart" width="100" height="100"></canvas>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <h2 style="font-size: medium;">Sitio web: {{ institucion.webInstitucion }}</h2>
-            </div>
-            <div class="row">
-                {% if institucion.adscritoGratuidad %}
-                    <h2 style="font-size: medium;">Adscrita a gratuidad: Si</h2>
-                {% else %}
-                    <h2 style="font-size: medium;">Adscrita a gratuidad: No</h2>
-                {% endif %}
-            </div>
-            <div class="row">
-                <h2 style="font-size: medium;">Años de acreditacion: {{ institucion.acreditacion }}</h2>
-            </div>
-            <div class="row">
-                <h2 style="font-size: medium;">Comuna: {{ institucion.comunaInstitucion }} </h2>
-            </div>
-            <div class="row">
-                {% if institucion.esUniversidadInsti %}
-                    <h2 style="font-size: medium;">Es una universidad: Si</h2>
-                {% else %}
-                    <h2 style="font-size: medium;">Es una universidad: No</h2>
-                {% endif %}
-            </div>
-            <div class="row">
-                <h2 style="font-size: medium;">Carreras disponibles: </h2>
+            <div class="header-institucion">
+                <img src="{{ institucion.fotoInstitucion.url }}" 
+                    alt="Logo de {{ institucion.nombreInstitucion }}" 
+                    onerror="this.onerror=null;this.src='{% static 'core/img/default_insti.png' %}'">
+                <h2>{{ institucion.nombreInstitucion }}</h2>
             </div>
 
-            <div class="row">
-                {% for carre in carreras %}
-                <div class="col-md-3 contenedorCarrera">
-                    <div class="contenedor-nombre-carrera">
-                        <p>{{ carre.nombreCarrera }}</p>
-                    </div>
-                    <div class="contenedor-costo-carrera">
+            <div class="bloque-compatibilidad">
+                <ul class="lista-compat">
+                    {% for criterio, cumple in detalles.items %}
+                        <li>
+                            {% if cumple %}
+                                <span style="color: green;">✔ {{ criterio }}</span>
+                            {% else %}
+                                <span style="color: red;">✘ {{ criterio }}</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="grafico">
+                    <canvas id="compatChart" width="100" height="100"></canvas>
+                </div>
+            </div>
+
+            <div class="info-detalle">
+                <h3>Detalles generales</h3>
+                <p><strong>Sitio web:</strong> {{ institucion.webInstitucion }}</p>
+                <p><strong>Adscrita a gratuidad:</strong> {{ institucion.adscritoGratuidad|yesno:"Sí,No" }}</p>
+                <p><strong>Años de acreditación:</strong> {{ institucion.acreditacion }}</p>
+                <p><strong>Comuna:</strong> {{ institucion.comunaInstitucion }}</p>
+                <p><strong>Es universidad:</strong> {{ institucion.esUniversidadInsti|yesno:"Sí,No" }}</p>
+            </div>
+
+            <div class="info-detalle">
+                <h3>Carreras disponibles</h3>
+                <div class="carreras-grid">
+                    {% for carre in carreras %}
+                    <div class="contenedorCarrera">
+                        <p><strong>{{ carre.nombreCarrera }}</strong></p>
                         <p>${{ carre.costo|intcomma:"." }}</p>
-                    </div>
-                    <div class="contenedor-puntaje-carrera">
                         <p>{{ carre.puntajeMinimo }} pts</p>
                     </div>
+                    {% empty %}
+                    <p>No hay carreras registradas.</p>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
-        {% endblock cuerpo %}
+    {% endblock cuerpo %}
+
         
         
 
