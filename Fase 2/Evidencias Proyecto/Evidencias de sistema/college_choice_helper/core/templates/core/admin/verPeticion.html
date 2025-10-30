@@ -64,11 +64,12 @@
                         <form id="cambiar-rol" action="{% url 'cambiarRol' peticion.idPeticiones peticion.usuario.correo %}" method="post" enctype="application/x-www-form-urlencoded">
                         {% csrf_token %}
                             <label for="toggleCambio"><input type="checkbox" id="toggleCambio" name="toggleCambio">¿Otorgar cuenta de Gestor de instituciones?</label>
-                            <input class="btn btn-aceptar" type="submit" value="Enviar petición" id="submit">
+                            <input class="btn btn-aceptar" type="submit" value="Enviar" id="submit">
                         </form>
                     </div>
                 {% endif %}
-                {% if peticion.estadoPeticion != 'Revisada' %}
+                {% if peticion.estadoPeticion != 'Revisada' and peticion.tipoPeticion != 'Cambio de rol' %}
+    
                     <div>
                         <form id="revisar" action="{% url 'revisarPeticion' peticion.idPeticiones %}" method="post" enctype="application/x-www-form-urlencoded">
                             {% csrf_token %}
