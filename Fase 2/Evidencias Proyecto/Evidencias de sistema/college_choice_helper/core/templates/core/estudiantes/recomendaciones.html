@@ -19,6 +19,32 @@
             margin-bottom: 20px;
         }
 
+        .bien {
+            color: #4caf50 !important;
+        }
+        
+        .medio{
+            color: #D6D667 !important;
+        }
+
+        .mal {
+            color: #BD473A !important;
+        }
+
+        .dark-mode .bien {
+            color: #4caf50 !important;
+        }
+        
+        .dark-mode .medio{
+            color: #D6D667 !important;
+        }
+
+        .dark-mode .mal {
+            color: #BD473A !important;
+        }
+
+
+
     </style>
     
     {% endblock disenos %}
@@ -38,7 +64,16 @@
                         <p class="texto">{{ recom.institucion.nombreInstitucion }}</p>
                     </div>
                     <div class="contenedor-compatibilidad">
-                        <p class="texto" style="padding-bottom: 10px;">Compatibilidad: {{ recom.porcentaje }}%</p>
+                        {% if recom.porcentaje > 74 %}
+                            <p class="texto bien" style="padding-bottom: 10px;">Compatibilidad: {{ recom.porcentaje }}%  </p>
+                        {% elif recom.porcentaje <= 74 and recom.porcentaje >= 26 %}
+                            <p class="texto medio" style="padding-bottom: 10px;">Compatibilidad: {{ recom.porcentaje }}%  </p>
+                        {% elif recom.porcentaje < 26 %}
+                            <p class="texto mal" style="padding-bottom: 10px;">Compatibilidad: {{ recom.porcentaje }}%  </p>
+                        {% endif %}
+
+            
+
                     </div>
                     <div class="contenedor-link">
                         <a href="{% url 'mostrarVistaInstituciones' recom.institucion.idInstitucion %}">Ver mas</a>
