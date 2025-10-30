@@ -58,8 +58,11 @@
                 {% for recom in recomendaciones %}
                 <div class="col-md-3 contenedorInsti">
                     <div class="card contenedor-img">
-                        <img src="{{recom.institucion.fotoInstitucion.url}}" alt="No hay imagen disponible">
+                        
+                        <img src="{{recom.institucion.fotoInstitucion.url}}" alt="No hay imagen disponible" onerror="this.onerror=null; this.src='{% static 'core/img/logo-dark.png' %}';">
+                        
                     </div>
+                    
                     <div class="contenedor-nombre">
                         <p class="texto">{{ recom.institucion.nombreInstitucion }}</p>
                     </div>
