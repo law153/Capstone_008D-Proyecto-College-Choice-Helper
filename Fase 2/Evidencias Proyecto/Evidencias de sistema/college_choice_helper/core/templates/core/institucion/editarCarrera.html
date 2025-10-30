@@ -22,7 +22,19 @@
         .contenedorForm input[type="number"]:focus, .contenedorForm input[type="url"]:focus, .contenedorForm input[type="file"]{
             border-bottom: 2px solid #6595ff;
         }
+
+        p{
+            font-style: italic;
+            font-weight: bold;
+            color: #666 !important;
+        }
+
+        .dark-mode p{
+            color: #999 !important;
+        }
         </style>
+
+        
     {% endblock disenos %}
 
     {% block cuerpo %}
@@ -38,6 +50,7 @@
 
                     <div>
                         <label for="costo_visible">Costo de la carrera</label>
+                        <p>*Valor de Arancel Anual*</p>
                         <!-- Input visible (formateado) -->
                         <input 
                             type="text" 
