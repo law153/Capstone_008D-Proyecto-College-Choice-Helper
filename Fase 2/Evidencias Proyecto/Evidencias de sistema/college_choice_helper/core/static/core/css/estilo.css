@@ -769,3 +769,13 @@ body, ul, li {
     margin-bottom: 5px;
 }
 
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+    display: none !important;
+}
+
+input[type="password"]::-webkit-textfield-decoration-container {
+    display: none !important;
+}
