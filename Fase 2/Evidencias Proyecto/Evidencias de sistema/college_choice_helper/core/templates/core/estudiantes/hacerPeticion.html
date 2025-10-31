@@ -80,7 +80,9 @@
                             <option value="Cambio de rol">Cambio de rol</option>
                         </select>
                 </div>
-
+                <p id="aclaracionRol" style="display:none;">
+                    *Las peticiones de cambio de rol solicitan a los administradores que su cuenta se convierta en una de gestor.
+                </p>
                 <div>
                     <label for="mensaje">Mensaje:</label>
                     <textarea name="mensaje" id="mensaje" placeholder="Escriba aqui su petición"></textarea>
@@ -96,4 +98,18 @@
 
     {% block js %}
     <script src="{% static 'core/js/peticion.js' %}"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const selectTipo = document.getElementById("tipo");
+        const aclaracion = document.getElementById("aclaracionRol");
+
+        selectTipo.addEventListener("change", function() {
+            if (this.value === "Cambio de rol") {
+                aclaracion.style.display = "block";
+            } else {
+                aclaracion.style.display = "none";
+            }
+        });
+    });
+    </script>
     {% endblock js %}
