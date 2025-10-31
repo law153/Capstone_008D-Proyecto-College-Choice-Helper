@@ -219,3 +219,16 @@
     display: none !important;
   }
 }
+
+
+@media (min-device-width: 768px) and (max-device-width: 1366px) and (hover: none) and (pointer: coarse) {
+  .columnaCuenta,
+  .columnaNav,
+  .columnaNoCuenta {
+    display: none !important;
+  }
+
+  .btn-menu {
+    display: block !important;
+  }
+}
