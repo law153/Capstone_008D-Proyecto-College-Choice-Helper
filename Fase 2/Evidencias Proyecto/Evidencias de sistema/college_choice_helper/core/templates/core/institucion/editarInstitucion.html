@@ -149,7 +149,7 @@
             <div class="contenedorForm">
                 <h2>Ingrese los siguientes campos para editar su institución</h2>
 
-                <form id="form_editarInsti" action="{% url 'actualizarInsti' %}" method="post" enctype="multipart/form-dat">
+                <form id="form_editarInsti" action="{% url 'actualizarInsti' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
 
                     <div>
