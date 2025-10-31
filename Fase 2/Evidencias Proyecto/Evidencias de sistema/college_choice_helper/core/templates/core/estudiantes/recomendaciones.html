@@ -68,11 +68,11 @@
                     </div>
                     <div class="contenedor-compatibilidad">
                         {% if recom.porcentaje > 74 %}
-                            <p class="texto bien" style="padding-bottom: 10px;">Compatibilidad: {{ recom.porcentaje }}%  </p>
+                            <p class="texto bien" style="font-weight: bold; padding-bottom: 10px;">Compatibilidad: {{ recom.porcentaje }}% </p>
                         {% elif recom.porcentaje <= 74 and recom.porcentaje >= 26 %}
-                            <p class="texto medio" style="padding-bottom: 10px;">Compatibilidad: {{ recom.porcentaje }}%  </p>
+                            <p class="texto medio" style="font-weight: bold; padding-bottom: 10px;">Compatibilidad: {{ recom.porcentaje }}%  </p>
                         {% elif recom.porcentaje < 26 %}
-                            <p class="texto mal" style="padding-bottom: 10px;">Compatibilidad: {{ recom.porcentaje }}%  </p>
+                            <p class="texto mal" style="font-weight: bold; padding-bottom: 10px;">Compatibilidad: {{ recom.porcentaje }}%  </p>
                         {% endif %}
 
             
