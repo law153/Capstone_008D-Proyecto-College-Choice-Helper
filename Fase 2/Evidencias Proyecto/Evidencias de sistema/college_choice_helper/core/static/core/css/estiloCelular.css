@@ -16,6 +16,8 @@
         text-align: center;
     }
 
+    
+
     .barraSuperior a {
         font-size: 32px;
         margin: 5px 0;
@@ -37,6 +39,7 @@
         height: auto;
         overflow: visible;
     }
+
 
     .columnaCuenta ul,
     .columnaNav ul,
@@ -162,6 +165,50 @@
       margin: 0 auto !important;
       width: 95% !important;
       float: none !important;
+  }
+
+  .offcanvas-header{
+    background: #6595ff;
+    color: #fff;
+  }
+
+  .dark-mode .offcanvas-header{
+    background: #3661bc;
+    color: #302d2d;
+  }
+
+  .offcanvas{
+    background: #fff;
+    color: #302d2d;
+  }
+
+  .dark-mode .offcanvas{
+    background: #302d2d;
+    color: #fff;
+  }
+
+  h6{
+    color: #666 !important;
+  }
+
+  .dark-mode h6{
+    color:#e0e0e0 !important;
+  }
+
+  .offcanvas a{
+    background-color: #fff;
+    color: #302d2d;
+    border: none;
+    border-bottom: 2px solid #6595ff;
+    border-radius: 2px;
+  }
+
+  .dark-mode .offcanvas a{
+    background-color: #302d2d;
+    color: #e0e0e0;
+    border: none;
+    border-bottom: 2px solid #3661bc;
+    border-radius: 2px;
   }
 
 

@@ -61,6 +61,7 @@
                 background-color: #e0e0e0;
                 transition: opacity 0.4s;
                 border-radius: 34px;
+                border: 2px solid #302d2d;
             }
 
             .dark-mode-switch .slider:before {
@@ -78,11 +79,12 @@
             /* Estado ON */
             .dark-mode-switch input:checked + .slider {
                 background-color: #302d2d;
+                border: 2px solid #fff;
             }
 
             .dark-mode-switch input:checked + .slider:before {
                 content: '🌙';
-                transform: translateX(22px);
+                transform: translateX(18px);
             }
         </style>
         
