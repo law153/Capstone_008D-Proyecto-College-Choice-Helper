@@ -273,7 +273,7 @@ def eliminarCuenta(request):
 
             
             if confirmacion.strip() != 'ELIMINAR':
-                messages.error(request,'Debe escribir ELIMINAR para confirmar la eliminación de la cuenta!')
+                messages.error(request,'Debe escribir "ELIMINAR" para confirmar la eliminación de la cuenta!')
                 return redirect('mostrarEliminarCuenta')
 
             try:
