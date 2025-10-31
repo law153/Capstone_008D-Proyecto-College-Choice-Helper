@@ -7,100 +7,106 @@
 
     {% block disenos %}
     <style>
+
+        .contenido{
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+
         /* --- KPI Section --- */
-.kpi-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 25px;
-    margin: 40px auto 60px;
-    width: 80%;
-}
+        .kpi-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin: 40px auto 60px;
+            width: 80%;
+        }
 
-.kpi-card {
-    flex: 1 1 280px;
-    background: linear-gradient(135deg, #84a9ff, #547eff);
-    color: white;
-    border-radius: 15px;
-    padding: 25px 20px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-}
+        .kpi-card {
+            flex: 1 1 280px;
+            background: linear-gradient(135deg, #84a9ff, #547eff);
+            color: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
 
-.kpi-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-}
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
 
-.kpi-card h2 {
-    font-size: 2.8rem;
-    margin: 0;
-    font-weight: 700;
-}
+        .kpi-card h2 {
+            font-size: 2.8rem;
+            margin: 0;
+            font-weight: 700;
+        }
 
-.kpi-card p {
-    font-size: 1rem;
-    font-weight: 500;
-    margin-top: 5px;
-}
+        .kpi-card p {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 5px;
+        }
 
-/* --- KPI dark mode --- */
-body.dark-mode .kpi-card {
-    background: linear-gradient(135deg, #252525, #3a3a3a) !important;
-    color: #f2f2f2;
-    box-shadow: 0 0 10px rgba(255,255,255,0.1);
-}
+        /* --- KPI dark mode --- */
+        body.dark-mode .kpi-card {
+            background: linear-gradient(135deg, #252525, #3a3a3a) !important;
+            color: #f2f2f2;
+            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
 
-/* --- Dashboard cards below --- */
-.contenedorRecomendaciones {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
-}
+        /* --- Dashboard cards below --- */
+        .contenedorRecomendaciones {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
 
-.contenedorInsti {
-    flex: 1 1 300px;
-    min-width: 260px;
-    height: auto;
-    background: #f8faff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    padding: 20px;
-}
+        .contenedorInsti {
+            flex: 1 1 300px;
+            min-width: 260px;
+            height: auto;
+            background: #f8faff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
 
-.contenedorInsti:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
+        .contenedorInsti:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
 
-body.dark-mode .contenedorInsti {
-    background: #1e1e1e;
-    color: #dcdcdc;
-    box-shadow: 0 0 10px rgba(255,255,255,0.1);
-}
+        body.dark-mode .contenedorInsti {
+            background: #1e1e1e;
+            color: #dcdcdc;
+            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
 
-.dark-mode .contenedorInsti {
-    background: #1e1e1e;
-    color: #dcdcdc;
-    box-shadow: 0 0 10px rgba(255,255,255,0.1);
-}
+        .dark-mode .contenedorInsti {
+            background: #1e1e1e;
+            color: #dcdcdc;
+            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
 
-.eliminados{
-    flex: 1 1 280px;
-    background: linear-gradient(135deg, #ff848aff, #d62020ff) !important;
-    color: white !important;
-    border-radius: 15px;
-    padding: 25px 20px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-}
+        .eliminados{
+            flex: 1 1 280px;
+            background: linear-gradient(135deg, #ff848aff, #d62020ff) !important;
+            color: white !important;
+            border-radius: 15px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
 
-.eliminados:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-}
+        .eliminados:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
 
 
 
