@@ -24,7 +24,14 @@ $(document).ready(function(){
 
         if( (costo <= 0)){
             
-            msj += "El costo no puede ser menor o igual a 0.<br>";
+            msj += "El costo no puede ser menor o igual a $0.<br>";
+            enviar = true;
+
+        }
+
+        if((costo < 1000000)){
+
+            msj += "El costo no puede ser inferior a $1.000.000. <br>";
             enviar = true;
 
         }
