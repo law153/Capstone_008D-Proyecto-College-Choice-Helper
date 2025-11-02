@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'django.contrib.humanize',
+    'csp',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +51,68 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
+
+from csp.constants import SELF, NONE, UNSAFE_INLINE
+
+CONTENT_SECURITY_POLICY = {
+    
+    "REPORT_ONLY": True,
+    "EXCLUDE_URL_PREFIXES": ["/admin"],
+
+    "DIRECTIVES": {
+        
+        "default-src": [SELF],
+
+        
+        "script-src": [
+            SELF,
+            UNSAFE_INLINE,
+            "https://cdn.jsdelivr.net",
+            "https://code.jquery.com",
+            "https://cdn.jsdelivr.net/npm/sweetalert2@11",
+            "https://kit.fontawesome.com",
+            "https://ka-f.fontawesome.com",
+        ],
+
+        
+        "style-src": [
+            SELF,
+            UNSAFE_INLINE,
+            "https://cdn.jsdelivr.net",     
+            "https://fonts.googleapis.com",
+            "https://ka-f.fontawesome.com",
+        ],
+
+        
+        "img-src": [
+            SELF,
+            "data:",
+        ],
+
+       
+        "font-src": [
+            SELF,
+            "https://ka-f.fontawesome.com",
+            "https://fonts.gstatic.com",
+            "https://cdn.jsdelivr.net",
+        ],
+
+        "connect-src": [
+            SELF,
+            "https://ka-f.fontawesome.com",
+        ],
+
+        
+        "object-src": [NONE],
+
+        
+        "frame-ancestors": [SELF],
+
+        
+    },
+}
 
 ROOT_URLCONF = 'college_choice_helper.urls'
 
