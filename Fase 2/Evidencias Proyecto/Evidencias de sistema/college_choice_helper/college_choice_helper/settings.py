@@ -58,7 +58,7 @@ from csp.constants import SELF, NONE, UNSAFE_INLINE
 
 CONTENT_SECURITY_POLICY = {
     
-    "REPORT_ONLY": True,
+    "REPORT_ONLY": False,
     "EXCLUDE_URL_PREFIXES": ["/admin"],
 
     "DIRECTIVES": {
@@ -75,11 +75,12 @@ CONTENT_SECURITY_POLICY = {
             "https://kit.fontawesome.com",
             "https://ka-f.fontawesome.com",
         ],
-
+        "script-src-elem": ["'self'"],
+        "style-src-elem": ["'self'"],
         
         "style-src": [
             SELF,
-            UNSAFE_INLINE,
+            UNSAFE_INLINE, # necesario para scripts embebidos en plantillas Django
             "https://cdn.jsdelivr.net",     
             "https://fonts.googleapis.com",
             "https://ka-f.fontawesome.com",
