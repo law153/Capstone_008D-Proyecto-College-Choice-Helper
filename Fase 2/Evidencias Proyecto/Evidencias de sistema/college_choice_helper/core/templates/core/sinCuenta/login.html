@@ -58,13 +58,5 @@
     {% endblock cuerpo %}
 
     {% block js %}
-    <script>
-        document.getElementById('togglePassword').addEventListener('click', function () {
-            const passwordInput = document.getElementById('contrasena_ini');
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            this.textContent = type === 'password' ? '👁️' : '🙈'; // cambia icono
-        });
-    </script>
 
     {% endblock js %}
