@@ -272,65 +272,74 @@
         </script>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const boton = document.getElementById('modoOscuroBtn');
-                const root = document.documentElement;
-                const logo = document.getElementById('logo');
+        document.addEventListener('DOMContentLoaded', function() {
+            const boton = document.getElementById('modoOscuroBtn');
+            const root = document.documentElement;
+            const logo = document.getElementById('logo');
 
+            const logoClaro = "{% static 'core/img/logo.png' %}";      
+            const logoOscuro = "{% static 'core/img/logo-dark.png' %}"; 
+            const defaultInstitucion = "/media/default_insti.png";      
+            const defaultInstitucionBlanca = "{% static 'core/img/logo.png' %}"; 
 
-                const logoClaro = "{% static 'core/img/logo.png' %}";      
-                const logoOscuro = "{% static 'core/img/logo-dark.png' %}"; 
-                const defaultInstitucion = "/media/default_insti.png";      
-                const defaultInstitucionBlanca = "{% static 'core/img/logo.png' %}"; 
-
-                const imagenes = document.querySelectorAll('img');
-                imagenes.forEach(img => {
-                    if (img.src.includes("default_insti.png")) {
-                        img.dataset.default = "true";
-                    }
-                });
-
-                function actualizarImagenesModo() {
-                    const imgs = document.querySelectorAll('img[data-default="true"]');
-                    imgs.forEach(img => {
-                        if (root.classList.contains('dark-mode')) {
-                            img.src = defaultInstitucionBlanca; 
-                        } else {
-                            img.src = defaultInstitucion;
-                        }
-                    });
-                }
-                
-                const temaGuardado = localStorage.getItem('tema');
-
-                
-                if (temaGuardado === 'oscuro') {
-                    root.classList.add('dark-mode');
-                    boton.checked = true;
-                    logo.src = "{% static 'core/img/logo-dark.png' %}";
-                } else {
-                    root.classList.remove('dark-mode');
-                    boton.checked = false; 
-                    logo.src = "{% static 'core/img/logo.png' %}";
+            // --- 1. Marcar imágenes por defecto y agregar fallback global ---
+            const imagenes = document.querySelectorAll('img');
+            imagenes.forEach(img => {
+                if (img.src.includes("default_insti.png")) {
+                    img.dataset.default = "true";
                 }
 
-                actualizarImagenesModo();
-
-                
-                boton.addEventListener('change', () => {
-                    if (boton.checked) {
-                        root.classList.add('dark-mode');
-                        localStorage.setItem('tema', 'oscuro');
-                        logo.src = "{% static 'core/img/logo-dark.png' %}";
-                    } else {
-                        root.classList.remove('dark-mode');
-                        localStorage.setItem('tema', 'claro');
-                        logo.src = "{% static 'core/img/logo.png' %}";
-                    }
-                    actualizarImagenesModo();
+                // Fallback universal para cuando una imagen no carga
+                img.addEventListener("error", function() {
+                    this.dataset.default = "true";  // marcarla como "default"
+                    this.src = root.classList.contains('dark-mode') 
+                        ? defaultInstitucionBlanca 
+                        : defaultInstitucion;
                 });
             });
+
+            // --- 2. Función para actualizar imágenes segun modo ---
+            function actualizarImagenesModo() {
+                const imgs = document.querySelectorAll('img[data-default="true"]');
+                imgs.forEach(img => {
+                    if (root.classList.contains('dark-mode')) {
+                        img.src = defaultInstitucionBlanca; 
+                    } else {
+                        img.src = defaultInstitucion;
+                    }
+                });
+            }
+
+            // --- 3. Aplicar modo inicial ---
+            const temaGuardado = localStorage.getItem('tema');
+            if (temaGuardado === 'oscuro') {
+                root.classList.add('dark-mode');
+                boton.checked = true;
+                logo.src = logoOscuro;
+            } else {
+                root.classList.remove('dark-mode');
+                boton.checked = false; 
+                logo.src = logoClaro;
+            }
+
+            actualizarImagenesModo();
+
+            // --- 4. Escuchar cambios en el modo oscuro ---
+            boton.addEventListener('change', () => {
+                if (boton.checked) {
+                    root.classList.add('dark-mode');
+                    localStorage.setItem('tema', 'oscuro');
+                    logo.src = logoOscuro;
+                } else {
+                    root.classList.remove('dark-mode');
+                    localStorage.setItem('tema', 'claro');
+                    logo.src = logoClaro;
+                }
+                actualizarImagenesModo();
+            });
+        });
         </script>
+
         <script>
             document.addEventListener('DOMContentLoaded', function () {
             const root  = document.documentElement;
