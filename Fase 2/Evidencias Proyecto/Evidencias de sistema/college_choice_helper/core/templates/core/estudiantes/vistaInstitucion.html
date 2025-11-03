@@ -127,6 +127,7 @@
             font-size: 0.9rem;
         }
 
+
         /* Responsividad */
         @media (max-width: 768px) {
             .header-institucion {
@@ -200,32 +201,63 @@
     {% block js %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        var porcentaje = parseFloat("{{ porcentaje|floatformat:2 }}");
-        var colorCompat = '#4caf50'; 
+        document.addEventListener('DOMContentLoaded', function() {
+            var porcentaje = parseFloat("{{ porcentaje|floatformat:2 }}");
+            var colorCompat = '#4caf50';
 
-        if (porcentaje < 25.0) {
-            colorCompat = '#BD473A';
-        } else if (porcentaje < 75.0) {
-            colorCompat = '#D6D667';
-        }
+            if (porcentaje < 25.0) {
+                colorCompat = '#BD473A';
+            } else if (porcentaje < 75.0) {
+                colorCompat = '#D6D667';
+            }
 
-        var ctx = document.getElementById('compatChart').getContext('2d');
-        var compatChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Compatibilidad', 'No Compatibilidad'],
-                datasets: [{
-                    data: [porcentaje, 100 - porcentaje],
-                    backgroundColor: [colorCompat, '#e0e0e0'],
-                    borderWidth: 1,
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        position: 'bottom'
+            var ctx = document.getElementById('compatChart').getContext('2d');
+
+            // Detectar tema actual
+            const esOscuro = document.documentElement.classList.contains('dark-mode');
+            const colorTexto = esOscuro ? '#e0e0e0' : '#000000';
+            const colorFondo = esOscuro ? '#2b2b2b' : '#ffffff';
+
+            var compatChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Compatibilidad', 'No compatibilidad'],
+                    datasets: [{
+                        data: [porcentaje, 100 - porcentaje],
+                        backgroundColor: [colorCompat, '#e0e0e0'],
+                        borderWidth: 1,
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: colorTexto,  // 👈 cambia color del texto de leyenda
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        }
+                    },
+                    layout: {
+                        padding: 10
                     }
                 }
+            });
+
+            // Escuchar cambios en el modo oscuro
+            const modoOscuroBtn = document.getElementById('modoOscuroBtn');
+            if (modoOscuroBtn) {
+                modoOscuroBtn.addEventListener('change', () => {
+                    const esOscuro = document.documentElement.classList.contains('dark-mode');
+                    const nuevoColor = esOscuro ? '#e0e0e0' : '#000000';
+                    const nuevoFondo = esOscuro ? '#2b2b2b' : '#ffffff';
+                    
+                    compatChart.options.plugins.legend.labels.color = nuevoColor;
+                    compatChart.options.layout.backgroundColor = nuevoFondo;
+                    compatChart.update(); // 👈 actualiza en vivo sin recargar
+                });
             }
         });
     </script>

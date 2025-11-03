@@ -221,35 +221,87 @@
     {% block js %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const ctx = document.getElementById('graficoUsuarios');
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('graficoUsuarios');
 
-        const labels = [
-            {% for mes in usuarios_por_mes %}
-            "{{ mes.mes|date:'M' }}",
-            {% endfor %}
-        ];
+            
+            const labels = [
+                {% for mes in usuarios_por_mes %}
+                "{{ mes.mes|date:'M' }}",
+                {% endfor %}
+            ];
+            const data = [
+                {% for mes in usuarios_por_mes %}
+                {{ mes.total }},
+                {% endfor %}
+            ];
 
-        const data = [
-            {% for mes in usuarios_por_mes %}
-            {{ mes.total }},
-            {% endfor %}
-        ];
+            
+            const esOscuro = document.documentElement.classList.contains('dark-mode');
+            const colorTexto = esOscuro ? '#e0e0e0' : '#000000';
+            const colorBarra = esOscuro ? '#5a8ef7' : '#6595ff';
+            const colorLineas = esOscuro ? '#444' : '#ddd';
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-            labels: labels,
-            datasets: [{
-                label: 'Usuarios creados',
-                data: data,
-                backgroundColor: '#6595ff'
-            }]
-            },
-            options: {
-            scales: {
-                y: { beginAtZero: true }
-            }
+           
+            const graficoUsuarios = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Usuarios creados',
+                        data: data,
+                        backgroundColor: colorBarra,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: colorTexto
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Evolución de registros mensuales',
+                            color: colorTexto,
+                            font: { size: 16, weight: 'bold' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: colorTexto },
+                            grid: { color: colorLineas }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: colorTexto },
+                            grid: { color: colorLineas }
+                        }
+                    }
+                }
+            });
+
+            
+            const modoOscuroBtn = document.getElementById('modoOscuroBtn');
+            if (modoOscuroBtn) {
+                modoOscuroBtn.addEventListener('change', () => {
+                    const esOscuro = document.documentElement.classList.contains('dark-mode');
+                    const nuevoTexto = esOscuro ? '#e0e0e0' : '#000000';
+                    const nuevoBarra = esOscuro ? '#5a8ef7' : '#6595ff';
+                    const nuevoLineas = esOscuro ? '#444' : '#ddd';
+
+                    graficoUsuarios.data.datasets[0].backgroundColor = nuevoBarra;
+                    graficoUsuarios.options.plugins.legend.labels.color = nuevoTexto;
+                    graficoUsuarios.options.plugins.title.color = nuevoTexto;
+                    graficoUsuarios.options.scales.x.ticks.color = nuevoTexto;
+                    graficoUsuarios.options.scales.x.grid.color = nuevoLineas;
+                    graficoUsuarios.options.scales.y.ticks.color = nuevoTexto;
+                    graficoUsuarios.options.scales.y.grid.color = nuevoLineas;
+
+                    graficoUsuarios.update();
+                });
             }
         });
-        </script>
+    </script>
     {% endblock js %}
