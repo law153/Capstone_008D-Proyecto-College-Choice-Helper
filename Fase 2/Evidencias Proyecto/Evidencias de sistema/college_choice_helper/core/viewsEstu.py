@@ -396,9 +396,9 @@ def calcular_score(usuario, idInsti):
         totalParam +=1
         if usuario.comunaUsuario == insti.comunaInstitucion:
             score += 10
-            detalles[f'La institución se ubica en '+insti.comunaInstitucion] = True
+            detalles[f'La institución se ubica en la comuna de '+insti.comunaInstitucion] = True
         else:
-            detalles[f'La institución no se ubica en '+usuario.comunaUsuario] = False
+            detalles[f'La institución no se ubica en la comuna de '+usuario.comunaUsuario] = False
     
     if parametros.gratuidadRelevancia:
         totalParam +=1
@@ -417,6 +417,7 @@ def calcular_score(usuario, idInsti):
             detalles['Acreditación de '+ str(insti.acreditacion) + " años"] = False
     
     if parametros.esUniversidadRelevancia:
+        print(parametros.esUniversidad, insti.esUniversidadInsti)
         totalParam +=1
         if parametros.esUniversidad == insti.esUniversidadInsti:
             score += 10
@@ -444,25 +445,25 @@ def calcular_score(usuario, idInsti):
                     score += 10
                     detalles['El puntaje NEM te alcanza'] = True
                 elif carrera.puntajeMinimo > 300 and parametros.puntajeNem == 1:   
-                    detalles['El puntaje no NEM te alcanza'] = False
+                    detalles['El puntaje NEM no te alcanza'] = False
 
                 if (carrera.puntajeMinimo > 300 and carrera.puntajeMinimo <= 500 )and parametros.puntajeNem == 2:
                     score += 10
                     detalles['El puntaje NEM te alcanza'] = True
                 elif carrera.puntajeMinimo > 500 and parametros.puntajeNem == 2:
-                    detalles['El puntaje no NEM te alcanza'] = False
+                    detalles['El puntaje NEM no te alcanza'] = False
 
                 if (carrera.puntajeMinimo > 500 and carrera.puntajeMinimo <= 700  )and parametros.puntajeNem == 3:
                     score += 10
                     detalles['El puntaje NEM te alcanza'] = True
                 elif carrera.puntajeMinimo > 700 and parametros.puntajeNem == 3:
-                    detalles['El puntaje no NEM te alcanza'] = False
+                    detalles['El puntaje NEM no te alcanza'] = False
 
                 if (carrera.puntajeMinimo > 700 and carrera.puntajeMinimo <= 900  )and parametros.puntajeNem == 4:
                     score += 10
                     detalles['El puntaje NEM te alcanza'] = True
                 elif carrera.puntajeMinimo > 900 and parametros.puntajeNem == 4:
-                    detalles['El puntaje no NEM te alcanza'] = False
+                    detalles['El puntaje NEM no te alcanza'] = False
 
                 if (carrera.puntajeMinimo > 900 and carrera.puntajeMinimo <= 1000 )and parametros.puntajeNem == 5:
                     score += 10

@@ -75,8 +75,24 @@ CONTENT_SECURITY_POLICY = {
             "https://kit.fontawesome.com",
             "https://ka-f.fontawesome.com",
         ],
-        "script-src-elem": ["'self'"],
-        "style-src-elem": ["'self'"],
+
+        "script-src-elem": [
+            SELF,
+            UNSAFE_INLINE,
+            "https://cdn.jsdelivr.net",
+            "https://code.jquery.com",
+            "https://cdn.jsdelivr.net/npm/sweetalert2@11",
+            "https://kit.fontawesome.com",
+            "https://ka-f.fontawesome.com",
+                            
+        ],
+        "style-src-elem": [
+            SELF,
+            UNSAFE_INLINE,
+            "https://cdn.jsdelivr.net",
+            "https://fonts.googleapis.com",
+            "https://ka-f.fontawesome.com",
+        ],
         
         "style-src": [
             SELF,
