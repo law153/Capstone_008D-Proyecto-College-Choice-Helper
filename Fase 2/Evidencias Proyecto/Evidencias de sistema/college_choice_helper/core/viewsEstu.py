@@ -404,7 +404,7 @@ def calcular_score(usuario, idInsti):
     
     if parametros.gratuidadRelevancia:
         totalParam +=1
-        if parametros.gratuidad == insti.adscritoGratuidad:
+        if insti.adscritoGratuidad:
             score += 10
             detalles['Esta adscrita a la gratuidad'] = True
         else:
