@@ -7,20 +7,20 @@ INSERT INTO public.core_rol (id_rol, nombre_rol) VALUES (0, 'Estudiante');
 INSERT INTO public.core_rol (id_rol, nombre_rol) VALUES (1, 'Gestor institucional');
 INSERT INTO public.core_rol (id_rol, nombre_rol) VALUES (2, 'Administrador');
 
-INSERT INTO public.core_usuario ("idUsuario_id", correo, "comunaUsuario", rol_id) VALUES (2, 'estudiante@gmail.com', 'Renca', 0, 1, null);
-INSERT INTO public.core_usuario ("idUsuario_id", correo, "comunaUsuario", rol_id) VALUES (3, 'institucion@gmail.com', 'Quilicura', 1, 1, null);
-INSERT INTO public.core_usuario ("idUsuario_id", correo, "comunaUsuario", rol_id) VALUES (4, 'administrador@gmail.com', 'Ovalle', 2, 1, null);
+INSERT INTO public.core_usuario VALUES (2, 'estudiante@gmail.com', 'Renca', 0, 1, null);
+INSERT INTO public.core_usuario VALUES (3, 'institucion@gmail.com', 'Quilicura', 1, 1, null);
+INSERT INTO public.core_usuario VALUES (4, 'administrador@gmail.com', 'Ovalle', 2, 1, null);
 
-INSERT INTO public.core_parametros VALUES (2, true, 1000000, true, 7, true, 900, 'Ingenieria informatica', true, true, false, true, true, true);
+INSERT INTO public.core_parametros VALUES (2, true, 1000000, true, 7, 900, 'Ingenieria informatica', true, true, false, true, true, true, 'Universidad');
 
-INSERT INTO public.core_institucion VALUES (2, 'Universidad de chile', 'Santiago', true, true, 7, 3, 'https://uchile.cl', 'default_insti.png', 'Universidad', 1, null);
-INSERT INTO public.core_institucion VALUES (1, 'Duoc', 'Huechuraba', false, true, 7, 3, 'https://www.duoc.cl', 'default_insti.png', 'IP', 1, null);
-INSERT INTO public.core_institucion VALUES (3, 'Colo colo', 'Renca', true, false, 0, 3, 'https://www.colocolo.cl', 'default_insti.png', 'Universidad', 1, null);
-INSERT INTO public.core_institucion VALUES (4, 'Universidad San Sebastian', 'El centro', true, false, 2, 3, 'https://www.uss.cl', 'default_insti.png', 'Universidad', 1, null);
-INSERT INTO public.core_institucion VALUES (5, 'Inacap', 'Providencia', false, true, 1, 3, 'https://portal.inacap.cl', 'default_insti.png', 'IP'), 1, null;
-INSERT INTO public.core_institucion VALUES (6, 'Universidad catolica', 'Recoleta', true, false, 3, 3, 'https://www.uc.cl', 'default_insti.png', 'CFT', 1, null);
-INSERT INTO public.core_institucion VALUES (7, 'Universidad Santo Tomas', 'Quilicura', true, true, 4, 3, 'https://www.ust.cl', 'default_insti.png', 'Universidad', 1, null);
-INSERT INTO public.core_institucion VALUES (8, 'Universidad tecnica Federico Santa Maria', 'Huechuraba', true, false, 6, 3, 'https://usm.cl', 'default_insti.png', 'Universidad', 1, null);
+INSERT INTO public.core_institucion VALUES (2, 'Universidad de chile', 'Santiago', true,  7, 3, 'https://uchile.cl', 'default_insti.png', 'Universidad', 1, null);
+INSERT INTO public.core_institucion VALUES (1, 'Duoc', 'Huechuraba', false,  7, 3, 'https://www.duoc.cl', 'default_insti.png', 'IP', 1, null);
+INSERT INTO public.core_institucion VALUES (3, 'Colo colo', 'Renca', true,  0, 3, 'https://www.colocolo.cl', 'default_insti.png', 'Universidad', 1, null);
+INSERT INTO public.core_institucion VALUES (4, 'Universidad San Sebastian', 'El centro', true,  2, 3, 'https://www.uss.cl', 'default_insti.png', 'Universidad', 1, null);
+INSERT INTO public.core_institucion VALUES (5, 'Inacap', 'Providencia', false,  1, 3, 'https://portal.inacap.cl', 'default_insti.png', 'IP'), 1, null;
+INSERT INTO public.core_institucion VALUES (6, 'Universidad catolica', 'Recoleta', true, 3, 3, 'https://www.uc.cl', 'default_insti.png', 'CFT', 1, null);
+INSERT INTO public.core_institucion VALUES (7, 'Universidad Santo Tomas', 'Quilicura', true,  4, 3, 'https://www.ust.cl', 'default_insti.png', 'Universidad', 1, null);
+INSERT INTO public.core_institucion VALUES (8, 'Universidad tecnica Federico Santa Maria', 'Huechuraba', true,  6, 3, 'https://usm.cl', 'default_insti.png', 'Universidad', 1, null);
 
 
 INSERT INTO public.core_carrera VALUES (3, 'Ingenieria en redes', 500, 2, 2000000, 1, null);
