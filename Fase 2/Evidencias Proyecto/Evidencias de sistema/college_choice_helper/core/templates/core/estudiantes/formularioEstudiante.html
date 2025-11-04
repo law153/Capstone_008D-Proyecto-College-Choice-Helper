@@ -225,17 +225,20 @@
                     
                     <div class="contenedorParametro parametro">
                         <div class="parametro-header">
-                            <label for="esUni">¿Buscas preferentemente una universidad?</label>
+                            <label for="esUni">¿Que tipo de institución buscas?</label>
                             <label class="switch">
                                 <input type="checkbox" id="toggleUni" name="toggleUni" {% if parametros.esUniversidadRelevancia %}checked{% endif %}>
                                 <span class="slider round"></span>
                             </label>
                         </div>
-                        <div class="radio-group">
-                            <label for="UniSi">Si</label>
-                            <input type="radio" id="UniSi" name="EsUni" value="si" {% if parametros.esUniversidad %}checked{% endif %}>
-                            <label for="UniNo">No</label>
-                            <input type="radio" id="UniNo" name="EsUni" value="no" {% if not parametros.esUniversidad %}checked{% endif %}>
+
+                        <div>
+                        
+                            <select name="tipoBuscado" id="tipoBuscado">
+                                <option value="Universidad" {% if parametros.tipoBuscado == 'Universidad' %}selected{% endif %}>Universidad</option>
+                                <option value="IP" {% if parametros.tipoBuscado == 'IP' %}selected{% endif %}>Instituto Profesional</option>
+                                <option value="CFT" {% if parametros.tipoBuscado == 'CFT' %}selected{% endif %}>Centro de formación técnica</option>
+                            </select>
                         </div>
                         
                     </div>

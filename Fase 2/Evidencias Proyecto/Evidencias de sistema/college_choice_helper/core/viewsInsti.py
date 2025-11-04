@@ -140,7 +140,7 @@ def insertarInsti(request):
                 comunaInstitucion = comunaI
             ).first()
 
-            confirmarUni = True if tipoInsti == "Universidad" else False
+            
             
             confirmarGratuidad = True if gratuidadI == "True" else False
 
@@ -154,7 +154,6 @@ def insertarInsti(request):
                 Institucion.objects.create(
                     nombreInstitucion = nombreI,
                     comunaInstitucion = comunaI,
-                    esUniversidadInsti = confirmarUni,
                     webInstitucion = webInstiI,
                     adscritoGratuidad = confirmarGratuidad,
                     acreditacion = aniosAcreditacionI,
@@ -199,7 +198,6 @@ def actualizarInsti(request):
 
                 institucion.nombreInstitucion = nombreI
                 institucion.comunaInstitucion = comunaI
-                institucion.esUniversidadInsti = confirmarUni
                 institucion.adscritoGratuidad = confirmarGratuidad
                 institucion.acreditacion = aniosAcreditacionI
                 institucion.webInstitucion = webInstiI

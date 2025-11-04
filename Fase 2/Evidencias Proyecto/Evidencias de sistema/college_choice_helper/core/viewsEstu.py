@@ -48,7 +48,7 @@ def mostrarRecomendaciones(request):
         usuario = Usuario.objects.get(correo=correo)
         parametros = Parametros.objects.get(idParametros=usuario)
 
-        recomendaciones = generar_recomendaciones(usuario, parametros.esUniversidad)
+        recomendaciones = generar_recomendaciones(usuario, parametros.esUniversidadRelevancia, parametros.tipoBuscado)
 
         contexto = {'rol': rol, 'recomendaciones' : recomendaciones}
         return render(request, 'core/estudiantes/recomendaciones.html', contexto)
@@ -67,6 +67,8 @@ def mostrarVistaInstituciones(request, id_insti):
         carreras = Carrera.objects.filter(institucion = institucion)
         correo = request.session.get('correo',None)
         usuario =  Usuario.objects.get(correo=correo)
+        
+        
         score, porcen, detalles = calcular_score(usuario, id_insti)
         try:
             porcentaje = float(porcen) 
@@ -328,7 +330,7 @@ def definirParametros(request):
         acreditacion = request.POST.get('acreditacion')
         acreditacionRelevancia = request.POST.get('toggleAcreditacion')
 
-        esUniversidad = request.POST.get('EsUni')
+        tipoBuscado = request.POST.get('tipoBuscado')
         esUniversidadRelevancia = request.POST.get('toggleUni')
 
         puntajeNem = request.POST.get('nem')
@@ -358,8 +360,8 @@ def definirParametros(request):
         if gratuidadRelevancia and gratuidad:
             parametros.gratuidad = (gratuidad == 'si')
 
-        if esUniversidadRelevancia and esUniversidad:
-            parametros.esUniversidad = (esUniversidad == 'si')
+        if esUniversidadRelevancia and tipoBuscado:
+            parametros.tipoBuscado = tipoBuscado
 
         if acreditacionRelevancia and acreditacion:
             parametros.acreditacionDeseado = int(acreditacion)
@@ -417,13 +419,13 @@ def calcular_score(usuario, idInsti):
             detalles['Acreditación de '+ str(insti.acreditacion) + " años"] = False
     
     if parametros.esUniversidadRelevancia:
-        print(parametros.esUniversidad, insti.esUniversidadInsti)
-        totalParam +=1
-        if parametros.esUniversidad == insti.esUniversidadInsti:
+        totalParam += 1
+        if parametros.tipoBuscado == insti.tipoInstitucion:
             score += 10
-            detalles['Es una universidad'] = True
+            detalles[f"La institución es de tipo {insti.tipoInstitucion}"] = True
         else:
-            detalles['No es una universidad'] = False
+            detalles[f"La institución no es de tipo {parametros.tipoBuscado}"] = False
+
     tieneCarrera = True
 
     if parametros.carreraRelevancia and parametros.carrera.strip() != "":
@@ -521,10 +523,10 @@ def calcular_score(usuario, idInsti):
 
 
     
-def generar_recomendaciones(usuario, uni):
+def generar_recomendaciones(usuario, tipoRelevancia, tipoBuscado):
     
-    if uni:
-        instituciones = Institucion.objects.filter(tipoInstitucion = 'Universidad')
+    if tipoRelevancia:
+        instituciones = Institucion.objects.filter(tipoInstitucion = tipoBuscado)
     else:
         instituciones = Institucion.objects.all()
     
