@@ -185,7 +185,7 @@ def actualizarInsti(request):
             #username = request.session.get('correo')
             #tomarIdUser = Usuario.objects.get(correo=username)
 
-            confirmarUni = True if tipoInsti == "Universidad" else False
+            
             confirmarGratuidad = True if gratuidadI == "True" else False
 
             institucion = Institucion.objects.get(idInstitucion = idI)
