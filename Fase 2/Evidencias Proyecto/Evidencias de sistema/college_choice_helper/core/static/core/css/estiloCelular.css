@@ -167,6 +167,12 @@
       float: none !important;
   }
 
+  .offcanvas{
+    width: 100%;
+    position:fixed;
+
+  }
+
   .offcanvas-header{
     background: #6595ff;
     color: #fff;
