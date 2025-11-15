@@ -47,7 +47,7 @@
             border-bottom: 2px solid #6595ff;
             outline: none;
             background: transparent;
-            gap: 10px; 
+            gap: 10px;
         }
 
         .radio-group label {
@@ -161,7 +161,7 @@
                         <label for="nombre_insti">Nombre de la Institución:</label>
                         <input type="text" id="nombre_insti" name="nombre_insti" value="{{insti.nombreInstitucion}}">
                     </div>
-                    
+
                     <div>
                         <label for="tipoInsti">Seleccione el tipo de institución</label>
                         <select name="tipoInsti" id="tipoInsti">
@@ -182,7 +182,7 @@
 
                     <label>¿Está adscrita a gratuidad?</label>
                     <div class="radio-group">
-                        
+
                         <label for="gratuidad">Si</label>
                         <input type="radio" id="gratuidad" name="gratuidad" value="True" {% if insti.adscritoGratuidad %}checked{% endif %}>
 
@@ -200,7 +200,7 @@
                         {% endfor %}
                         </select>
                     </div>
-                    
+
                     <div>
                         <label for="web_insti">Sitio web:</label>
                         <input type="url" id="web_insti" name="web_insti" value="{{insti.webInstitucion}}" pattern="https://.*">
@@ -216,10 +216,11 @@
                     <p class="alerta" id="alerta"></p>
 
                     <br>
+                    </form>
                     <div class="row">
-                        
+
                         <div class="col-md-4 boton-guardar">
-                            <input class="btn btn-aceptar" type="submit" value="Guardar" id="btn_editarInsti" name="btn_editarInsti">
+                            <input class="btn btn-aceptar" form="form_editarInsti" type="submit" value="Guardar" id="btn_editarInsti" name="btn_editarInsti">
                         </div>
 
                         <div class="col-md-4 boton-limpiar">
@@ -227,12 +228,15 @@
                         </div>
 
                         <div class="col-md-4 boton-eliminar">
-                            <a class="btn btn-eliminar" href="{% url 'eliminarInsti' insti.idInstitucion%}">Eliminar</a>
+                            <form action="{% url 'eliminarInsti' insti.idInstitucion %}" method="POST" style="display:inline;">
+                                {% csrf_token %}
+                            <button class="btn btn-eliminar">Eliminar</button>
+                            </form>
                         </div>
                     </div>
 
-                    
-                </form>
+
+
             </div>
         </div>
     {% endblock cuerpo %}
