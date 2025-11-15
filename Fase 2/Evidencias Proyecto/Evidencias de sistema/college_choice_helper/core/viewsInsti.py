@@ -223,7 +223,7 @@ def eliminarInsti(request, id_insti):
             return redirect('mostrarIndex')
         else:
             messages.warning(request,'Algo salío mal')
-            return("mostrarEditarInstitucion")
+            return redirect("mostrarEditarInstitucion")
     else:
         messages.warning(request,'Debes iniciar sesión para acceder a este contenido!')
         return redirect('mostrarLogin')
