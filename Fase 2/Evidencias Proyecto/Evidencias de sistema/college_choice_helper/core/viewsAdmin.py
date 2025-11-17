@@ -195,7 +195,11 @@ def cambiarRol(request, idPeticion, correo):
             messages.warning(request,'Se cambio exitosamente el rol a: Gestor institucional')
             return redirect('mostrarVerPeticiones')
         else:
-            return redirect('mostrarVerPeticion', idPeticion)
+            peticion = Peticiones.objects.get(idPeticiones=idPeticion)
+            peticion.estadoPeticion = "Revisada"
+            peticion.save()
+            messages.success(request,'No se cambio el rol al usuario.')
+            return redirect('mostrarVerPeticiones')
     else:
         return redirect('mostrarVerPeticion', idPeticion)
     
