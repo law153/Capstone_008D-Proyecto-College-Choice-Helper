@@ -68,7 +68,8 @@ body, ul, li {
 
 
 .contenidoTotal{
-    height: 85vh;
+    min-height: 85vh;
+    height: auto;
 }
 
 
