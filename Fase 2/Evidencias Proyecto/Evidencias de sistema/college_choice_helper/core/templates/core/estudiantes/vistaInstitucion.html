@@ -206,9 +206,9 @@
             var porcentaje = parseFloat("{{ porcentaje|floatformat:2 }}");
             var colorCompat = '#4caf50';
 
-            if (porcentaje < 25.0) {
+            if (porcentaje <= 25.0) {
                 colorCompat = '#BD473A';
-            } else if (porcentaje < 75.0) {
+            } else if (porcentaje <= 75.0) {
                 colorCompat = '#D6D667';
             }
 
